@@ -1,0 +1,19 @@
+.view {
+  position: relative;
+  .exIcon {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    color: white;
+    padding: 0.5em;
+    background-color: #191919;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  iframe {
+    height: 350px;
+    width: 100%;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+  }
+}

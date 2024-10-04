@@ -1,0 +1,23 @@
+.Info {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1em;
+  padding: 1em;
+  color: #fff;
+  .title {
+    font-size: 1.2rem;
+  }
+  .description {
+    font-size: 0.85rem;
+  }
+  .genres {
+    display: flex;
+    span {
+      color: #ddd;
+    }
+    p {
+      width: fit-content;
+      margin-inline-start: 5px;
+    }
+  }
+}

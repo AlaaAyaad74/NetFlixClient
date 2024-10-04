@@ -1,0 +1,42 @@
+.card_List {
+  display: flex;
+  align-items: center;
+  padding: 1.2em 6px;
+  color: #fff;
+  border-bottom: 1px solid #ddd;
+  &:last-child {
+    border-bottom: none; /* Remove the border for the last card */
+  }
+  &:hover {
+    opacity: 0.7;
+    color: #ddd;
+  }
+  .episod_Num {
+    margin: 0 1em;
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+  .episode_Image {
+    width: 120px;
+    height: 80px;
+    border-radius: 8px;
+  }
+  .Info_episode {
+    display: flex;
+    width: calc(100% - 200px);
+    justify-content: space-between;
+    gap: 1em;
+    // align-items:;
+    flex-direction: column;
+    padding: 0 1em;
+    h2 {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    p {
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+  }
+}

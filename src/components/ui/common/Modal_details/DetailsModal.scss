@@ -1,0 +1,49 @@
+.main {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  overflow-y: scroll;
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  flex-direction: column;
+
+  .details_Container {
+    width: 50%;
+    min-width: 320px;
+    background-color: #191919;
+    margin-top: 2rem;
+    padding-bottom: 1rem;
+    border-radius: 12px;
+    .sub_wrapper {
+      padding: 0 2rem;
+      .head_episods {
+        color: #fff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .selector {
+          padding: 0.5em;
+          height: fit-content;
+          border: 2px solid #fff;
+        }
+        select {
+          background-color: transparent;
+          font-size: 1.1rem;
+          font-weight: 500;
+          outline: none;
+          option {
+            background-color: #191919;
+          }
+        }
+      }
+    }
+  }
+}
+@media (max-width: 1300px) {
+  .details_Container {
+    width: 70% !important;
+  }
+}

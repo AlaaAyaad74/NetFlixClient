@@ -12,6 +12,7 @@ const LoginPage = lazy(() => import("../pages/LoginPage"));
 const EpisodeDetailPage = lazy(() => import("../pages/EpisodeDetailPage"));
 const Player = lazy(() => import("../coponents/utilitiesCpmponents/Player/Player"));
 const RegisterPage = lazy(() => import("../pages/RegisterPage"));
+const Profile = lazy(() => import("../pages/Profile/Profile"));
 
 const AppRoutes = () => {
   const dummyEpisodes = [
@@ -41,7 +42,7 @@ const AppRoutes = () => {
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
-
+      <Route path="/Profile" element={<Profile />} />
       {/* Protected Routes */}
       <Route path="/home" element={<ProtectedRoute element={<HomePage />} />} />
       <Route path="/search" element={<ProtectedRoute element={<SearchPage />} />} />

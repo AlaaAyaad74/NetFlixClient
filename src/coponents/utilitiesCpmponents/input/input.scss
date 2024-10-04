@@ -1,0 +1,15 @@
+@use "../../../scss/" as *;
+
+input {
+  border: 0;
+  background-color: $black-color;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: $border-radius;
+  font-family: $font-family;
+  color: $txt-color;
+  outline: 0;
+  &::placeholder {
+    color: $txt-color;
+  }
+}

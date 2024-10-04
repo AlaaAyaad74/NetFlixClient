@@ -1,0 +1,132 @@
+@use "../../../scss/" as *;
+
+.logo {
+  font-size: 2.5rem;
+  font-weight: 600;
+  @include flex(center, unset);
+
+  img {
+    margin-right: 10px;
+    width: 50px;
+    @include mobile {
+      width: 30px;
+      margin-right: 0;
+    }
+  }
+}
+
+.header {
+  height: $header-height;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%; 
+  z-index: 99;
+  transition: height 0.3s ease, background-color 0.3s ease;
+  
+  &.shrink {
+    height: $header-shrink-height;
+    background-color: $body-bg;
+  }
+
+  &__spacer { 
+    flex-grow: 1;  
+  }
+
+  &__icons {   
+    display: flex;
+    align-items: center;
+
+    .icon-button {
+      margin-left: 10px; // Space between icons
+    }
+  }
+
+  &__wrap {
+    @include flex(center, space-between);  
+    padding: 0 2rem;
+
+    .logo {
+      margin-right: 3rem;
+      @include flex(center, unset);
+
+      img {
+        margin-right: 10px;
+        width: 8rem;
+        @include mobile {
+          width: 8rem;
+          margin-right: 0;
+        }
+      }
+    }
+
+    @include mobile {
+      justify-content: center;
+    }
+  }
+
+  &__nav {
+    @include flex(center, unset);
+
+    & > * ~ * {
+      margin-left: 2rem;
+    }
+
+    li {
+      padding: 5px 0;
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: $txt-color;
+      position: relative;
+
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background-color: $main-color;
+        transition: width 0.5s ease;
+      }
+
+      &:hover::after,
+      &.active::after {
+        width: 100%;
+      }
+    }
+
+    @include mobile {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 5rem;
+      background-color: $body-bg;
+      box-shadow: $box-shadow;
+      @include flex(center, space-around);
+
+      & > * ~ * {
+        margin-left: 0;
+      }
+    }
+  }
+
+  &__search {
+    flex-grow: 1; // Takes up the remaining space
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ transition: width 0.5s ease;
+    position: relative; // Needed for the fade effect
+ 
+    opacity: 0;
+    visibility: hidden;
+
+    &.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}

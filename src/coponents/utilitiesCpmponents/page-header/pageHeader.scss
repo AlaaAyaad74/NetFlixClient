@@ -1,0 +1,24 @@
+@use "../../../scss/" as *;
+
+.page-header {
+  position: relative;
+  background-position: top;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: $header-height 0 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  h2 {
+    position: relative;
+    z-index: 99;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: linear-gradient(to top, $body-bg, rgba($black-color, 0));
+  }
+}

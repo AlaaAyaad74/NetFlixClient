@@ -1,0 +1,74 @@
+/* home.scss */
+
+/* General container for the Home component */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Section styling */
+  .section {
+    margin-bottom: 3rem;
+  }
+  
+  /* Section header */
+  .section__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  
+    h2 {
+      font-size: 1.8rem;
+      color: #333;
+    }
+  
+    .small {
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      border: 1px solid #666;
+      color: #666;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        background-color: #666;
+        color: white;
+      }
+    }
+  }
+  
+  /* MovieList specific styles */
+  .movie-list {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    padding: 10px 0;
+  
+    /* Customize scrollbar */
+    &::-webkit-scrollbar {
+      height: 8px;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 4px;
+    }
+  
+    &::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+  }
+  
+/* Styling for no data available message */
+.no-data-container {
+    display: flex;
+    justify-content: center; /* Centers content horizontally */
+    align-items: center; /* Centers content vertically */
+    text-align: center;
+    font-size: 1.5rem;
+    color: #999;
+    padding: 2rem;
+    height: 80vh; /* Full viewport height to center the content */
+  }
+  

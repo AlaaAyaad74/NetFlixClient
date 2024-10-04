@@ -1,0 +1,19 @@
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  row-gap: 6rem;
+  overflow: hidden;
+}
+@media only screen and (max-width: 1024px) {
+  .movie-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+}
+.movie-grid__loadMore {
+  text-align: center;
+}
+
+.movie-search {
+  text-align: center;
+}/*# sourceMappingURL=movieGrid.css.map */

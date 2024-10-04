@@ -1,0 +1,17 @@
+.select-input {
+  width: 200px;
+  color: #fff;
+  border: 2px solid #fff;
+}
+.select-input .MuiInputLabel-root {
+  color: #fff;
+}
+.select-input .MuiOutlinedInput-root fieldset {
+  border-color: #fff;
+}
+.select-input .MuiOutlinedInput-root:hover fieldset {
+  border-color: #fff;
+}
+.select-input .MuiOutlinedInput-root.Mui-focused fieldset {
+  border-color: #fff;
+}/*# sourceMappingURL=select-Input.css.map */

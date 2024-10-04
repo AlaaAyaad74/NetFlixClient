@@ -1,0 +1,74 @@
+
+.episode-detail-page {
+    .container {
+ 
+      margin: 0 auto;
+      padding: 20px;
+      padding-top: 8vh;
+      padding-bottom: 5vh;
+    }
+  
+    .video-section {
+      text-align: center;
+      margin-bottom: 20px;
+  
+      .video-player {
+        width: 100%;
+        height: 450px;
+      }
+    }
+  
+    .episode-info {
+      margin-bottom: 20px;
+      text-align: center;
+  
+      h1 {
+        font-size: 2rem;
+        margin-bottom: 10px;
+      }
+  
+      p {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+      }
+  
+      .buttons {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+  
+        .play-button {
+          background-color: #e50914;
+          color: white;
+        }
+  
+        .add-to-watchlist {
+          border-color: #e50914;
+          color: #e50914;
+        }
+      }
+    }
+  
+    .accordion {
+      margin-top: 30px;
+    }
+  }
+  .loading-message {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    color: #333;
+    text-align: center;
+  }
+  
+  .error-message {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    color: red;
+    text-align: center;
+  }

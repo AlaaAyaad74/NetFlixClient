@@ -1,0 +1,106 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%;
+}
+@media only screen and (max-width: 1024px) {
+  html {
+    font-size: 80%;
+  }
+}
+@media only screen and (max-width: 600px) {
+  html {
+    font-size: 60%;
+  }
+}
+
+body {
+  font-family: "Montserrat", "Poppins", sans-serif;
+  background-color: #0f0f0f;
+  color: #fff;
+  line-height: 1.5;
+  font-weight: 400;
+}
+@media only screen and (max-width: 600px) {
+  body {
+    margin-bottom: 3rem;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: unset;
+}
+
+@media (hover: hover) {
+  a:hover {
+    color: #ff0000;
+  }
+}
+img {
+  max-width: 100%;
+}
+
+button,
+input {
+  outline: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+iframe {
+  border: 0;
+}
+
+.container {
+  max-width: 1660px;
+  margin: auto;
+}
+
+.mb-3 {
+  margin-bottom: 3rem;
+}
+
+.mb-2 {
+  margin-bottom: 2rem;
+}
+
+.section {
+  padding: 0 2rem;
+}
+@media only screen and (max-width: 1024px) {
+  .section {
+    padding: 0 4rem;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .section {
+    padding: 0 2rem;
+  }
+}
+
+.section__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}/*# sourceMappingURL=App.css.map */
+.full {
+  height: 100vh;
+  z-index: 9 !important;
+  overflow: hidden;
+  position: relative;
+}
+.full .video-player {
+  height: 100vh !important;
+}
+.full .video-screen {
+  max-height: 92% !important;
+}

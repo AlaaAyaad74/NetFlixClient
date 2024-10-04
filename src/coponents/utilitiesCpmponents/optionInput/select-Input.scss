@@ -1,0 +1,47 @@
+@use "../../../scss/" as *;
+
+.select-input {
+  width: 200px;
+  color: #000000;
+
+  .MuiSelect-root {
+    color: $txt-color;
+    background-color: $background-color-dark;
+    border: 1px solid $txt-color;
+    padding: 8px 16px;
+  }
+
+  .MuiOutlinedInput-root {
+    &.Mui-focused .MuiOutlinedInput-notchedOutline {
+      border-color: $txt-color;
+    }
+
+    .MuiSelect-icon {
+      color: $txt-color;
+    }
+
+    .MuiSelect-select {  background-color: #2A2A2A;
+      color: #fff;
+      border:#2A2A2A;
+      &:focus {
+        background-color: #2A2A2A;   border:#2A2A2A;
+      }
+    }
+  }
+
+  .MuiPaper-root {
+    background-color: $background-color-dark;
+    color: $txt-color;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .MuiMenuItem-root {
+    &:hover {
+      background-color:#000000;
+    }
+  }
+
+  .helper-text {
+    color: $txt-color-light;
+  }
+}

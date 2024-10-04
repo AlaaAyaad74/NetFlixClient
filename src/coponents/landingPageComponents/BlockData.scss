@@ -1,0 +1,40 @@
+.section-two-Block-Data {
+  display: flex;
+  align-items: center;
+  background-color: #000000;
+  color: #ffffff;
+  padding: 40px;
+  position: relative;
+
+  .content {
+    flex: 1;
+    text-align: center;
+  }
+
+  .image {
+    flex: 1;
+    text-align: center;
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+
+  &.left {
+    flex-direction: row;
+  }
+
+  &.right {
+    flex-direction: row-reverse;
+  }
+
+  .divider {
+    height: 5px;
+    background-color: #232323;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+}

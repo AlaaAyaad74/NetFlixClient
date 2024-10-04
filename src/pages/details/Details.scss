@@ -1,0 +1,134 @@
+@use "../../scss/" as *;
+
+.banner {
+  width: 100%;
+  height: 50vh;
+  position: relative;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    @include overlay();
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background-image: linear-gradient(to top, $body-bg, rgba($black-color, 0));
+  }
+}
+
+.movie-content {
+  @include flex(flex-start, flex-start);
+  max-width: 1260px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 20px;
+  padding-top: 20px;
+  padding-bottom: 60px;
+  margin-top: -200px;
+  position: relative;
+
+  &__poster {
+    flex: 1;
+    @include mobile {
+      display: none;
+    }
+    &__img {
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      border-radius: $border-radius;
+      padding-top: 150%;
+    }
+  }
+
+  &__info {
+    width: 70%;
+    padding-left: 2rem;
+    position: relative;
+    @include mobile {
+      width: 100%;
+      padding-left: 0;
+    }
+
+    & > * ~ * {
+      margin-bottom: 2rem;
+    }
+
+    .title {
+      font-size: 4rem;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+
+      @include tablet {
+        font-size: 3rem;
+      }
+    }
+
+    .genres {
+      & > * ~ * {
+        margin-left: 0.5rem;
+      }
+    }
+
+    .overview {
+      font-size: 1rem;
+    }
+  }
+}
+
+.casts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 10px;
+  padding: 10px;
+  &__item {
+    &__img {
+      padding-top: 160px;
+      background-size: cover;
+      background-position: center;
+      border-radius: $border-radius;
+      margin-bottom: 0.5rem;
+    }
+    &__name {
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-top: 0.5rem;
+    }
+  }
+
+  @include tablet {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
+
+  @include mobile {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  }
+}
+
+.videos {
+  padding: 0 20px;
+}
+.section__videos__header {
+  margin-bottom: 20px;
+  margin-top: 10px;
+  @include flex(center, center);
+  h1 {
+    margin-bottom: 0;
+    text-align: center;
+    font-size: 2rem;
+  }
+}

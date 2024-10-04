@@ -1,0 +1,22 @@
+.page-header {
+  position: relative;
+  background-position: top;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 8rem 0 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+.page-header h2 {
+  position: relative;
+  z-index: 99;
+}
+.page-header::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: linear-gradient(to top, #0f0f0f, rgba(0, 0, 0, 0));
+}/*# sourceMappingURL=pageHeader.css.map */

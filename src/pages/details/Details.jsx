@@ -7,11 +7,15 @@ import CastList from "./CastList";
 import VideosList from "./VideosList";
 import MovieList from "../../coponents/utilitiesCpmponents/movieList/MovieList";
 import Genres from "../../coponents/utilitiesCpmponents/genres/Genres";
+import { Fab } from "@mui/material"; // Import Material-UI Floating Action Button
+import PlayArrowIcon from '@mui/icons-material/PlayArrow'; // Import an icon for the button
+import DetailsModal from "../../components/ui/common/Modal_details/DetailsModal";
+import series from "../../../data/series";
 const Details = () => {
   const { category, id } = useParams();
   const [item, setItem] = useState(null);
   const [isCreatedChild, setIsCreatedChild] = useState(false);
-
+  const [modal, setModal] = useState(false);
   useEffect(() => {
     const getDetails = async () => {
       const response = await tmdbApi.detail(category, id, { params: {} });
@@ -25,7 +29,10 @@ const Details = () => {
     setIsCreatedChild(true);
   };
   console.log(isCreatedChild);
-
+  const handleWatchNowClick = () => {
+    setModal(true)
+    console.log("Watch Now clicked!");
+  };
   return (
     <>
       {item && (
@@ -90,6 +97,21 @@ const Details = () => {
               />
             </div>
           </div>
+          <Fab
+            variant="extended"
+            color="primary"
+            style={{
+              position: 'fixed',
+              bottom: '20px',
+              right: '20px',
+              backgroundColor: '#ff0000', // Adjust button color as per your theme
+            }}
+            onClick={handleWatchNowClick}
+          >
+            <PlayArrowIcon sx={{ mr: 1 }} />
+            Watch Now
+          </Fab>
+          {modal && <DetailsModal item={series[0]} setModal={setModal} />}
         </>
       )}
     </>

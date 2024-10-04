@@ -1,4 +1,5 @@
-export default [
+
+ const series= [
   {
     title: "The Great Adventure",
     desc: "A thrilling adventure series following a group of explorers through uncharted territories.",
@@ -250,3 +251,4 @@ export default [
     updatedBy: 456,
   },
 ];
+export default series;

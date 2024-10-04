@@ -13,6 +13,7 @@ const EpisodeDetailPage = lazy(() => import("../pages/EpisodeDetailPage"));
 const Player = lazy(() => import("../coponents/utilitiesCpmponents/Player/Player"));
 const RegisterPage = lazy(() => import("../pages/RegisterPage"));
 const Profile = lazy(() => import("../pages/Profile/Profile"));
+const CardDetails = lazy(() => import("../pages/CardDetails"));
 
 const AppRoutes = () => {
   const dummyEpisodes = [
@@ -43,6 +44,7 @@ const AppRoutes = () => {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/Profile" element={<Profile />} />
+      <Route path="/CardDetails" element={<CardDetails />} />
       {/* Protected Routes */}
       <Route path="/home" element={<ProtectedRoute element={<HomePage />} />} />
       <Route path="/search" element={<ProtectedRoute element={<SearchPage />} />} />

@@ -1,4 +1,5 @@
-export default [
+
+const movies = [
   {
     title: "The Matrix Saga",
     desc: "A mind-bending saga that explores the boundaries of reality and the fight for human survival against machines.",
@@ -43,3 +44,4 @@ export default [
     updatedBy: 456,
   },
 ];
+export default movies;

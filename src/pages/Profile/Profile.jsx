@@ -1,13 +1,13 @@
 import React from "react";
 import { Button, Typography, Box } from "@mui/material";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import DeleteIcon from '@mui/icons-material/Delete';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import LockOpenIcon from '@mui/icons-material/LockOpen';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import LockOpenIcon from "@mui/icons-material/LockOpen";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import { useNavigate } from "react-router-dom";
-import './Profile.scss'; // Import the SCSS file
-
+import "./Profile.scss"; // Import the SCSS file
+import TextComponent from "../../coponents/utilitiesCpmponents/text/TextComponent";
 const Profile = ({ user }) => {
   const navigate = useNavigate();
 
@@ -26,51 +26,125 @@ const Profile = ({ user }) => {
 
   const handleLogout = () => {
     console.log("Logged out");
+    localStorage.removeItem("authToken");
     navigate("/login");
   };
 
   return (
- 
-      <Box className="profile-container">
- 
-        <Typography className="profile-title">
-          {user?.name || "User Name"}
-        </Typography>
-        <Typography className="profile-info">
-          {user?.email || "user@example.com"}
-          <div className="email">user@example.com</div>
-        </Typography>
-        <Box className="profile-actions">
-          <Button
-            className="forget-password"
-            onClick={handleForgetPassword}
-            startIcon={<LockOpenIcon />}
-          >
-            Forget Password
-          </Button>
-          <Button
-            className="subscribe-prime"
-            onClick={handleSubscribePrime}
-            startIcon={<AttachMoneyIcon />}
-          >
-            Subscribe to Prime
-          </Button>
-          <Button
-            className="delete-account"
-            onClick={handleDeleteAccount}
-            startIcon={<DeleteIcon />}
-          >
-            Delete My Account
-          </Button>
-          <Button
-            className="logout"
-            onClick={handleLogout}
-            startIcon={<ExitToAppIcon />}
-          >
-            Log Out
-          </Button>
-        </Box>
-     </Box>
+    <Box className="profile-container">
+      <TextComponent
+        className="profile-title"
+        color={"#fff"}
+        text={user?.name || "User Name"}
+        fontWeight={"bold"}
+        size={"2rem"}
+      />
+      <TextComponent
+        color={"#fff"}
+        text={user?.email || "User Email"}
+        fontWeight={"bold"}
+        size={"1.1rem"}
+      />
+
+      <Box className="profile-actions">
+        <Button
+          className="forget-password"
+          onClick={handleForgetPassword}
+          startIcon={<LockOpenIcon />}
+          variant="contained"
+          color="primary"
+          size="large"
+          sx={{
+            textTransform: "none",
+            alignContent: "start",
+            color: "#f0f0f0",
+            backgroundColor: "black",
+            justifyContent: "start",
+            fontWeight: "bold",
+            fontSize: "1.2rem",
+            padding: "0.5rem 1rem",
+            borderRadius: "8px",
+            "& .MuiButton-startIcon": {
+              marginRight: "0.5rem",
+            },
+          }}
+        >
+          Forget Password
+        </Button>
+        <Button
+          className="subscribe-prime"
+          variant="contained"
+          color="success"
+          size="large"
+          sx={{
+            textTransform: "none",
+            alignContent: "start",
+            color: "#f0f0f0",
+            backgroundColor: "goldenrod",
+            justifyContent: "start",
+            fontWeight: "bold",
+            fontSize: "1.2rem",
+            padding: "0.5rem 1rem",
+            borderRadius: "8px",
+            "& .MuiButton-startIcon": {
+              marginRight: "0.5rem",
+            },
+          }}
+          onClick={handleSubscribePrime}
+          startIcon={<AttachMoneyIcon />}
+        >
+
+
+          Subscribe to Prime
+        </Button>
+        <Button
+          className="delete-account"
+          onClick={handleDeleteAccount}
+          variant="contained"
+           size="large"
+          sx={{
+            textTransform: "none",
+            color: "#f0f0f0",
+            backgroundColor: "black",
+            alignContent: "start",
+            justifyContent: "start",
+            fontWeight: "bold",
+            fontSize: "1.2rem",
+            padding: "0.5rem 1rem",
+            borderRadius: "8px",
+            "& .MuiButton-startIcon": {
+              marginRight: "0.5rem",
+            },
+          }}
+          startIcon={<DeleteIcon />}
+        >
+          Delete My Account
+        </Button>
+        <Button
+          className="logout"
+          onClick={handleLogout}
+          startIcon={<ExitToAppIcon />}
+          variant="contained"
+          color="error"
+          size="large"
+          sx={{
+            textTransform: "none",
+            alignContent: "start",       color: "#f0f0f0",
+            backgroundColor: "black",
+            justifyContent: "start",
+            fontWeight: "bold",
+            fontSize: "1.2rem",
+            padding: "0.5rem 1rem",
+            borderRadius: "8px",
+            "& .MuiButton-startIcon": {
+              marginRight: "0.5rem",
+            },
+          }}
+        >
+          Log Out
+        </Button>
+      </Box>
+    </Box>
   );
 };
 

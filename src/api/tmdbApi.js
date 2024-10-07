@@ -131,5 +131,10 @@ const customApi = {
     const url = `/movies/search-movies`;
     return axiosClient.get(url, { params: { query } });
   },
+  globalSearch: (query) => {
+    const url = `/search/search`;
+    return axiosClient.get(url, { params: { q: query } }); // Use 'q' as the query parameter
+  },
+  
 };
 export default customApi;

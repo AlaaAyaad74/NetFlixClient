@@ -1,6 +1,6 @@
 import "./hero-slide.scss"; //
 import PropTypes from "prop-types"; //
-import tmdbApi, { category, movieType } from "../../../api/tmdbApi"; //
+import customApi, { category, movieType } from "../../../api/tmdbApi"; //
 import apiConfig from "../../../api/apiConfig"; //
 import { useEffect, useState, useRef } from "react"; // useHistory
 // import { Swiper, SwiperSlide } from "swiper/react"; //
@@ -25,10 +25,10 @@ const HeroSlide = () => {
     const getMovies = async () => {
       const params = { page: 1 };
       try {
-        const response = await tmdbApi.getMoviesList(movieType.popular, {
+        const response = await customApi.getMoviesList(movieType.popular, {
           params,
         });
-        setMovieItems(response.results.slice(0, 4));
+        setMovieItems(response.movies.slice(0, 4));
       } catch (error) {
         console.log(error);
       }
@@ -58,13 +58,11 @@ const HeroSlideItem = (props) => {
   let navigate = useNavigate();
 
   const item = props.item;
-  const background = apiConfig.originalImage(
-    item.backdrop_path ? item.backdrop_path : item.poster_path
-  );
+  const background = item.backdrop_path || apiConfig.image(item.backdrop_path);
   const setModalActive = async () => {
     const modal = document.querySelector(`#modal_${item.id}`);
 
-    const videos = await tmdbApi.getVideos(category.movie, item.id);
+    const videos = await customApi.getVideos(category.movie, item.id);
     // console.log(videos);
 
     if (videos.results.length > 0) {
@@ -106,10 +104,10 @@ const HeroSlideItem = (props) => {
         </div>
 
         <div className="hero-slide__item__content__poster">
-          <img src={apiConfig.w500Image(item.poster_path)} alt="" />
+          <img src={apiConfig.image(item.poster_path)} alt="" />
         </div>
       </div>
-      <div className="hero-slide__item__related">thhthhdfdaflklkjhsa</div>
+      <div className="hero-slide__item__related"></div>
     </div>
   );
 };

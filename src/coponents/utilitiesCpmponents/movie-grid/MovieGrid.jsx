@@ -5,7 +5,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { OutlinedButton } from "../button/Button";
-import tmdbApi, {
+import customApi, {
   category as cate,
   category,
   movieType,
@@ -26,21 +26,28 @@ const MovieGrid = (props) => {
         const params = {};
         switch (props.category) {
           case cate.movie:
-            response = await tmdbApi.getMoviesList(movieType.upcoming, {
+            response = await customApi.getMoviesList(movieType.upcoming, {
               params,
             });
             break;
           default:
-            response = await tmdbApi.getTvList(tvType.popular, { params });
+            response = await customApi.getSeriesList(tvType.popular, { params });
         }
       } else {
         const params = {
           query: keyword,
         };
-        response = await tmdbApi.search(props.category, { params });
+        response = await customApi.getSeriesList(props.category, { params });
       }
-      setItems(response.results);
-      setTotalPage(response.total_pages);
+      console.log(response);
+     if(response!=null) { 
+      if(response.movies!=null && response.movies.length){
+        setItems(response.movies);
+      }else{
+        setItems(response.series);
+      }
+      setTotalPage(response.total_pages);}
+   
     };
     getList();
   }, [props.category, keyword]);
@@ -53,19 +60,19 @@ const MovieGrid = (props) => {
       };
       switch (props.category) {
         case cate.movie:
-          response = await tmdbApi.getMoviesList(movieType.upcoming, {
+          response = await customApi.getMoviesList(movieType.upcoming, {
             params,
           });
           break;
         default:
-          response = await tmdbApi.getTvList(tvType.popular, { params });
+          response = await customApi.getSeriesList(tvType.popular, { params });
       }
     } else {
       const params = {
         page: page + 1,
         query: keyword,
       };
-      response = await tmdbApi.search(props.category, { params });
+      response = await customApi.searchMovies(props.category, { params });
     }
     setItems([...items, ...response.results]);
     setPage(page + 1);

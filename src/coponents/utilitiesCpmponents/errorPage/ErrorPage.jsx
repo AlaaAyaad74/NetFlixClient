@@ -7,7 +7,7 @@ const ErrorPage = () => {
     <div className="error-page">
       <h1 className="error-code">404</h1>
       <p className="error-message">Oops! The page you're looking for doesn't exist.</p>
-      <a href="/" className="home-link">
+      <a href="/home" className="home-link">
         Go back to Home
       </a>
     </div>

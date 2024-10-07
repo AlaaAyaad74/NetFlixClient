@@ -6,11 +6,12 @@ const axiosClient = axios.create({
   baseURL: apiConfig.baseUrl,
   headers: {
     "Content-Type": "application/json",
+    // Add your authentication token if needed
+    // "Authorization": `Bearer ${yourAuthToken}`
   },
   paramsSerializer: (params) =>
     queryString.stringify({
       ...params,
-      api_key: apiConfig.apiKey,
     }),
 });
 
@@ -26,4 +27,5 @@ axiosClient.interceptors.response.use(
     throw err;
   }
 );
+
 export default axiosClient;

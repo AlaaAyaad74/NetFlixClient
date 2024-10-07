@@ -1,102 +1,123 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import tmdbApi from "../../api/tmdbApi";
-import apiConfig from "../../api/apiConfig";
+import { useParams, useNavigate } from "react-router-dom"; // Import useNavigate to handle navigation
+import customApi from "../../api/tmdbApi"; // Import your custom API
 import "./Details.scss";
 import CastList from "./CastList";
 import VideosList from "./VideosList";
 import MovieList from "../../coponents/utilitiesCpmponents/movieList/MovieList";
 import Genres from "../../coponents/utilitiesCpmponents/genres/Genres";
-import { Fab } from "@mui/material"; // Import Material-UI Floating Action Button
-import PlayArrowIcon from '@mui/icons-material/PlayArrow'; // Import an icon for the button
+import { Fab } from "@mui/material";
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import DetailsModal from "../../components/ui/common/Modal_details/DetailsModal";
-import series from "../../../data/series";
+
 const Details = () => {
-  const { category, id } = useParams();
+  const { id } = useParams(); // movie/series id
   const [item, setItem] = useState(null);
   const [isCreatedChild, setIsCreatedChild] = useState(false);
   const [modal, setModal] = useState(false);
+  const navigate = useNavigate(); // Used to navigate to error page
+
   useEffect(() => {
     const getDetails = async () => {
-      const response = await tmdbApi.detail(category, id, { params: {} });
-      setItem(response);
-      window.scrollTo(0, 0); // what is this for? => scroll to top of the page
+      try {
+        let response;
+        
+        // Fetch movie details from your custom API
+        response = await customApi.getMovieDetail(id);
+
+        if (response) {
+          setItem(response);
+          window.scrollTo(0, 0); // Scroll to the top of the page
+        } else {
+          throw new Error("Movie not found"); // Trigger error for invalid movie data
+        }
+      } catch (error) {
+        console.error("Failed to fetch details:", error);
+        navigate("*"); // Navigate to the ErrorPage in case of an error
+      }
     };
+
     getDetails();
-  }, [category, id]);
-  console.log(item);
+  }, [id, navigate]);
+
   const handleCreatedChild = () => {
     setIsCreatedChild(true);
   };
-  console.log(isCreatedChild);
+
   const handleWatchNowClick = () => {
-    setModal(true)
-    console.log("Watch Now clicked!");
+    setModal(true);
   };
+
   return (
     <>
       {item && (
         <>
+          {/* Banner Section */}
           <div
             className="banner"
             style={{
-              backgroundImage: `url(${apiConfig.originalImage(
-                item.backdrop_path || item.poster_path
-              )})`,
+              backgroundImage: `url(${item.backdrop_path})`,
             }}
           ></div>
+
+          {/* Movie Details Section */}
           <div className="mb-3 movie-content container">
             <div className="movie-content__poster">
               <div
                 className="movie-content__poster__img"
                 style={{
-                  backgroundImage: `url(${apiConfig.originalImage(
-                    item.poster_path
-                  )})`,
+                  backgroundImage: `url(${item.poster_path})`,
                 }}
               ></div>
             </div>
             <div className="movie-content__info">
-              <h1 className="title">{item.title || item.name}</h1>
+              <h1 className="title">{item.name}</h1>
+              
               <div className="genres">
-                {item.genres &&
-                  item.genres
-                    .slice(0, 5)
-                    .map((genre, i) => <Genres genre={genre} key={i} />)}
+                {item.genre && item.genre.map((genreId, i) => (
+                  <Genres genre={genreId} key={i} />
+                ))}
               </div>
+              
               <p className="overview">{item.overview}</p>
+              
               <div className="cast">
                 <div className="section__header">
                   <h2>Casts</h2>
                 </div>
-                <CastList id={item.id} />
+                <CastList id={item._id} />
               </div>
             </div>
           </div>
 
+          {/* Videos and Similar Section */}
           <div className="container">
             <div className="nb-3 section videos">
-              {isCreatedChild ? (
+              {isCreatedChild && (
                 <div className="section__videos__header">
                   <h1>Videos</h1>
                 </div>
-              ) : null}
-              <VideosList id={item.id} onCreated={handleCreatedChild} />
+              )}
+              <VideosList id={item._id} onCreated={handleCreatedChild} />
             </div>
 
             <div className="section mb-3">
-              <div className="section__videos__header mb-2">
-                {isCreatedChild ? <h2>Similar</h2> : null}
-              </div>
+              {isCreatedChild && (
+                <div className="section__videos__header mb-2">
+                  <h2>Similar</h2>
+                </div>
+              )}
               <MovieList
-                category={category}
+                category={item.category}
                 type="similar"
-                id={item.id}
+                id={item._id}
                 onCreated={handleCreatedChild}
-                genres={item.genres}
+                genres={item.genre}
               />
             </div>
           </div>
+
+          {/* Floating "Watch Now" Button */}
           <Fab
             variant="extended"
             color="primary"
@@ -104,14 +125,15 @@ const Details = () => {
               position: 'fixed',
               bottom: '20px',
               right: '20px',
-              backgroundColor: '#ff0000', // Adjust button color as per your theme
+              backgroundColor: '#ff0000',
             }}
             onClick={handleWatchNowClick}
           >
             <PlayArrowIcon sx={{ mr: 1 }} />
             Watch Now
           </Fab>
-          {modal && <DetailsModal item={series[0]} setModal={setModal} />}
+
+          {modal && <DetailsModal item={item} setModal={setModal} />}
         </>
       )}
     </>

@@ -9,10 +9,8 @@ import { faPlay } from "@fortawesome/free-solid-svg-icons";
 
 const MovieCard = (props) => {
   const item = props.item;
-  const link = "/home/" + category[props.category] + "/" + item.id;
-  const bg = apiConfig.w500Image(
-    item.poster_path ? item.poster_path : item.backdrop_path
-  );
+  const link = "/home/movie/" + item._id;
+  const bg = item.imgSm || apiConfig.image(item.imgSm); // Use your API-provided image
 
   return (
     <div className="movie__card__container">
@@ -22,7 +20,7 @@ const MovieCard = (props) => {
             <FontAwesomeIcon icon={faPlay} />
           </Button>
         </div>
-        <h3 className="movie-card__name">{item.title || item.name}</h3>
+        <h3 className="movie-card__name">{item.title}</h3>
       </Link>
     </div>
   );

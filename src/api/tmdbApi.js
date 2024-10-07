@@ -95,48 +95,41 @@ export const genre = [
   },
 ];
 
-const tmdbApi = {
-  getMoviesList: (type, params) => {
-    const url = "movie/" + movieType[type];
-    return axiosClient.get(url, params);
+const customApi = {
+  // Fetch movies with pagination
+  getMoviesList: (params) => {
+    const url = "/movies/movies";
+    return axiosClient.get(url, { params });
   },
 
-  getTvList: (type, params) => {
-    const url = "tv/" + tvType[type];
-    return axiosClient.get(url, params);
+  // Fetch series
+  getSeriesList: (params) => {
+    const url = "/series/series";
+    return axiosClient.get(url, { params });
   },
-  getVideos: (cate, id) => {
-    const url = category[cate] + "/" + id + "/videos";
-    return axiosClient.get(url, { params: {} });
+
+  // Get movie details by ID
+  getMovieDetail: (id) => {
+    const url = `/movies/fetch-movie/${id}`;
+    return axiosClient.get(url);
   },
-  search: (cate, params) => {
-    const url = "search/" + category[cate];
-    return axiosClient.get(url, params);
+
+  // Get series details by ID
+  getSeriesDetail: (id) => {
+    const url = `series/fetch-series/${id}`;
+    return axiosClient.get(url);
   },
-  detail: (cate, id, params) => {
-    const url = category[cate] + "/" + id;
-    return axiosClient.get(url, params);
+
+  // Upcoming movies
+  getUpcomingMovies: () => {
+    const url = "/movies/upcoming-movies";
+    return axiosClient.get(url);
   },
-  credits: (cate, id) => {
-    const url = category[cate] + "/" + id + "/credits";
-    return axiosClient.get(url, { params: {} });
+
+  // Search for movies
+  searchMovies: (query) => {
+    const url = `/movies/search-movies`;
+    return axiosClient.get(url, { params: { query } });
   },
-  similar: (cate, id) => {
-    const url = category[cate] + "/" + id + "/similar";
-    return axiosClient.get(url, { params: {} });
-  },
-  //   getRecommendations: (cate, id) => {
-  //     const url = category[cate] + "/" + id + "/recommendations";
-  //     return axiosClient.get(url, { params: {} });
-  //   },
-  //   getActor: (id, params) => {
-  //     const url = "person/" + id;
-  //     return axiosClient.get(url, params);
-  //   },
-  //   getActors: (cate, params) => {
-  //     const url = "person/popular";
-  //     return axiosClient.get(url, params);
-  //   },
 };
-
-export default tmdbApi;
+export default customApi;

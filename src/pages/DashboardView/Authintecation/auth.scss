@@ -1,0 +1,174 @@
+.login-page {
+    background-image: url("../assets/landing_background_img.png");
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5); // Slightly darker overlay for better contrast
+      backdrop-filter: blur(2px); // Apply a stronger blur effect
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+  
+    .login-container {
+      background-color: rgba(0, 0, 0, 0.8); // Darker background for better readability
+      padding: 40px;
+      width: 28vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); // Adding shadow for depth
+  
+      // Title
+      .login-title {
+        color: white;
+        font-size: 28px;
+        margin-bottom: 20px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8); // Adding text shadow for better visibility
+      }
+  
+      // Form
+      .login-form {
+        width: 100%;
+        padding: 20px;
+  
+        .login-input {
+          width: 100%;
+          padding: 12px; // Increased padding for better touch targets
+          border: 1px solid #ccc; // Light border for inputs
+          border-radius: 4px;
+          margin-bottom: 15px; // Space between inputs
+  
+          &:focus {
+            outline: none;
+            border-color: #e50914; // Highlight border on focus
+            box-shadow: 0 0 5px rgba(229, 9, 20, 0.5); // Shadow on focus
+          }
+  
+          &::placeholder {
+            color: rgb(200, 200, 200); // Lighter placeholder color
+          }
+          
+          color: rgb(27, 26, 26);
+        }
+  
+        .login-button {
+          width: 100%;
+          padding: 10px;
+          background-color: #e50914;
+          border: none;
+          color: white;
+          font-size: 16px;
+          cursor: pointer;
+          border-radius: 4px;
+          margin-top: 10px; // Reduce margin above the button for spacing
+          transition: background-color 0.3s ease, transform 0.2s ease; // Add transition for smooth effect
+  
+          &:hover {
+            background-color: #f6121d;
+            transform: scale(1.05); // Slight scale effect on hover
+          }
+        }
+      }
+  
+      // Options
+      .login-options {
+        margin-top: 20px;
+        text-align: center;
+        color: white;
+  
+        .login-or {
+          margin: 5px 0;
+          font-size: 14px;
+        }
+  
+        .login-code {
+          color: white;
+          text-decoration: underline;
+          margin-bottom: 10px;
+          display: block;
+        }
+  
+        .login-forgot {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-size: 14px;
+  
+          .forgot-password {
+            color: white;
+            text-decoration: underline;
+          }
+  
+          .remember-me {
+            margin-left: 5px;
+          }
+        }
+  
+        .login-new {
+          margin-top: 20px;
+          font-size: 14px;
+  
+          .signup-now {
+            color: white;
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  
+    // Media Queries for responsiveness
+    @media screen and (max-width: 1024px) {
+      .login-container {
+        width: 50vw; // Adjust for tablets
+        padding: 30px;
+      }
+  
+      .login-title {
+        font-size: 24px;
+      }
+    }
+  
+    @media screen and (max-width: 768px) {
+      .login-container {
+        width: 75vw; // Adjust for mobile devices
+        padding: 20px;
+      }
+  
+      .login-title {
+        font-size: 20px;
+      }
+  
+      .login-button {
+        font-size: 14px;
+      }
+    }
+  
+    @media screen and (max-width: 480px) {
+      .login-container {
+        width: 90vw; // Full width for small screens
+        padding: 20px;
+      }
+  
+      .login-title {
+        font-size: 18px;
+      }
+  
+      .login-button {
+        font-size: 12px;
+      }
+    }
+  }
+  

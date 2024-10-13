@@ -14,7 +14,7 @@ const LayoutWrapper = ({ children }) => {
 
   useEffect(() => {
     // Define the landing page route(s)
-    const landingPageRoutes = ["/", "/landing", "/login"];
+    const landingPageRoutes = ["/", "/landing", "/login" ,"/dashboard/signUp", "/dashboard/login","/dashboard/add-movie"];
 
     // Set isLandingPage to true if the current path matches landing page routes
     setIsLandingPage(landingPageRoutes.includes(location.pathname));

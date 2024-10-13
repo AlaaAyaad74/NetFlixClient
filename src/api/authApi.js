@@ -1,13 +1,34 @@
 import axiosClient from "./axiosClient";
 
 const authApi = {
+  // Regular user login
   login: (credentials) => {
-    // Send a POST request to the login endpoint with the email and password
     return axiosClient.post("/auth/login", credentials);
   },
+
+  // Regular user registration
   register: (user) => {
-    // Send a POST request to the register endpoint with the user object
     return axiosClient.post("/auth/register", user);
+  },
+
+  // Admin login
+  loginAdmin: (credentials) => {
+    return axiosClient.post("/auth/login-admin", credentials);
+  },
+
+  // Admin registration
+  registerAdmin: (admin) => {
+    return axiosClient.post("/auth/register-admin", admin);
+  },
+
+  // Moderator login (optional, for moderators if needed)
+  loginModerator: (credentials) => {
+    return axiosClient.post("/auth/login-moderator", credentials);
+  },
+
+  // Moderator registration (optional, for moderators if needed)
+  registerModerator: (moderator) => {
+    return axiosClient.post("/auth/register-moderator", moderator);
   },
 };
 

@@ -1,0 +1,147 @@
+.login-page {
+  background-image: url("../assets/landing_background_img.png");
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+.login-page .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  -webkit-backdrop-filter: blur(2px);
+          backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.login-page .login-container {
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 40px;
+  width: 28vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+.login-page .login-container .login-title {
+  color: white;
+  font-size: 28px;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+.login-page .login-container .login-form {
+  width: 100%;
+  padding: 20px;
+}
+.login-page .login-container .login-form .login-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  color: rgb(27, 26, 26);
+}
+.login-page .login-container .login-form .login-input:focus {
+  outline: none;
+  border-color: #e50914;
+  box-shadow: 0 0 5px rgba(229, 9, 20, 0.5);
+}
+.login-page .login-container .login-form .login-input::-moz-placeholder {
+  color: rgb(200, 200, 200);
+}
+.login-page .login-container .login-form .login-input::placeholder {
+  color: rgb(200, 200, 200);
+}
+.login-page .login-container .login-form .login-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #e50914;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-top: 10px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.login-page .login-container .login-form .login-button:hover {
+  background-color: #f6121d;
+  transform: scale(1.05);
+}
+.login-page .login-container .login-options {
+  margin-top: 20px;
+  text-align: center;
+  color: white;
+}
+.login-page .login-container .login-options .login-or {
+  margin: 5px 0;
+  font-size: 14px;
+}
+.login-page .login-container .login-options .login-code {
+  color: white;
+  text-decoration: underline;
+  margin-bottom: 10px;
+  display: block;
+}
+.login-page .login-container .login-options .login-forgot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+.login-page .login-container .login-options .login-forgot .forgot-password {
+  color: white;
+  text-decoration: underline;
+}
+.login-page .login-container .login-options .login-forgot .remember-me {
+  margin-left: 5px;
+}
+.login-page .login-container .login-options .login-new {
+  margin-top: 20px;
+  font-size: 14px;
+}
+.login-page .login-container .login-options .login-new .signup-now {
+  color: white;
+  text-decoration: underline;
+}
+@media screen and (max-width: 1024px) {
+  .login-page .login-container {
+    width: 50vw;
+    padding: 30px;
+  }
+  .login-page .login-title {
+    font-size: 24px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .login-page .login-container {
+    width: 75vw;
+    padding: 20px;
+  }
+  .login-page .login-title {
+    font-size: 20px;
+  }
+  .login-page .login-button {
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .login-page .login-container {
+    width: 90vw;
+    padding: 20px;
+  }
+  .login-page .login-title {
+    font-size: 18px;
+  }
+  .login-page .login-button {
+    font-size: 12px;
+  }
+}/*# sourceMappingURL=auth.css.map */

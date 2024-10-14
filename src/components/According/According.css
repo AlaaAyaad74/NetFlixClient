@@ -1,0 +1,74 @@
+.accordion {
+  margin: 10px;
+}
+.accordion .accordion-item {
+  margin-bottom: 0.5rem;
+  overflow: hidden;
+}
+.accordion .accordion-item.open .accordion-header {
+  background-color: #2a2a2a;
+}
+.accordion .accordion-header {
+  position: relative; /* Ensure the pseudo-element is positioned relative to this container */
+  cursor: pointer;
+  padding: 1rem;
+  background-color: #414141;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* Default state: no border */
+  /* When accordion is open, show the border */
+}
+.accordion .accordion-header::after {
+  content: "";
+  position: absolute;
+  bottom: 0; /* Align the border at the bottom */
+  right: 0; /* Start from the right side */
+  width: 44%; /* Width of the border */
+  height: 1px; /* Height of the border */
+  background-color: #ddd; /* Color of the border */
+  transform: translateX(50%); /* Move it to the left by half its width */
+  opacity: 0; /* Hide the border initially */
+  transition: opacity 0.3s ease; /* Smooth transition for appearance */
+}
+.accordion .accordion-header.open::after {
+  opacity: 1; /* Show the border */
+}
+.accordion .accordion-header.open {
+  background-color: #2a2a2a; /* Change background color when open */
+}
+.accordion .accordion-title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 30px;
+  text-align: left;
+}
+.accordion .accordion-toggle {
+  width: 1rem;
+  height: 1rem;
+  font-size: 1.8rem;
+  transition: transform 0.8s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.accordion .accordion-toggle svg {
+  stroke: #fff;
+}
+.accordion .accordion-content {
+  padding: 1rem;
+  background-color: #2a2a2a;
+}
+.accordion .accordion-content-wrapper {
+  display: flex;
+  align-items: flex-start;
+}
+.accordion .accordion-content-wrapper .accordion-content-image {
+  width: 100px;
+  height: auto;
+  margin-right: 1rem;
+}
+.accordion .accordion-content-wrapper .accordion-content-description {
+  margin: 0;
+}/*# sourceMappingURL=According.css.map */

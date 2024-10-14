@@ -1,0 +1,52 @@
+.faq-section {
+  background-color: #000;
+  color: #fff;
+  padding: 50px 10%;
+  padding-bottom: 6%;
+  text-align: center;
+  position: relative;
+}
+.faq-section h1 {
+  margin-bottom: 30px;
+  font-size: 2.5rem;
+}
+.faq-section .cta-section {
+  margin-top: 40px;
+}
+.faq-section .cta-section p {
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+}
+.faq-section .cta-section .cta-form {
+  display: flex;
+  justify-content: center;
+}
+.faq-section .cta-section .cta-form .text-field-component {
+  flex: 1;
+  max-width: 400px;
+}
+.faq-section .cta-section .cta-form .cta-button {
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  color: #fff;
+  border: none;
+  background-color: #E50914;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.faq-section .cta-section .cta-form .cta-button:hover {
+  background-color: #E50914;
+}
+.faq-section .cta-section .cta-form .cta-button .arrow-icon {
+  margin-left: 10px; /* Adjust spacing between text and icon */
+  height: auto; /* Maintain aspect ratio */
+  vertical-align: middle; /* Align with text */
+}
+.faq-section .divider {
+  height: 5px;
+  background-color: #232323;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}/*# sourceMappingURL=faqSection.css.map */

@@ -16,6 +16,8 @@ const DataGrid = lazy(() => import("../pages/DashboardView/DataGrid/DataGrid"));
 const AddMovie = lazy(() =>
   import("../pages/DashboardView/moderator/AddMoview")
 );
+const ModeratorDashboard = lazy(() =>
+  import("../pages/DashboardView/moderator/ModeratorDashboard"));
 import "./dashboardRoutesCSS.css";
 
 const DashboardRoutes = () => {
@@ -30,6 +32,7 @@ const DashboardRoutes = () => {
           <Route path="board" element={<BoardPage />} />
           <Route path="users" element={<DataGrid />} />
           <Route path="/add-movie" element={<AddMovie />} />
+          <Route path="/moderator" element={<ModeratorDashboard />} />
         </Route>
       </Routes>
     </div>

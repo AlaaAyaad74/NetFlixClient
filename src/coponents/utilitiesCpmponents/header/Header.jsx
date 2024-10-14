@@ -1,20 +1,21 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./header.scss";
 import logo from "../../../assets/Netflix.png";
 import { Link, useLocation, useNavigate } from "react-router-dom"; // Import useNavigate
-import SearchField from "../search/SearchField";
+import SearchField from "../Search/SearchField";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import IconButton from "@mui/material/IconButton";
 import AccountCircle from "@mui/icons-material/AccountCircle"; // MUI Profile Icon
 import SearchIcon from "@mui/icons-material/Search"; // MUI Search Icon
- import Button from "@mui/material/Button";
+import Button from "@mui/material/Button";
+import PropTypes from "prop-types";
 
 const headerNav = [
   { display: "Home", path: "/home" },
   { display: "Movies", path: "/home/movie" },
   { display: "TV Series", path: "/home/tv" },
- ];
+];
 
 const Header = ({ isLandingPage }) => {
   const { pathname } = useLocation();
@@ -26,7 +27,10 @@ const Header = ({ isLandingPage }) => {
 
   useEffect(() => {
     const shrinkHeader = () => {
-      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+      if (
+        document.body.scrollTop > 100 ||
+        document.documentElement.scrollTop > 100
+      ) {
         headerRef.current.classList.add("shrink");
       } else {
         headerRef.current.classList.remove("shrink");
@@ -85,8 +89,12 @@ const Header = ({ isLandingPage }) => {
           </ul>
         )}
 
-        <div className={`header__search ${showSearch ? 'visible' : ''}`}>
-          <SearchField onSearchResultClicked={(item) => console.log('Search result clicked:', item)} />
+        <div className={`header__search ${showSearch ? "visible" : ""}`}>
+          <SearchField
+            onSearchResultClicked={(item) =>
+              console.log("Search result clicked:", item)
+            }
+          />
         </div>
 
         {!showSearch && <div className="header__spacer"></div>}
@@ -96,7 +104,6 @@ const Header = ({ isLandingPage }) => {
             <IconButton color="inherit" onClick={handleSearchIconClick}>
               <SearchIcon />
             </IconButton>
- 
 
             <IconButton color="inherit" onClick={handleProfileMenuOpen}>
               <AccountCircle />
@@ -108,19 +115,33 @@ const Header = ({ isLandingPage }) => {
               open={Boolean(anchorEl)}
               onClose={handleProfileMenuClose}
             >
-              <MenuItem onClick={() => handleMenuClick("Profile")}>Profile</MenuItem>
-              <MenuItem onClick={() => handleMenuClick("wishlist")}>Wish List</MenuItem>
-              <MenuItem onClick={() => handleMenuClick("logout")}>Logout</MenuItem>
+              <MenuItem onClick={() => handleMenuClick("Profile")}>
+                Profile
+              </MenuItem>
+              <MenuItem onClick={() => handleMenuClick("wishlist")}>
+                Wish List
+              </MenuItem>
+              <MenuItem onClick={() => handleMenuClick("logout")}>
+                Logout
+              </MenuItem>
             </Menu>
           </div>
         ) : (
-          <Button variant="outlined" color="inherit" onClick={handleSignInClick}>
+          <Button
+            variant="outlined"
+            color="inherit"
+            onClick={handleSignInClick}
+          >
             Sign In
           </Button>
         )}
       </div>
     </div>
   );
+};
+
+Header.propTypes = {
+  isLandingPage: PropTypes.bool,
 };
 
 export default Header;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './moderatorScss.scss'; // Import SCSS for styles
 import ModeratorApi from "../../../api/moderator";
 

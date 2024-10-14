@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import './SearchField.scss';
-import customApi from '../../../api/tmdbApi'; // Import your Axios client
+import React, { useState, useCallback } from "react";
+import "./SearchField.scss";
+import PropTypes from "prop-types";
+import customApi from "../../../api/tmdbApi"; // Import your Axios client
 
 const SearchField = ({ onSearchResultClicked }) => {
-  const [searchText, setSearchText] = useState(''); // State to hold the value of the input
+  const [searchText, setSearchText] = useState(""); // State to hold the value of the input
   const [filteredData, setFilteredData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -20,13 +21,13 @@ const SearchField = ({ onSearchResultClicked }) => {
 
       // Combine movies, series, and tvShows results
       const results = [
-        ...response.movies, 
-        ...response.series, 
-        ...response.tvShows // Include tvShows in the results
+        ...response.movies,
+        ...response.series,
+        ...response.tvShows, // Include tvShows in the results
       ];
       setFilteredData(results);
     } catch (err) {
-      setError('Failed to fetch data. Please try again.');
+      setError("Failed to fetch data. Please try again.", err.message);
       setFilteredData([]);
     } finally {
       setLoading(false);
@@ -53,7 +54,7 @@ const SearchField = ({ onSearchResultClicked }) => {
   // Handle click event on search result
   const handleClick = (item) => {
     onSearchResultClicked(item);
-    setSearchText(''); // Clear search text after selection
+    setSearchText(""); // Clear search text after selection
     setFilteredData([]); // Clear filtered data
   };
 
@@ -65,7 +66,7 @@ const SearchField = ({ onSearchResultClicked }) => {
         value={searchText} // Controlled component: value is linked to the state
         onChange={handleChange} // Handle user input changes
         placeholder="Search..." // Placeholder text
-        color='white'
+        color="white"
       />
 
       {loading && <div className="loading">Loading...</div>}
@@ -94,6 +95,10 @@ const SearchField = ({ onSearchResultClicked }) => {
       )}
     </div>
   );
+};
+
+SearchField.propTypes = {
+  onSearchResultClicked: PropTypes.func.isRequired,
 };
 
 export default SearchField;

@@ -1,5 +1,5 @@
-import React from "react";
 import { Navigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
 // Function to check if user is authenticated as an Admin
 const isAdminAuthenticated = () => {
@@ -12,6 +12,10 @@ const AdminProtectedRoute = ({ element }) => {
     return <Navigate to="/auth/login" />;
   }
   return element;
+};
+
+AdminProtectedRoute.propTypes = {
+  element: PropTypes.element.isRequired, // Ensure element is required
 };
 
 export default AdminProtectedRoute;

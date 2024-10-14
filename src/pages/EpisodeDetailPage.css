@@ -1,0 +1,62 @@
+.episode-detail-page .container {
+  margin: 0 auto;
+  padding: 20px;
+  padding-top: 8vh;
+  padding-bottom: 5vh;
+}
+.episode-detail-page .video-section {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.episode-detail-page .video-section .video-player {
+  width: 100%;
+  height: 450px;
+}
+.episode-detail-page .episode-info {
+  margin-bottom: 20px;
+  text-align: center;
+}
+.episode-detail-page .episode-info h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+.episode-detail-page .episode-info p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+.episode-detail-page .episode-info .buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.episode-detail-page .episode-info .buttons .play-button {
+  background-color: #e50914;
+  color: white;
+}
+.episode-detail-page .episode-info .buttons .add-to-watchlist {
+  border-color: #e50914;
+  color: #e50914;
+}
+.episode-detail-page .accordion {
+  margin-top: 30px;
+}
+
+.loading-message {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  color: #333;
+  text-align: center;
+}
+
+.error-message {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  color: red;
+  text-align: center;
+}/*# sourceMappingURL=EpisodeDetailPage.css.map */

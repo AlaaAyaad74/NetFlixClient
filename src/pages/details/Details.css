@@ -1,0 +1,132 @@
+.banner {
+  width: 100%;
+  height: 50vh;
+  position: relative;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.banner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.banner::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background-image: linear-gradient(to top, #0f0f0f, rgba(0, 0, 0, 0));
+}
+
+.movie-content {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  max-width: 1260px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 20px;
+  padding-top: 20px;
+  padding-bottom: 60px;
+  margin-top: -200px;
+  position: relative;
+}
+.movie-content__poster {
+  flex: 1;
+}
+@media only screen and (max-width: 600px) {
+  .movie-content__poster {
+    display: none;
+  }
+}
+.movie-content__poster__img {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 30px;
+  padding-top: 150%;
+}
+.movie-content__info {
+  width: 70%;
+  padding-left: 2rem;
+  position: relative;
+}
+@media only screen and (max-width: 600px) {
+  .movie-content__info {
+    width: 100%;
+    padding-left: 0;
+  }
+}
+.movie-content__info > * ~ * {
+  margin-bottom: 2rem;
+}
+.movie-content__info .title {
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+@media only screen and (max-width: 1024px) {
+  .movie-content__info .title {
+    font-size: 3rem;
+  }
+}
+.movie-content__info .genres > * ~ * {
+  margin-left: 0.5rem;
+}
+.movie-content__info .overview {
+  font-size: 1rem;
+}
+
+.casts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 10px;
+  padding: 10px;
+}
+.casts__item__img {
+  padding-top: 160px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 30px;
+  margin-bottom: 0.5rem;
+}
+.casts__item__name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+@media only screen and (max-width: 1024px) {
+  .casts {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
+}
+@media only screen and (max-width: 600px) {
+  .casts {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  }
+}
+
+.videos {
+  padding: 0 20px;
+}
+
+.section__videos__header {
+  margin-bottom: 20px;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.section__videos__header h1 {
+  margin-bottom: 0;
+  text-align: center;
+  font-size: 2rem;
+}/*# sourceMappingURL=Details.css.map */

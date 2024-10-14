@@ -2,6 +2,16 @@ import { Navigate } from "react-router-dom";
 import PropType from "prop-types";
 
 const ProtectedRoute = ({ element }) => {
+  const roles = [
+
+    "user",
+    "usersAdmin",
+    "moderatorAdmin",
+    "movieModerator",
+    "rulesAdmin",
+    "devTeam",
+  ];
+
   const isAuthenticated = localStorage.getItem("authToken");
 
   // If the user is authenticated, allow access to the route

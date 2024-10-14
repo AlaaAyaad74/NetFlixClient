@@ -1,0 +1,24 @@
+.Info {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1em;
+  padding: 1em;
+  color: #fff;
+}
+.Info .title {
+  font-size: 1.2rem;
+}
+.Info .description {
+  font-size: 0.85rem;
+}
+.Info .genres {
+  display: flex;
+}
+.Info .genres span {
+  color: #ddd;
+}
+.Info .genres p {
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-inline-start: 5px;
+}/*# sourceMappingURL=InfoStyle.css.map */

@@ -31,7 +31,7 @@ const LayoutWrapper = ({ children }) => {
 };
 
 const App = () => {
-  localStorage.setItem("authToken", "motaz");
+
   return (
     <Router>
       <Suspense fallback={<div>Loading...</div>}>

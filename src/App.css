@@ -91,16 +91,17 @@ iframe {
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
+}
+
+main {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  padding-top: 0vh;
+  flex-direction: column;
+}
+
+footer {
+  width: 100%;
+  margin-top: auto;
 }/*# sourceMappingURL=App.css.map */
-.full {
-  height: 100vh;
-  z-index: 9 !important;
-  overflow: hidden;
-  position: relative;
-}
-.full .video-player {
-  height: 100vh !important;
-}
-.full .video-screen {
-  max-height: 92% !important;
-}

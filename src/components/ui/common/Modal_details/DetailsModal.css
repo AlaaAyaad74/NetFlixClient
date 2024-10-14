@@ -1,0 +1,50 @@
+.main {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  overflow-y: scroll;
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  flex-direction: column;
+}
+.main .details_Container {
+  width: 50%;
+  min-width: 320px;
+  background-color: #191919;
+  margin-top: 2rem;
+  padding-bottom: 1rem;
+  border-radius: 12px;
+}
+.main .details_Container .sub_wrapper {
+  padding: 0 2rem;
+}
+.main .details_Container .sub_wrapper .head_episods {
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.main .details_Container .sub_wrapper .head_episods .selector {
+  padding: 0.5em;
+  height: -moz-fit-content;
+  height: fit-content;
+  border: 2px solid #fff;
+}
+.main .details_Container .sub_wrapper .head_episods select {
+  background-color: transparent;
+  font-size: 1.1rem;
+  font-weight: 500;
+  outline: none;
+}
+.main .details_Container .sub_wrapper .head_episods select option {
+  background-color: #191919;
+}
+
+@media (max-width: 1300px) {
+  .details_Container {
+    width: 70% !important;
+  }
+}/*# sourceMappingURL=DetailsModal.css.map */

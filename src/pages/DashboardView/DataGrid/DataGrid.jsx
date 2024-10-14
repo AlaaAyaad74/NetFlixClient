@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import MaterialReactTable from "material-react-table";
-import { userData } from "../../data";
+import { userData } from "../../../../data/dashboardData";
 import "./DataGrid.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 const DataGrid = () => {

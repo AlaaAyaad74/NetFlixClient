@@ -20,7 +20,13 @@ const Player = lazy(() =>
 const RegisterPage = lazy(() => import("../pages/RegisterPage"));
 const Profile = lazy(() => import("../pages/Profile/Profile"));
 const CardDetails = lazy(() => import("../pages/CardDetails"));
-
+const AddMovie = lazy(() =>
+  import("../pages/DashboardView/moderator/AddMoview")
+);
+const ModeratorDashboard = lazy(() =>
+  import("../pages/DashboardView/moderator/ModeratorDashboard"));
+const UploadContent = lazy(() =>
+  import("../pages/DashboardView/moderator/uploadMovieVideo"));
 const dummyEpisodes = [
   {
     videoSrc: "https://res.cloudinary.com/episode1.mp4",
@@ -41,6 +47,9 @@ const AppRoutes = () => {
       <Route path="/CardDetails" element={<CardDetails />} />
 
       {/* Moderator Routes */}
+      <Route path="/add-movie" element={<AddMovie />} />
+      <Route path="/moderator" element={<ModeratorDashboard />} />
+      <Route path="/upload-content/:movieId" element={<UploadContent />} />
 
       <Route path="/dashboard/*" element={<DashboardRoutes />} />
       {/* Protected Routes */}

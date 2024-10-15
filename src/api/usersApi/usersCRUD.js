@@ -78,6 +78,76 @@ export const fetchUserData = async () => {
       createdAt: "2024-10-12T17:03:07.000Z",
       updatedAt: "2024-10-12T17:03:07.000Z",
     },
+    {
+      id: 1,
+      username: "adminUser",
+      email: "admin@example.com",
+      password: "$2b$10$OxgyyxTnn35yrokacx6axORcUBs7kEOrdB0vkufXVltckDMhicygC",
+      fullName: "Admin User",
+      profilePic: null,
+      roleId: 1,
+      isPrime: true,
+      resetPasswordToken: null,
+      resetPasswordExpires: null,
+      createdAt: "2024-10-12T17:03:07.000Z",
+      updatedAt: "2024-10-12T17:03:07.000Z",
+    },
+    {
+      id: 2,
+      username: "moderatorUser",
+      email: "moderator@example.com",
+      password: "$2b$10$OxgyyxTnn35yrokacx6axORcUBs7kEOrdB0vkufXVltckDMhicygC",
+      fullName: "Moderator User",
+      profilePic: null,
+      roleId: 2,
+      isPrime: false,
+      resetPasswordToken: null,
+      resetPasswordExpires: null,
+      createdAt: "2024-10-12T17:03:07.000Z",
+      updatedAt: "2024-10-12T17:03:07.000Z",
+    },
+    {
+      id: 3,
+      username: "movieModeratorUser",
+      email: "moviemod@example.com",
+      password: "$2b$10$OxgyyxTnn35yrokacx6axORcUBs7kEOrdB0vkufXVltckDMhicygC",
+      fullName: "Movie Moderator",
+      profilePic: null,
+      roleId: 3,
+      isPrime: false,
+      resetPasswordToken: null,
+      resetPasswordExpires: null,
+      createdAt: "2024-10-12T17:03:07.000Z",
+      updatedAt: "2024-10-12T17:03:07.000Z",
+    },
+    {
+      id: 4,
+      username: "rulesAdminUser",
+      email: "rulesadmin@example.com",
+      password: "$2b$10$OxgyyxTnn35yrokacx6axORcUBs7kEOrdB0vkufXVltckDMhicygC",
+      fullName: "Rules Admin",
+      profilePic: null,
+      roleId: 4,
+      isPrime: true,
+      resetPasswordToken: null,
+      resetPasswordExpires: null,
+      createdAt: "2024-10-12T17:03:07.000Z",
+      updatedAt: "2024-10-12T17:03:07.000Z",
+    },
+    {
+      id: 5,
+      username: "devTeamUser",
+      email: "devteam@example.com",
+      password: "$2b$10$OxgyyxTnn35yrokacx6axORcUBs7kEOrdB0vkufXVltckDMhicygC",
+      fullName: "Dev Team User",
+      profilePic: null,
+      roleId: 5,
+      isPrime: true,
+      resetPasswordToken: null,
+      resetPasswordExpires: null,
+      createdAt: "2024-10-12T17:03:07.000Z",
+      updatedAt: "2024-10-12T17:03:07.000Z",
+    },
   ];
 
   // Get the role from localStorage
@@ -131,7 +201,7 @@ export const updateUser = async (user) => {
       body: JSON.stringify(rest), // Pass only the user data excluding password
     });
     if (!response.ok) throw new Error("Failed to update user");
-    
+
     // If there's a password, update it separately if needed
     if (password) {
       await fetch(`/api/users/${rest.id}/password`, {
@@ -144,4 +214,3 @@ export const updateUser = async (user) => {
     console.error("Error updating user:", error);
   }
 };
-

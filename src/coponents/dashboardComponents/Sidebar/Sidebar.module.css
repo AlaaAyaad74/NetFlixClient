@@ -1,9 +1,8 @@
 .container {
   height: 100vh;
-  width: 6%;
-  max-width: 6rem;
+  width: 6%; /* You can increase this if needed */
+  min-width: 80px; /* This ensures the sidebar doesn’t shrink below this width */
   display: flex;
-
   flex-direction: column;
   align-items: center;
   padding: 2rem 0rem;

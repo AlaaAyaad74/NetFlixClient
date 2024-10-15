@@ -1,31 +1,28 @@
 .container {
   height: 100vh;
-  width: 6%;
-  max-width: 6rem;
+  width: 6%; /* You can increase this if needed */
+  min-width: 80px; /* This ensures the sidebar doesn’t shrink below this width */
   display: flex;
-
   flex-direction: column;
   align-items: center;
   padding: 2rem 0rem;
   background: rgb(20, 20, 20);
 }
 
-.logo{
-    width: 45%;
-    max-width: 5rem;
+.logo {
+  width: 35%;
+  max-width: 5rem;
 }
 
+.menu {
+  margin-top: 4rem;
+  display: flex;
 
-
-.menu{
-    margin-top: 4rem;
-    display: flex;
-
-    flex-direction: column;
-    gap: 5rem;
+  flex-direction: column;
+  gap: 5rem;
 }
 
-.item>svg{
-    fill: white;
-    width: 3rem;
+.item > svg {
+  fill: white;
+  width: 3rem;
 }

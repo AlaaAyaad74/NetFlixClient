@@ -1,0 +1,87 @@
+.dialog-paper {
+  background-color: #141414 !important;
+  color: white !important;
+  border-radius: 10px;
+  padding: 20px;
+  width: 900px;
+}
+
+.dialog-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #e50914;
+}
+
+.dialog-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.dialog-input {
+  background-color: #333 !important;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  color: white !important;
+}
+.dialog-input .MuiInputLabel-root {
+  color: white; /* Label color */
+}
+/* Change label color when focused */
+.dialog-input .MuiInputLabel-root.Mui-focused {
+  color: white; /* Focused label color */
+}
+
+/* Change color of the label when input is filled */
+.dialog-input .MuiInputLabel-root.Mui-shrink {
+  color: white; /* Shrink label color */
+}
+
+/* Change color of the checkbox label */
+.MuiFormControlLabel-label {
+  color: white; /* Checkbox label color */
+}
+.dialog-input .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+  border-color: #555 !important;
+}
+.dialog-input .MuiInputBase-input::placeholder {
+  color: rgba(255, 255, 255, 0.5); /* Placeholder color */
+}
+.dialog-input .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: #e50914 !important;
+}
+
+.dialog-input .MuiOutlinedInput-input {
+  color: white !important;
+}
+
+@media screen and (max-width: 768px) {
+  .dialog-paper {
+    border-radius: 8px;
+    padding: 18px;
+    width: 600px;
+  }
+  .dialog-title {
+    font-size: 1.3rem;
+  }
+}
+@media screen and (max-width: 600px) {
+  .dialog-paper {
+    border-radius: 8px;
+    padding: 15px;
+    width: 400px;
+  }
+  .dialog-title {
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .dialog-paper {
+    border-radius: 8px;
+    padding: 12px;
+    width: 300px;
+  }
+  .dialog-title {
+    font-size: 1.1rem;
+  }
+}

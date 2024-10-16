@@ -36,7 +36,7 @@ const ModeratorDashboard = () => {
       </p>
       <h2>Moderator Actions</h2>
       <div className="action-buttons">
-        <Link className="button">View Reports</Link>
+        <Link to="/dashboard/movies" className="button">manage movie</Link>
         <Link to="/dashboard/add-movie" className="button add-movie-button">
           Add Movie
         </Link>

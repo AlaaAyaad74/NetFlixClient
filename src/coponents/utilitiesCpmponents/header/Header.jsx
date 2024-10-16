@@ -10,14 +10,12 @@ import AccountCircle from "@mui/icons-material/AccountCircle"; // MUI Profile Ic
 import SearchIcon from "@mui/icons-material/Search"; // MUI Search Icon
 import Button from "@mui/material/Button";
 import PropTypes from "prop-types";
- 
 
 const headerNav = [
   { display: "Home", path: "/home" },
   { display: "Movies", path: "/home/movie" },
   { display: "TV Series", path: "/home/tv" },
 ];
-
 
 const Header = ({ isLandingPage, showHeader }) => {
   const { pathname } = useLocation();
@@ -29,10 +27,7 @@ const Header = ({ isLandingPage, showHeader }) => {
 
   useEffect(() => {
     const shrinkHeader = () => {
-      if (
-        document.body.scrollTop > 100 ||
-        document.documentElement.scrollTop > 100
-      ) {
+      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
         headerRef.current.classList.add("shrink");
       } else {
         headerRef.current.classList.remove("shrink");
@@ -71,7 +66,7 @@ const Header = ({ isLandingPage, showHeader }) => {
     } else if (menuOption === "wishlist") {
       navigate("/wishlist");
     } else if (menuOption === "logout") {
-      localStorage.clear(); 
+      localStorage.clear();
       navigate("/login");
     }
   };
@@ -105,11 +100,7 @@ const Header = ({ isLandingPage, showHeader }) => {
         )}
 
         <div className={`header__search ${showSearch ? "visible" : ""}`}>
-          <SearchField
-            onSearchResultClicked={(item) =>
-              console.log("Search result clicked:", item)
-            }
-          />
+          <SearchField onSearchResultClicked={(item) => console.log("Search result clicked:", item)} />
         </div>
 
         {!showSearch && <div className="header__spacer"></div>}
@@ -125,26 +116,15 @@ const Header = ({ isLandingPage, showHeader }) => {
             </IconButton>
 
             {/* Profile Dropdown Menu */}
-            <Menu
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleProfileMenuClose}
-            >
-              <MenuItem onClick={() => handleMenuClick("Profile")}>
-                Profile
-              </MenuItem>
-              <MenuItem onClick={() => handleMenuClick("wishlist")}>
-                Wish List
-              </MenuItem>
-              <MenuItem onClick={() => handleMenuClick("logout")}>
-                Logout
-              </MenuItem>
+            <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleProfileMenuClose}>
+              <MenuItem onClick={() => handleMenuClick("Profile")}>Profile</MenuItem>
+              <MenuItem onClick={() => handleMenuClick("wishlist")}>Wish List</MenuItem>
+              <MenuItem onClick={() => handleMenuClick("logout")}>Logout</MenuItem>
             </Menu>
           </div>
         ) : (
           <Button className="cta-button" onClick={buttonClickHandler}>
             {buttonText}
-          
           </Button>
         )}
       </div>

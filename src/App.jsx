@@ -11,29 +11,20 @@ import PropTypes from "prop-types";
 const LayoutWrapper = ({ children }) => {
   const location = useLocation();
   const [isLandingPage, setIsLandingPage] = useState(false);
-  const [showHeader, setShowHeader] = useState(false);
+  const [showHeader, setShowHeader] = useState(true); // Default to showing the header
   const [showFooter, setShowFooter] = useState(false); // New state for footer visibility
 
   useEffect(() => {
-    // Define the landing page routes and the header/footer display routes
-    const landingPageRoutes = ["/", "/landing/", "/login", "/register"];
-    const headerVisibleRoutes = [
-      "/dashboard/moderator",
-      "/dashboard/add-movie",
-      "/dashboard/upload-content/:movieId",
-      "/dashboard",
-      "/dashboard/users",
-    ];
-    const footerVisibleRoutes = ["/home", "/about", "/contact","/landing/","/","/landing"];  
+    const landingPageRoutes = ["/", "/landing", "/landing/", "/login", "/register"];
+    const footerVisibleRoutes = ["/home", "/about", "/contact", "/landing/", "/", "/landing"];
+
+    const currentPath = location.pathname;
 
     // Check if the current path is a landing page
-    const currentPath = location.pathname;
     setIsLandingPage(landingPageRoutes.includes(currentPath));
 
-    // Check if the current path should show the header
-    setShowHeader(headerVisibleRoutes.some((route) => 
-      route === currentPath || route.includes(":")
-    ));
+    // Dynamically hide the header for any route that contains 'dashboard'
+    setShowHeader(!currentPath.includes("dashboard"));
 
     // Check if the current path should show the footer
     setShowFooter(footerVisibleRoutes.includes(currentPath));
@@ -41,10 +32,10 @@ const LayoutWrapper = ({ children }) => {
 
   return (
     <>
-      {/* Pass true to Header if it's the landing page, otherwise false */}
-      <Header isLandingPage={isLandingPage} showHeader={!showHeader} />
+      {/* Conditionally render Header based on showHeader */}
+      {showHeader && <Header isLandingPage={isLandingPage} showHeader={showHeader} />}
       <main>{children}</main>
-      <Footer showFooter={showFooter} /> {/* Updated to use showFooter state */}
+      {showFooter && <Footer showFooter={showFooter} />}
     </>
   );
 };

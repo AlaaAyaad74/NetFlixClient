@@ -11,6 +11,7 @@ const Dashboard = lazy(() =>
 const Calendar = lazy(() => import("../pages/DashboardView/Calendar/Calendar"));
 const BoardPage = lazy(() => import("../pages/DashboardView/Board/Board"));
 const DataGrid = lazy(() => import("../pages/DashboardView/DataGrid/DataGrid"));
+const MoviesGrid = lazy(() => import("../pages/DashboardView/moderator/movieGrid/MoviesGrid"));
 const AddMovie = lazy(() =>
   import("../pages/DashboardView/moderator/AddMoview")
 );
@@ -30,6 +31,7 @@ const DashboardRoutes = () => {
           <Route path="calendar" element={<Calendar />} />
           <Route path="board" element={<BoardPage />} />
           <Route path="users" element={<DataGrid />} />
+          <Route path="movies" element={<MoviesGrid />} />
 
           {/* Protect Moderator routes */}
           <Route 

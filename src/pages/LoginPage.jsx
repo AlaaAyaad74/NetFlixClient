@@ -46,40 +46,47 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
+  
     if (!emailRegex.test(email)) {
       setEmailError("Please enter a valid email address.");
       setLoading(false);
       return;
     }
-
-    // if (!passwordRegex.test(password)) {
-    //   setPasswordError(
-    //     "Password must be at least 8 characters long, include an uppercase letter, a number, and a special character."
-    //   );
-    //   setLoading(false);
-    //   return;
-    // }
-
+  
     try {
       const response = await authApi.login({ email, password });
       console.log("Login success:", response);
-
+  
       // Save the auth token
       localStorage.setItem("authToken", response.token);
-
+  
       // Decode the token to get the user's role
       const decodedToken = jwtDecode(response.token);
-
+      localStorage.setItem("decodedToken", JSON.stringify(decodedToken));
+      localStorage.setItem("userRole", decodedToken.role); // Save the role for future use
+  
       // Navigate based on the user's role
-      if (decodedToken.role === "moderatorAdmin") {
-        navigate("/dashboard/moderator"); // Redirect moderators to dashboard
-      } else if (decodedToken.role === "user") {
-        navigate("/home"); // Redirect regular users to home page
-      } else if (decodedToken.role === "usersAdmin") {
-        navigate("/dashboard");
-      } else {
-        navigate("/home"); // Fallback to home for any other roles
+      switch (decodedToken.role) {
+        case "usersAdmin":
+          navigate("/dashboard");  // Admin Dashboard
+          break;
+        case "moderatorAdmin":
+          navigate("/dashboard");  // Moderator Admin Dashboard
+          break;
+        case "movieModerator":
+          navigate("/dashboard/moderator");  // Movie Moderator Dashboard
+          break;
+        case "seriesModerator":
+          navigate("/dashboard/seriesModerator");  // Series Moderator Dashboard
+          break;
+        case "tvShowModerator":
+          navigate("/dashboard/tvShowModerator");  // TV Show Moderator Dashboard
+          break;
+        case "user":
+          navigate("/home");  // Regular user home page
+          break;
+        default:
+          navigate("/home");  // Fallback route for any other roles
       }
     } catch (error) {
       console.error("Login error:", error);
@@ -88,6 +95,7 @@ const LoginPage = () => {
       setLoading(false);
     }
   };
+  
 
   return (
     <div className="login-page">

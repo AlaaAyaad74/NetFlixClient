@@ -2,7 +2,31 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import '../Accordion/Accordion.scss';
 
-const AccordionComponent = ({ items }) => {
+const AccordionComponent = () => {
+  // Static FAQs list
+  const staticFaqs = [
+    {
+      title: "What is your refund policy?",
+      children: "We offer a full refund within 30 days of your purchase.",
+    },
+    {
+      title: "How can I cancel my subscription?",
+      children: "You can cancel your subscription anytime in your account settings.",
+    },
+    {
+      title: "Do you offer a free trial?",
+      children: "Yes, we offer a 7-day free trial for new users.",
+    },
+    {
+      title: "How can I contact support?",
+      children: "You can contact our support team via email at support@example.com.",
+    },
+    {
+      title: "Is my payment information secure?",
+      children: "Yes, we use encryption to keep your payment information safe.",
+    },
+  ];
+
   const [openIndex, setOpenIndex] = useState(null);
 
   const toggleAccordion = (index) => {
@@ -11,7 +35,7 @@ const AccordionComponent = ({ items }) => {
 
   return (
     <div className="accordion">
-      {items.map((item, index) => (
+      {staticFaqs.map((item, index) => (
         <div
           key={index}
           className={`accordion-item ${openIndex === index ? 'open' : ''}`}
@@ -36,13 +60,5 @@ const AccordionComponent = ({ items }) => {
   );
 };
 
-AccordionComponent.propTypes = {
-  items: PropTypes.arrayOf(
-    PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      children: PropTypes.node.isRequired,
-    })
-  ).isRequired,
-};
-
+// Removed PropTypes as it is no longer needed
 export default AccordionComponent;

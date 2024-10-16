@@ -18,6 +18,7 @@
 .header {
   height: $header-height;
   position: fixed;
+  margin-top: 10px;
   top: 0;
   left: 0;
   width: 100%; 
@@ -26,7 +27,7 @@
   
   &.shrink {
     height: $header-shrink-height;
-    background-color: $body-bg;
+  
   }
 
   &__spacer { 
@@ -118,7 +119,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
- transition: width 0.5s ease;
+    transition: width 0.5s ease;
     position: relative; // Needed for the fade effect
  
     opacity: 0;
@@ -127,6 +128,29 @@
     &.visible {
       opacity: 1;
       visibility: visible;
+    }
+  }
+
+  .cta-button {
+    padding: 10px  ;
+    font-size: 1rem;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex; // Use flexbox to align items
+    align-items: center; // Center align the items vertically
+    background-color: $main-color; // You can replace this with your desired background color
+    border-radius: 5px; // Adjust border radius if needed
+
+    &:hover {
+      background-color: darken($main-color, 10%); // Darken color on hover
+    }
+
+    .arrow-icon {
+      margin-left: 10px; // Space between text and icon
+      width: 1em; // Adjust size as needed
+      height: 1em;
     }
   }
 }

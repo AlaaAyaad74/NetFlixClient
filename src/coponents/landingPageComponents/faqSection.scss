@@ -29,22 +29,19 @@
 
       .cta-button {
         padding: 15px 30px;
-        font-size: 1.2rem;
+        font-size: 1rem;
         color: #fff;
         border: none;
-        background-color: #E50914;
         cursor: pointer;
         transition: background-color 0.3s ease;
-
-        &:hover {
-          background-color: #E50914;
-        }
-
-        .arrow-icon {
-          margin-left: 10px; /* Adjust spacing between text and icon */
-          height: auto; /* Maintain aspect ratio */
-          vertical-align: middle; /* Align with text */
-        }
+        display: flex; /* Use flexbox to align items */
+        align-items: center; /* Center align the items vertically */
+      }
+      
+      .arrow-icon {
+        margin-left: 10px; /* Adjust spacing between text and icon */
+        height: auto; /* Maintain aspect ratio */
+        vertical-align: middle; /* Align with text (can be removed with flex) */
       }
     }
   }

@@ -2,6 +2,7 @@ import { lazy } from "react";
 import { Route, Routes } from "react-router-dom";
 import ProtectedRoute from "./middleAuth";
 import DashboardRoutes from "./DashboardRoutes";
+import ProtectedDashboardRoute from "../config/dashboardMiddleWare"; // Import the middleware
 
 // Lazy-load Components
 const LandingPage = lazy(() => import("../pages/LandingPage"));
@@ -19,14 +20,12 @@ const Player = lazy(() =>
 );
 const RegisterPage = lazy(() => import("../pages/RegisterPage"));
 const Profile = lazy(() => import("../pages/Profile/Profile"));
+
+
+const ForgetPassword = lazy(() => import("../pages/Profile/ForgetPassword"));
+const ResetPassword = lazy(() => import("../pages/Profile/ResetPassword"));
 const CardDetails = lazy(() => import("../pages/CardDetails"));
-const AddMovie = lazy(() =>
-  import("../pages/DashboardView/moderator/AddMoview")
-);
-const ModeratorDashboard = lazy(() =>
-  import("../pages/DashboardView/moderator/ModeratorDashboard"));
-const UploadContent = lazy(() =>
-  import("../pages/DashboardView/moderator/uploadMovieVideo"));
+
 const dummyEpisodes = [
   {
     videoSrc: "https://res.cloudinary.com/episode1.mp4",
@@ -41,17 +40,31 @@ const AppRoutes = () => {
     <Routes>
       {/* Public Routes */}
       <Route path="/" element={<LandingPage />} />
+      <Route path="/landing" element={<LandingPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/Profile" element={<Profile />} />
+      <Route path="/forgot-password" element={<ForgetPassword />} /> 
+      <Route path="/reset-password/:token" element={<ResetPassword />} />
       <Route path="/CardDetails" element={<CardDetails />} />
 
       {/* Moderator Routes */}
-      <Route path="/add-movie" element={<AddMovie />} />
-      <Route path="/moderator" element={<ModeratorDashboard />} />
-      <Route path="/upload-content/:movieId" element={<UploadContent />} />
 
-      <Route path="/dashboard/*" element={<DashboardRoutes />} />
+      <Route
+        path="/dashboard/*"
+        element={
+          <ProtectedDashboardRoute
+            element={<DashboardRoutes />}
+            allowedRoles={[
+              "usersAdmin", 
+              "moderatorAdmin", 
+              "movieModerator", 
+              "seriesModerator", 
+              "tvShowModerator"
+            ]}
+          />
+        }
+      />
       {/* Protected Routes */}
       <Route path="/home" element={<ProtectedRoute element={<HomePage />} />} />
       <Route
@@ -76,6 +89,7 @@ const AppRoutes = () => {
           <ProtectedRoute element={<Player episodes={dummyEpisodes} />} />
         }
       />
+            <Route path="/404" element={<ErrorPage />} /> 
 
       {/* Fallback Route */}
       <Route path="*" element={<ErrorPage />} />

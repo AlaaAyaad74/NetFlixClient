@@ -42,7 +42,7 @@ const UploadContent = () => {
             const response = await ModeratorApi.uploadContent(formData);
             alert('Content uploaded successfully!');
             console.log(response.data);
-            navigate('/moderator'); // Navigate to Moderator Dashboard
+            navigate('/dashboard/moderator'); // Navigate to Moderator Dashboard
         } catch (error) {
             console.error(error);
             alert('Failed to upload content. Please check the console for more details.');

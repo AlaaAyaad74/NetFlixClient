@@ -2,7 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./footer.scss";
 
-const Footer = () => {
+const Footer = ({ showFooter }) => {
+  // Only render the footer if showFooter is true
+  if (!showFooter) {
+    return null;
+  }
   return (
     <footer className="footer">
       <div className="footer__contact">

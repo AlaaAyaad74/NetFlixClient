@@ -83,7 +83,7 @@ const AddMovie = ( ) => {
 
             // Navigate to the video upload page with contentId (from response)
             const contentId = response.data._id;
-            window.location.href = `/upload-content/${contentId}`;
+            window.location.href = `/dashboard/upload-content/${contentId}`;
 
         } catch (error) {
             console.error(error.response.data);

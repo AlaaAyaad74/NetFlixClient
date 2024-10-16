@@ -5,7 +5,7 @@ import Button from "../utilitiesCpmponents/button/Button"; // Assuming you have 
 import iosArrowIcon from "../../assets/Icons/ios-arrow-icon.png"; // Adjust the path if needed
 import "./faqSection.scss";
 import PropTypes from "prop-types";
-const FaqSection = ({ faqItems }) => {
+const FaqSection = () => {  
   const [text, setText] = useState("");
 
   const handleChange = (e) => {
@@ -15,7 +15,7 @@ const FaqSection = ({ faqItems }) => {
   return (
     <section className="faq-section">
       <h1>Frequently Asked Questions</h1>
-      <AccordionComponent items={faqItems} />
+      <AccordionComponent   />
       <div className="cta-section">
         <p>
           Ready to watch? Enter your email to create or restart your membership.
@@ -29,7 +29,7 @@ const FaqSection = ({ faqItems }) => {
           />
           <gap style={{ width: "10px" }}></gap>
           <Button className="cta-button">
-            Get Started{" "}
+            Get Started 
             <img src={iosArrowIcon} alt="Arrow Icon" className="arrow-icon" />
           </Button>
         </div>

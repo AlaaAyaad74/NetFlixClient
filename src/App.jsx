@@ -5,33 +5,51 @@ import "./App.scss";
 import "./assets/boxicons-2.0.7/css/boxicons.min.css";
 import Header from "./coponents/utilitiesCpmponents/header/Header.jsx";
 import Footer from "./coponents/utilitiesCpmponents/footer/Footer.jsx";
-import PropType from "prop-types";
+import PropTypes from "prop-types";
 
 // Helper component to determine if the current route is a landing page
 const LayoutWrapper = ({ children }) => {
   const location = useLocation();
   const [isLandingPage, setIsLandingPage] = useState(false);
+  const [showHeader, setShowHeader] = useState(false);
+  const [showFooter, setShowFooter] = useState(false); // New state for footer visibility
 
   useEffect(() => {
-    // Define the landing page route(s)
-    const landingPageRoutes = ["/", "/landing", "/login" ,"/dashboard/signUp", "/dashboard/login","/dashboard/add-movie"];
+    // Define the landing page routes and the header/footer display routes
+    const landingPageRoutes = ["/", "/landing/", "/login", "/register"];
+    const headerVisibleRoutes = [
+      "/dashboard/moderator",
+      "/dashboard/add-movie",
+      "/dashboard/upload-content/:movieId",
+      "/dashboard",
+      "/dashboard/users",
+    ];
+    const footerVisibleRoutes = ["/home", "/about", "/contact","/landing/","/","/landing"];  
 
-    // Set isLandingPage to true if the current path matches landing page routes
-    setIsLandingPage(landingPageRoutes.includes(location.pathname));
+    // Check if the current path is a landing page
+    const currentPath = location.pathname;
+    setIsLandingPage(landingPageRoutes.includes(currentPath));
+
+    // Check if the current path should show the header
+    setShowHeader(headerVisibleRoutes.some((route) => 
+      route === currentPath || route.includes(":")
+    ));
+
+    // Check if the current path should show the footer
+    setShowFooter(footerVisibleRoutes.includes(currentPath));
   }, [location]);
 
   return (
     <>
       {/* Pass true to Header if it's the landing page, otherwise false */}
-      <Header isLandingPage={isLandingPage} />
+      <Header isLandingPage={isLandingPage} showHeader={!showHeader} />
       <main>{children}</main>
-      <Footer />
+      <Footer showFooter={showFooter} /> {/* Updated to use showFooter state */}
     </>
   );
 };
 
 const App = () => {
-
   return (
     <Router>
       <Suspense fallback={<div>Loading...</div>}>
@@ -44,7 +62,7 @@ const App = () => {
 };
 
 LayoutWrapper.propTypes = {
-  children: PropType.node,
+  children: PropTypes.node,
 };
 
 export default App;

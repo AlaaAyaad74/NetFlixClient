@@ -1,92 +1,93 @@
 .accordion {
   margin: 10px;
+
   .accordion-item {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.5rem; // Space between accordion items
     overflow: hidden;
 
     &.open {
       .accordion-header {
-        background-color: #2A2A2A;
+        background-color: #2a2a2a; // Dark background when open
       }
     }
   }
 
   .accordion-header {
-    position: relative; /* Ensure the pseudo-element is positioned relative to this container */
+    position: relative; // Position for pseudo-element
     cursor: pointer;
     padding: 1rem;
-    background-color: #414141;
+    background-color: #414141; // Default background
     display: flex;
     justify-content: space-between;
     align-items: center;
-  
-    /* Default state: no border */
+    transition: background-color 0.3s ease; // Smooth transition for background
+
+    // Bottom border styling
     &::after {
       content: '';
       position: absolute;
-      bottom: 0; /* Align the border at the bottom */
-      right: 0; /* Start from the right side */
-      width: 44%; /* Width of the border */
-      height: 1px; /* Height of the border */
-      background-color: #ddd; /* Color of the border */
-      transform: translateX(50%); /* Move it to the left by half its width */
-      opacity: 0; /* Hide the border initially */
-      transition: opacity 0.3s ease; /* Smooth transition for appearance */
+      bottom: 0; // Align at bottom
+      right: 0; // Start from right side
+      width: 44%; // Width of the border
+      height: 1px; // Height of the border
+      background-color: #ddd; // Border color
+      transform: translateX(50%); // Center the border
+      opacity: 0; // Initially hidden
+      transition: opacity 0.3s ease; // Smooth appearance transition
     }
-  
-    /* When accordion is open, show the border */
+
     &.open::after {
-      opacity: 1; /* Show the border */
+      opacity: 1; // Show border when open
     }
-  
+
     &.open {
-      background-color: #2A2A2A; /* Change background color when open */
+      background-color: #2a2a2a; // Change background when open
     }
   }
-  
 
   .accordion-title {
     margin: 0;
-    font-size: 24px;
-    font-weight: 400;
-    line-height: 30px;
-    text-align: left;
+    font-size: 24px; // Title size
+    font-weight: 400; // Title weight
+    line-height: 30px; // Line height for spacing
+    text-align: left; // Left align text
   }
 
   .accordion-toggle {
-    width: 1rem;
+    width: 1rem; // Toggle button size
     height: 1rem;
-    font-size: 1.8rem; // Adjust size as needed
-    transition: transform 0.8s ease;  display: flex;
+    font-size: 1.8rem; // Size of the toggle icon
+    display: flex;
     justify-content: center;
     align-items: center;
+    transition: transform 0.8s ease; // Smooth transition for rotation
 
     svg {
-      stroke: #fff; // Adjust color as needed
+      stroke: #fff; // Toggle icon color
     }
 
     &.open {
-      
+      // Potential styles for open state can be added here
     }
   }
 
   .accordion-content {
-    padding: 1rem;
-    background-color: #2A2A2A;
+    padding: 1rem; // Padding inside content
+    background-color: #2a2a2a; // Dark background for content
   }
 
   .accordion-content-wrapper {
-    display: flex;
-    align-items: flex-start;
+    display: flex; // Flex container for content
+    align-items: flex-start; // Align items at the start
 
     .accordion-content-image {
-      width: 100px;  
-      height: auto;
-      margin-right: 1rem;
+      width: 100px; // Image width
+      height: auto; // Auto height to maintain aspect ratio
+      margin-right: 1rem; // Space between image and text
     }
 
     .accordion-content-description {
-      margin: 0;
+      margin: 0; // No margin for description
     }
   }
 }

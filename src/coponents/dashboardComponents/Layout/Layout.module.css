@@ -1,5 +1,6 @@
 .container {
   display: flex;
+  overflow-y: scroll;
 }
 
 .dashboard {
@@ -79,13 +80,12 @@
     font-size: 1rem;
     font-weight: bold;
 }
-.content{
+.content {
     margin: auto;
-    display: flex;
-    height: 100%;
-    /* align-items: center; */
-    /* uncomment the aic, and make mt -4rem */
-    margin-top: 4rem;
+    display: block;
+    height: 100%; /* Set height to fill the parent container */
+    overflow: hidden; /* This will disable scrolling */
+    margin-top: 4rem; /* Adjust this margin based on the layout */
 }
 .content>div{
     width: 100%;

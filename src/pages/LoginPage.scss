@@ -41,11 +41,27 @@
   
         .login-input {
           width: 100%;
+          background-color:  rgba(0, 0, 0, 0.75); // Set a dark background color
+          color: white; // Set text color to white
  
-          
-
-
-         }
+          border-radius: 4px; // Optional: rounded corners
+          padding: 10px; // Optional: padding for better spacing
+          transition: background-color 0.3s ease; // Smooth transition
+        
+          // Prevent default autofill styles
+          &:-webkit-autofill {
+            -webkit-box-shadow: 0 0 0 30px rgba(0, 0, 0, 0.75) inset !important; // Override background
+            box-shadow: 0 0 0 30px rgba(0, 0, 0, 0.75) inset !important; // Override background
+            -webkit-text-fill-color: white !important; // Set text color
+          }
+        
+          &:-webkit-autofill:hover,
+          &:-webkit-autofill:focus {
+            background-color: rgba(0, 0, 0, 0.5) !important; // Keep background color on hover/focus
+            color: white !important; // Keep text color on hover/focus
+          }
+        }
+        
   
         .login-button {
           width: 100%;

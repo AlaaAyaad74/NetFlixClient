@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import "./header.scss";
 import logo from "../../../assets/Netflix.png";
-import { Link, useLocation, useNavigate } from "react-router-dom"; // Import useNavigate
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import SearchField from "../Search/SearchField";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -17,20 +17,17 @@ const headerNav = [
   { display: "TV Series", path: "/home/tv" },
 ];
 
-const Header = ({ isLandingPage }) => {
+const Header = ({ isLandingPage, showHeader }) => {
   const { pathname } = useLocation();
-  const navigate = useNavigate(); // Initialize navigate hook
+  const navigate = useNavigate();
   const active = headerNav.findIndex((e) => e.path === pathname);
   const headerRef = useRef(null);
   const [showSearch, setShowSearch] = useState(false);
-  const [anchorEl, setAnchorEl] = useState(null); // Anchor for profile dropdown menu
+  const [anchorEl, setAnchorEl] = useState(null);
 
   useEffect(() => {
     const shrinkHeader = () => {
-      if (
-        document.body.scrollTop > 100 ||
-        document.documentElement.scrollTop > 100
-      ) {
+      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
         headerRef.current.classList.add("shrink");
       } else {
         headerRef.current.classList.remove("shrink");
@@ -47,7 +44,11 @@ const Header = ({ isLandingPage }) => {
   };
 
   const handleSignInClick = () => {
-    navigate("/login"); // Navigate to login page on button click
+    navigate("/login");
+  };
+
+  const handleRegisterClick = () => {
+    navigate("/register"); // Navigate to the registration page
   };
 
   const handleProfileMenuOpen = (event) => {
@@ -59,16 +60,25 @@ const Header = ({ isLandingPage }) => {
   };
 
   const handleMenuClick = (menuOption) => {
-    handleProfileMenuClose(); // Close the dropdown
+    handleProfileMenuClose();
     if (menuOption === "Profile") {
       navigate("/Profile");
     } else if (menuOption === "wishlist") {
       navigate("/wishlist");
     } else if (menuOption === "logout") {
-      console.log("User logged out");
+      localStorage.clear();
       navigate("/login");
     }
   };
+
+  if (!showHeader) {
+    return null; // Don't render anything if showHeader is false
+  }
+
+  // Determine the button text and action based on the current route
+  const isLoginPage = pathname === "/login";
+  const buttonText = isLoginPage ? "Register" : "Sign In";
+  const buttonClickHandler = isLoginPage ? handleRegisterClick : handleSignInClick;
 
   return (
     <div ref={headerRef} className="header">
@@ -90,11 +100,7 @@ const Header = ({ isLandingPage }) => {
         )}
 
         <div className={`header__search ${showSearch ? "visible" : ""}`}>
-          <SearchField
-            onSearchResultClicked={(item) =>
-              console.log("Search result clicked:", item)
-            }
-          />
+          <SearchField onSearchResultClicked={(item) => console.log("Search result clicked:", item)} />
         </div>
 
         {!showSearch && <div className="header__spacer"></div>}
@@ -110,29 +116,15 @@ const Header = ({ isLandingPage }) => {
             </IconButton>
 
             {/* Profile Dropdown Menu */}
-            <Menu
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleProfileMenuClose}
-            >
-              <MenuItem onClick={() => handleMenuClick("Profile")}>
-                Profile
-              </MenuItem>
-              <MenuItem onClick={() => handleMenuClick("wishlist")}>
-                Wish List
-              </MenuItem>
-              <MenuItem onClick={() => handleMenuClick("logout")}>
-                Logout
-              </MenuItem>
+            <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleProfileMenuClose}>
+              <MenuItem onClick={() => handleMenuClick("Profile")}>Profile</MenuItem>
+              <MenuItem onClick={() => handleMenuClick("wishlist")}>Wish List</MenuItem>
+              <MenuItem onClick={() => handleMenuClick("logout")}>Logout</MenuItem>
             </Menu>
           </div>
         ) : (
-          <Button
-            variant="outlined"
-            color="inherit"
-            onClick={handleSignInClick}
-          >
-            Sign In
+          <Button className="cta-button" onClick={buttonClickHandler}>
+            {buttonText}
           </Button>
         )}
       </div>
@@ -142,6 +134,7 @@ const Header = ({ isLandingPage }) => {
 
 Header.propTypes = {
   isLandingPage: PropTypes.bool,
+  showHeader: PropTypes.bool,
 };
 
 export default Header;

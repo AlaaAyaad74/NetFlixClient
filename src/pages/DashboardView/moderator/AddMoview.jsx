@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './moderatorScss.scss'; // Import SCSS for styles
 import ModeratorApi from "../../../api/moderator";
 
-const AddMovie = () => {
+const AddMovie = ( ) => {
     const [movieData, setMovieData] = useState({
         name: '',
         overview: '',
@@ -15,9 +15,13 @@ const AddMovie = () => {
         language: '',
         releaseYear: '',
         rating: 0,
-        genre: '',
+        genre: [],
     });
-
+    const availableGenres = [
+        { _id: '64d8e6a5c08f9a1234567890', name: 'Action' },
+        { _id: '64d8e6a5c08f9a0987654321', name: 'Drama' },
+      ];
+      
     // Handle form field change
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -27,29 +31,34 @@ const AddMovie = () => {
         });
     };
 
+    // Handle genres as an array of ObjectIds
+    const handleGenreChange = (e) => {
+        const selectedGenres = Array.from(e.target.selectedOptions, option => option.value);
+        setMovieData({
+            ...movieData,
+            genre: selectedGenres,
+        });
+    };
+
     // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // Ensure the required fields are populated before making the request
+
         if (!movieData.name || !movieData.overview || !movieData.poster_path || 
             !movieData.poster_Title || !movieData.imgSm || !movieData.backdrop_path || 
             !movieData.first_air_date || !movieData.trailer || !movieData.language || 
-            !movieData.releaseYear || !movieData.genre) {
+            !movieData.releaseYear || movieData.genre.length === 0) {
             alert("Please fill in all required fields.");
             return;
         }
 
         try {
-            // Split language by commas into an array
             const languageArray = movieData.language.split(',').map(lang => lang.trim());
-
-            // Split genre into an array (assuming genre will be passed as an array of strings or ids)
-            const genreArray = movieData.genre.split(',').map(gen => gen.trim());
 
             const payload = {
                 ...movieData,
                 language: languageArray,
-                genre: genreArray,
+                rating: parseFloat(movieData.rating) || 0,
             };
 
             const response = await ModeratorApi.addMovie(payload);
@@ -69,10 +78,15 @@ const AddMovie = () => {
                 language: '',
                 releaseYear: '',
                 rating: 0,
-                genre: '',
+                genre: [],
             });
+
+            // Navigate to the video upload page with contentId (from response)
+            const contentId = response.data._id;
+            window.location.href = `/dashboard/upload-content/${contentId}`;
+
         } catch (error) {
-            console.error(error);
+            console.error(error.response.data);
             alert('Failed to add movie. Please check the console for more details.');
         }
     };
@@ -91,8 +105,17 @@ const AddMovie = () => {
                 <input type="text" name="trailer" placeholder="Trailer URL" value={movieData.trailer} onChange={handleChange} required />
                 <input type="text" name="language" placeholder="Languages (comma separated)" value={movieData.language} onChange={handleChange} required />
                 <input type="text" name="releaseYear" placeholder="Release Year" value={movieData.releaseYear} onChange={handleChange} required />
-                <input type="number" name="rating" placeholder="Rating" value={movieData.rating} onChange={handleChange} min="0" max="10" />
-                <input type="text" name="genre" placeholder="Genres (comma separated)" value={movieData.genre} onChange={handleChange} required />
+                <input type="number" name="rating" placeholder="Rating (0 to 5)" value={movieData.rating} onChange={handleChange} min="0" max="5" />
+                
+                {/* Dropdown for genres */}
+                <select multiple className="genre-dropdown" name="genre" value={movieData.genre} onChange={handleGenreChange} required>
+                    {availableGenres.map((genre) => (
+                        <option key={genre._id} value={genre._id}>
+                            {genre.name}
+                        </option>
+                    ))}
+                </select>
+
                 <button type="submit" className="submit-button">Add Movie</button>
             </form>
         </div>

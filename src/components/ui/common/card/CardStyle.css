@@ -1,0 +1,15 @@
+.card {
+  width: 300px;
+  height: 150px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.card img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: top;
+     object-position: top;
+  border-radius: 8px;
+  height: 100%;
+  width: 100%;
+}/*# sourceMappingURL=CardStyle.css.map */

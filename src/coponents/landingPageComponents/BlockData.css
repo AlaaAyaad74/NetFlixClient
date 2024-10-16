@@ -1,0 +1,34 @@
+.section-two-Block-Data {
+  display: flex;
+  align-items: center;
+  background-color: #000000;
+  color: #ffffff;
+  padding: 40px;
+  position: relative;
+}
+.section-two-Block-Data .content {
+  flex: 1;
+  text-align: center;
+}
+.section-two-Block-Data .image {
+  flex: 1;
+  text-align: center;
+}
+.section-two-Block-Data .image img {
+  max-width: 100%;
+  height: auto;
+}
+.section-two-Block-Data.left {
+  flex-direction: row;
+}
+.section-two-Block-Data.right {
+  flex-direction: row-reverse;
+}
+.section-two-Block-Data .divider {
+  height: 5px;
+  background-color: #232323;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}/*# sourceMappingURL=BlockData.css.map */

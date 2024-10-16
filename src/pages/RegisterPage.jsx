@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TextFieldComponent from "../coponents/utilitiesCpmponents/TextField/TextFieldComponent";
 import Button from "../coponents/utilitiesCpmponents/button/Button";
 import "./LoginPage.scss";
 import authApi from "../api/authApi";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 const RegisterPage = () => {
-  const [email, setEmail] = useState("");
+  const location = useLocation(); // Get the location object
+  const { email: emailFromSectionOne } = location.state || {}; // Retrieve email from state
+
+  const [email, setEmail] = useState(emailFromSectionOne || ""); // Set initial email state
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
@@ -17,7 +20,6 @@ const RegisterPage = () => {
   const [lastNameError, setLastNameError] = useState("");
   
   const [passwordError, setPasswordError] = useState("");
-
   const [error, setError] = useState("");
   
   const navigate = useNavigate(); 
@@ -97,9 +99,8 @@ const RegisterPage = () => {
     }
 
     try {
-      const response = await authApi.register({  fullName: `${firstName} ${lastName}`, email, password });
+      const response = await authApi.register({ fullName: `${firstName} ${lastName}`, email, password });
       console.log("Registration success:", response);
-     
       navigate("/login");
     } catch (error) {
       console.error("Registration error:", error);

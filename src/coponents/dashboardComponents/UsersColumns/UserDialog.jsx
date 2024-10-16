@@ -17,8 +17,7 @@ const UserDialog = ({ open, user, onClose, onSubmit }) => {
     username: "",
     fullName: "",
     email: "",
-    password: "",
-    confirmPassword: "",
+ 
     isPrime: false,
   });
 
@@ -28,8 +27,7 @@ const UserDialog = ({ open, user, onClose, onSubmit }) => {
         username: user.username,
         fullName: user.fullName,
         email: user.email,
-        password: "",
-        confirmPassword: "",
+   
         isPrime: user.isPrime || false,
       });
     }
@@ -86,28 +84,7 @@ const UserDialog = ({ open, user, onClose, onSubmit }) => {
           margin="normal"
           className="dialog-input"
         />
-        <TextField
-          name="password"
-          label="New Password"
-          type="password"
-          value={formData.password}
-          onChange={handleChange}
-          fullWidth
-          variant="outlined"
-          margin="normal"
-          className="dialog-input"
-        />
-        <TextField
-          name="confirmPassword"
-          label="Confirm Password"
-          type="password"
-          value={formData.confirmPassword}
-          onChange={handleChange}
-          fullWidth
-          variant="outlined"
-          margin="normal"
-          className="dialog-input"
-        />
+ 
         <FormControlLabel
           control={
             <Checkbox

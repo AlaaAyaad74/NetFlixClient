@@ -1,16 +1,22 @@
-// src/pages/DashboardView/moderator/moderatorScss.scss
+// moderatorScss.scss
+
+// General Styles
+$background-dark: #222222;
+$background-darker: #252525;
+$text-light: #e8e0e0;
+$text-muted: #a1a1a1;
+$border-radius: 8px;
 
 .dashboard {
-    
   padding: 100px;
   margin: 50px;
-  background-color: #252525;
-  border-radius: 8px;
+  background-color: $background-darker;
+  border-radius: $border-radius;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 
   h1 {
     font-size: 2rem;
-    color: #e8e0e0;
+    color: $text-light;
   }
 
   .user-role {
@@ -19,20 +25,19 @@
   }
 
   h2 {
-    margin-top: 20px;
-    margin-bottom: 15px;
+    margin: 20px 0 15px;
     font-size: 1.5rem;
-    color: #a1a1a1;
+    color: $text-muted;
   }
 
   .action-buttons {
     display: flex;
-    gap: 10px; // Adds space between buttons
+    gap: 10px; // Space between buttons
     margin-top: 10px;
 
     .button {
       padding: 10px 20px;
-      background-color: #007bff;
+      background-color: #007bff; // Default button color
       color: white;
       text-decoration: none;
       border: none;
@@ -42,14 +47,14 @@
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 
       &:hover {
-        background-color: #0056b3;
+        background-color: #0056b3; // Hover state
       }
 
       &.add-movie-button {
-        background-color: #28a745; // Different color for add movie button
+        background-color: #28a745; // Green for 'Add Movie' button
 
         &:hover {
-          background-color: #218838;
+          background-color: #218838; // Hover state
         }
       }
     }
@@ -57,34 +62,36 @@
 }
 
 .add-movie {
-  padding: 20px;
-  background-color: #222222;
-  border-radius: 8px;
+  padding: 60px;
+  margin: 20px;
+  background-color: $background-dark;
+  border-radius: $border-radius;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
+  max-height: 100vh; // Ensure it doesn’t exceed the viewport height
+  overflow-y: auto; // Enable vertical scrolling if content exceeds height
 
   h1 {
     font-size: 2rem;
- 
     margin-bottom: 20px;
+    color: $text-light; // Consistent heading color
   }
 
   form {
     display: flex;
     flex-direction: column;
     color: #ffffff;
-    
 
     input,
     textarea {
-        background-color: #333;
       margin-bottom: 10px;
       padding: 10px;
+      background-color: #333;
       border: 1px solid #3b2121;
       border-radius: 5px;
-      
+      color: #ffffff;
+
       &:focus {
-        border-color: #007bff;
+        border-color: #007bff; // Focus state
         outline: none;
       }
     }
@@ -99,7 +106,75 @@
       transition: background-color 0.3s;
 
       &:hover {
-        background-color: #0056b3;
+        background-color: #0056b3; // Hover state
+      }
+    }
+
+    // Dropdown for genre selection
+    .genre-dropdown {
+      margin-bottom: 10px;
+      padding: 10px;
+      background-color: #333;
+      border: 1px solid #3b2121;
+      border-radius: 5px;
+      color: #ffffff;
+
+      &:focus {
+        border-color: #007bff; // Focus state
+      }
+    }
+  }
+}
+
+.upload-content {
+  padding: 60px;
+  margin: 20px;
+  background-color: $background-dark;
+  border-radius: $border-radius;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: $text-light; // Consistent heading color
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    color: #ffffff;
+
+    input {
+      margin-bottom: 10px;
+      padding: 10px;
+      background-color: #333;
+      border: 1px solid #3b2121;
+      border-radius: 5px;
+      color: #ffffff;
+
+      &:focus {
+        border-color: #007bff; // Focus state
+      }
+    }
+    .content-type-selection {
+      margin: 10px 0;
+      
+      label {
+          margin-right: 15px;
+          font-weight: bold;
+      }
+  }
+    .submit-button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: #0056b3; // Hover state
       }
     }
   }

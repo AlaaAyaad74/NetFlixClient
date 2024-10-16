@@ -1,0 +1,17 @@
+.genres__item {
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  border: 2px solid #fff;
+  border-radius: 30px;
+  font-size: 0.8rem;
+  margin-right: 0.5rem;
+  font-weight: 600;
+  background-color: #0f0f0f;
+  color: #fff;
+  transition: all 0.5s ease;
+  cursor: pointer;
+}
+.genres__item:hover {
+  color: #ff0000;
+  border-color: #ff0000;
+}/*# sourceMappingURL=genres.css.map */

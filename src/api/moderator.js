@@ -58,7 +58,7 @@ const ModeratorApi = {
       throw error; // Throw error to handle it in the component
     }
   },
-  
+
   // New reset password function
   resetPassword: async (token, password) => {
     const config = {
@@ -77,6 +77,14 @@ const ModeratorApi = {
       console.error("Error resetting password:", error);
       throw error;
     }
+  },
+  addSeries: (payload) => {
+    return axios.post("http://localhost:3331/series/add-series", payload, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        "Content-Type": "application/json",
+      },
+    });
   },
 };
 

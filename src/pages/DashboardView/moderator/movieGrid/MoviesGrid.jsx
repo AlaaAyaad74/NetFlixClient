@@ -1,27 +1,28 @@
 import { useState, useEffect, useMemo } from "react";
 import MaterialReactTable from "material-react-table";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import MovieDialog from "./MovieDialog"; // Import the MovieDialog
+import MovieDialog from "./MovieDialog"; // Import the MovieDialog component
 import "./MoviesGrid.scss"; // SCSS for the MoviesGrid
-import customApi from "../../../../api/tmdbApi"; // Ensure your API file has the necessary functions
-import { generateMovieColumns } from "./MovieColumns"; // Import the movie columns generator
+import customApi from "../../../../api/tmdbApi"; // Import custom API functions
+import { generateMovieColumns } from "./MovieColumns"; // Generate movie columns dynamically
 
 const MoviesGrid = () => {
+  // Component state management
   const [moviesData, setMoviesData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [totalMovies, setTotalMovies] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10); // Number of items per page
-  const [dialogOpen, setDialogOpen] = useState(false); // State for dialog open
-  const [selectedMovie, setSelectedMovie] = useState(null); // State for selected movie
-  const [submitting, setSubmitting] = useState(false); // State for form submission
-  const [submitError, setSubmitError] = useState(""); // State for submission error
+  const [dialogOpen, setDialogOpen] = useState(false); // Movie dialog open state
+  const [selectedMovie, setSelectedMovie] = useState(null); // Movie selection state
+  const [submitting, setSubmitting] = useState(false); // Form submission state
+  const [submitError, setSubmitError] = useState(""); // Form submission error state
 
+  // Fetch movies from the API
   const fetchMovies = async (page = 1) => {
     try {
       const response = await customApi.getMoviesList({ page, pageSize });
-      console.log(response); // Log the full response to see its structure
       if (response && response.movies) {
         setMoviesData(response.movies);
         setTotalMovies(response.totalMovies);
@@ -36,72 +37,81 @@ const MoviesGrid = () => {
     }
   };
 
+  // Fetch movies when component mounts or page changes
   useEffect(() => {
-    fetchMovies(currentPage); // Fetch movies when the component mounts
+    fetchMovies(currentPage);
   }, [currentPage]);
 
+  // Handle page change in pagination
   const handlePageChange = (newPage) => {
     if (newPage > 0) {
-      setCurrentPage(newPage); // Update current page
-      fetchMovies(newPage); // Fetch new movies based on page
+      setCurrentPage(newPage);
+      fetchMovies(newPage);
     }
   };
 
+  // Handle movie row click to open dialog
   const handleRowClick = (movie) => {
-    console.log("Row clicked:", movie);
     setSelectedMovie(movie);
     setDialogOpen(true);
   };
 
+  // Close the movie dialog
   const handleDialogClose = () => {
-    console.log("Dialog closed");
     setDialogOpen(false);
     setSelectedMovie(null);
     setSubmitError(""); // Clear any submission errors
   };
 
+  // Handle form submission within the dialog
   const handleDialogSubmit = async (movieData) => {
-    console.log("Submitting movie data:", movieData);
-    setSubmitting(true); // Set loading state for submission
+    console.log("Movie data:", movieData);
+    setSubmitting(true);
     setSubmitError(""); // Clear previous error
   
     try {
-      // Prepare the data according to the expected format
-      const updatedData = {};
+      const updatedData = movieData;
+  
+      // Validate and ensure movieDesc is provided
+      if (movieData.overview !== selectedMovie.overview) {
+        updatedData.movieDesc = movieData.overview || ""; // Default to empty string
+      } else if (!selectedMovie.overview) {
+        throw new Error("movieDesc is required.");
+      }
   
       // Helper function to validate URLs
       const isValidUrl = (url) => {
-        const pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
-          '((([a-z0-9]\\w*):)?(\\w+@)?)?' + // username:password@
-          '((([a-z0-9-]+\\.)+[a-z]{2,})|' + // domain...
-          'localhost|' + // localhost...
-          '\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}|' + // IPv4
-          '\\[([0-9a-f]{1,4}:){7}[0-9a-f]{1,4}\\])' + // IPv6
-          '(\\:\\d+)?(\\/[^\\s]*)?$','i'); // port and path
+        const pattern = new RegExp(
+          "^(https?:\\/\\/)" + // Protocol
+          "((([a-z0-9]\\w*):)?(\\w+@)?)?" + // Optional username:password@
+          "(([a-z0-9-]+\\.)+[a-z]{2,})|" + // Domain...
+          "localhost|" + // localhost
+          "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}|" + // IPv4
+          "\\[([0-9a-f]{1,4}:){7}[0-9a-f]{1,4}\\])" + // IPv6
+          "(\\:\\d+)?(\\/[^\\s]*)?$", "i" // Port and path
+        );
         return !!pattern.test(url);
       };
   
-      // Compare and set updated fields
-      if (movieData.name !== selectedMovie.name) {
-        updatedData.movieTitle = movieData.name;
-      }
-      if (movieData.overview !== selectedMovie.overview) {
-        updatedData.movieDesc = movieData.overview || ""; // Default to empty string
-      }
+      // Validate and ensure valid moviePoster URL
       if (movieData.poster_path !== selectedMovie.poster_path) {
         if (isValidUrl(movieData.poster_path)) {
           updatedData.moviePoster = movieData.poster_path;
         } else {
-          throw new Error("Invalid poster URL");
+          throw new Error("moviePoster must be a valid URL.");
         }
       }
+  
+      // Validate and ensure valid videoUrl
       if (movieData.trailer !== selectedMovie.trailer) {
         if (isValidUrl(movieData.trailer)) {
           updatedData.videoUrl = movieData.trailer || ""; // Optional, can be empty
         } else {
-          throw new Error("Invalid video URL");
+          throw new Error("videoUrl must be a valid URL.");
         }
       }
+  
+      // Compare and set other updated fields (releaseYear, backdrop_path, etc.)
       if (movieData.releaseYear !== selectedMovie.releaseYear) {
         updatedData.releaseYear = movieData.releaseYear || "";
       }
@@ -120,35 +130,35 @@ const MoviesGrid = () => {
   
       // Ensure movieId is included
       updatedData.movieId = selectedMovie._id;
-      updatedData.movieDesc = movieData.movieDesc || "";
-  
-  
-    
   
       // Call the API with only the updated fields
       await customApi.updateMovie(selectedMovie._id, updatedData);
-      
       setDialogOpen(false); // Close dialog
       fetchMovies(currentPage); // Refresh movie list
     } catch (error) {
       console.error("Error updating movie:", error);
-      setSubmitError(error.message || "Error updating movie. Please try again."); // Set error message
+      setSubmitError(error.message || "Error updating movie. Please try again.");
     } finally {
       setSubmitting(false); // Reset loading state
     }
   };
   
 
-  const columns = useMemo(() => generateMovieColumns(handleRowClick), []); // Use the generated columns
+  // Generate columns for the MaterialReactTable
+  const columns = useMemo(() => generateMovieColumns(handleRowClick), []);
 
-  const theme = useMemo(() =>
-    createTheme({
-      palette: {
-        mode: "dark",
-      },
-    }), []
+  // Create theme for Material UI components
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode: "dark",
+        },
+      }),
+    []
   );
 
+  // Render loading or error state
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: Unable to fetch movies</div>;
 
@@ -166,7 +176,6 @@ const MoviesGrid = () => {
               pageSize: pageSize,
             },
           }}
-          enableRowSelection // Enable row selection if needed
         />
       </ThemeProvider>
 
@@ -180,11 +189,15 @@ const MoviesGrid = () => {
         error={submitError} // Pass submission error
       />
 
-      {/* Optional: Add pagination controls if needed */}
+      {/* Pagination controls */}
       <div className="pagination-controls">
-        <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>Previous</button>
+        <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
+          Previous
+        </button>
         <span>Page {currentPage}</span>
-        <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage * pageSize >= totalMovies}>Next</button>
+        <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage * pageSize >= totalMovies}>
+          Next
+        </button>
       </div>
     </div>
   );

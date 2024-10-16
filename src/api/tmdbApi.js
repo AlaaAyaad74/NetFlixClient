@@ -143,7 +143,9 @@ const customApi = {
         'Content-Type': 'application/json',
       },
     });
-    return response.data; // Assuming the API returns the updated movie data
+    
+    console.log(response);
+    return response; // Assuming the API returns the updated movie data
   },
 };
 export default customApi;

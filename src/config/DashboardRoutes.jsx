@@ -4,21 +4,39 @@ import Layout from "../coponents/dashboardComponents/Layout/Layout";
 import ProtectedRoute from "../config/dashboardMiddleWare"; // Import the middleware
 
 // Lazy load the components
- 
+
 const Dashboard = lazy(() =>
   import("../pages/DashboardView/Dashboard/Dashboard")
 );
 const Calendar = lazy(() => import("../pages/DashboardView/Calendar/Calendar"));
 const BoardPage = lazy(() => import("../pages/DashboardView/Board/Board"));
 const DataGrid = lazy(() => import("../pages/DashboardView/DataGrid/DataGrid"));
-const MoviesGrid = lazy(() => import("../pages/DashboardView/moderator/movieGrid/MoviesGrid"));
+const MoviesGrid = lazy(() =>
+  import("../pages/DashboardView/moderator/movieGrid/MoviesGrid")
+);
+const SeriesGrid = lazy(() =>
+  import("../pages/DashboardView/moderator/seriesModerator/seriesGrid")
+);
+ 
 const AddMovie = lazy(() =>
   import("../pages/DashboardView/moderator/AddMoview")
 );
+const SeriesModerator = lazy(() =>
+  import("../pages/DashboardView/moderator/seriesModerator/seriesModerator")
+);
 const ModeratorDashboard = lazy(() =>
-  import("../pages/DashboardView/moderator/ModeratorDashboard"));
+  import("../pages/DashboardView/moderator/ModeratorDashboard")
+);
 const UploadContent = lazy(() =>
-  import("../pages/DashboardView/moderator/uploadMovieVideo"));
+  import("../pages/DashboardView/moderator/uploadMovieVideo")
+);
+const ErrorPage = lazy(() =>
+  import("../coponents/utilitiesCpmponents/errorPage/ErrorPage")
+);
+const AddSeries = lazy(() =>
+  import("../pages/DashboardView/moderator/seriesModerator/AddSeries")
+);
+
 import "./dashboardRoutesCSS.css";
 
 const DashboardRoutes = () => {
@@ -27,40 +45,82 @@ const DashboardRoutes = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Dashboard />} />
-   
+
           <Route path="calendar" element={<Calendar />} />
           <Route path="board" element={<BoardPage />} />
           <Route path="users" element={<DataGrid />} />
           <Route path="movies" element={<MoviesGrid />} />
 
           {/* Protect Moderator routes */}
-          <Route 
-            path="moderator" 
+          <Route
+            path="moderator"
             element={
-              <ProtectedRoute element={<ModeratorDashboard />} allowedRoles={["movieModerator"]} />
-            } 
+              <ProtectedRoute
+                element={<ModeratorDashboard />}
+                allowedRoles={["movieModerator"]}
+              />
+            }
           />
-          <Route 
-            path="add-movie" 
+
+          <Route
+            path="seriesModerator"
             element={
-              <ProtectedRoute element={<AddMovie />} allowedRoles={["movieModerator"]} />
-            } 
+              <ProtectedRoute
+                element={<SeriesModerator />}
+                allowedRoles={["seriesModerator"]}
+              />
+            }
           />
-          <Route 
-            path="upload-content/:movieId" 
+              <Route
+            path="series"
             element={
-              <ProtectedRoute element={<UploadContent />} allowedRoles={["movieModerator"]} />
-            } 
+              <ProtectedRoute
+                element={<SeriesGrid />}
+                allowedRoles={["seriesModerator"]}
+              />
+            }
+          />
+          <Route
+            path="add-series"
+            element={
+              <ProtectedRoute
+                element={<AddSeries />}
+                allowedRoles={["seriesModerator"]}
+              />
+            }
+          />
+          <Route
+            path="add-movie"
+            element={
+              <ProtectedRoute
+                element={<AddMovie />}
+                allowedRoles={["movieModerator"]}
+              />
+            }
+          />
+          <Route
+            path="upload-content/:movieId"
+            element={
+              <ProtectedRoute
+                element={<UploadContent />}
+                allowedRoles={["movieModerator"]}
+              />
+            }
           />
 
           {/* Protect usersAdmin routes */}
-          <Route 
-            path="users" 
+          <Route
+            path="users"
             element={
-              <ProtectedRoute element={<DataGrid />} allowedRoles={["usersAdmin"]} />
-            } 
+              <ProtectedRoute
+                element={<DataGrid />}
+                allowedRoles={["usersAdmin"]}
+              />
+            }
           />
         </Route>
+
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </div>
   );

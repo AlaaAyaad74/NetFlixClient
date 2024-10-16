@@ -59,6 +59,16 @@ const Sidebar = () => {
             {/* Replace with any other icon if needed */}
           </NavLink>
         )}
+           {userRole === "seriesModerator" && (
+          <NavLink
+            to="/dashboard/seriesModerator"
+            className={css.item}
+            title="Users Admin"
+          >
+            <AiOutlineTable size={30} />{" "}
+            {/* Replace with any other icon if needed */}
+          </NavLink>
+        )}
       </div>
     </div>
   );

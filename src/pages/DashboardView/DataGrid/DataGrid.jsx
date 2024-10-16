@@ -61,8 +61,13 @@ const DataGrid = () => {
     const getData = async () => {
       try {
         const fetchedData = await fetchUserData();
+
         if (fetchedData.length === 0) throw new Error("No data found");
-        setMergedData(fetchedData);
+        const sanitizedData = fetchedData.map(
+          ({ password, resetPasswordToken, resetPasswordExpires, ...user }) =>
+            user
+        );
+        setMergedData(sanitizedData);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);

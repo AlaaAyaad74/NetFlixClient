@@ -1,0 +1,68 @@
+$background-dark: #222222;
+$text-light: #e8e0e0;
+$border-radius: 8px;
+
+.dialog-container {
+  .MuiDialog-paper {
+    background-color: $background-dark;
+    color: $text-light;
+    border-radius: $border-radius;
+  }
+}
+
+.dialog-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.dialog-content {
+  max-height: 400px;
+  overflow-y: auto;
+  .season-content {
+    margin-bottom: 20px;
+    h3 {
+      color: $text-light;
+    }
+    p {
+      color: $text-light;
+    }
+    .season-poster {
+      width: 100px;
+      height: auto;
+      border-radius: $border-radius;
+      margin-bottom: 10px;
+    }
+    .add-episodes-btn {
+      background-color: #007bff;
+      color: white;
+      margin-top: 10px;
+      &:hover {
+        background-color: #0056b3;
+      }
+    }
+  }
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  .close-btn {
+    background-color: #007bff;
+    color: white;
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+}
+
+.no-seasons {
+  color: $text-light;
+  font-style: italic;
+}

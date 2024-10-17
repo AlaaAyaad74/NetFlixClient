@@ -1,10 +1,13 @@
-import { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import MaterialReactTable from "material-react-table";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import SeriesDialog from "./seriesDialog"; // Import the SeriesDialog component
-import AddSeasonDialog from "./AddSeasonDialog.jsx"; // Import AddSeasonDialog component
 import axios from "axios";
-import { generateSeriesColumns } from "./seriesColumn"; // Columns generator
+
+import SeriesDialog from "./seriesDialog"; 
+import AddSeasonDialog from "./AddSeasonDialog"; 
+import ViewSeasonsDialog from "./ViewSeasonsDialog"; 
+import { generateSeriesColumns } from "./seriesColumn"; 
+import "./seriesGrid.scss";
 
 const SeriesGrid = () => {
   const [seriesData, setSeriesData] = useState([]);
@@ -15,26 +18,28 @@ const SeriesGrid = () => {
   const [pageSize, setPageSize] = useState(10);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [seasonDialogOpen, setSeasonDialogOpen] = useState(false);
+  const [viewSeasonsDialogOpen, setViewSeasonsDialogOpen] = useState(false);
   const [selectedSeries, setSelectedSeries] = useState(null);
+  const [seasonsData, setSeasonsData] = useState([]);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
-
+  const [viewSeasonsLoading, setViewSeasonsLoading] = useState(false);
   // Function to fetch series data
   const fetchSeries = async (page = 1) => {
+    setLoading(true);
     try {
       const response = await axios.get(`http://127.0.0.1:3331/series/series`, {
         params: { page, limit: pageSize },
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("authToken")}`, // Replace with your JWT token
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
         },
       });
-      const { series, totalSeries } = response.data;
-      setSeriesData(series);
-      setTotalSeries(totalSeries);
-      setLoading(false);
+      setSeriesData(response.data.series);
+      setTotalSeries(response.data.totalSeries);
     } catch (error) {
       console.error("Error fetching series:", error);
       setError(true);
+    } finally {
       setLoading(false);
     }
   };
@@ -56,6 +61,42 @@ const SeriesGrid = () => {
     setSeasonDialogOpen(true);
   };
 
+  // Fetch seasons data
+  const fetchSeasons = async (series) => {  setViewSeasonsLoading(true);
+
+    try {
+      console.log(series._id);
+      const response = await axios.get(`http://127.0.0.1:3331/series/fetch-series/${series._id}` , {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      });
+      console.log(response.seasons);
+      const { seasons } = response.data;
+      const seasonDetails = await Promise.all(
+        seasons.map(async (seasonId) => {
+          const res = await axios.get(`http://127.0.0.1:3331/series/fetch-season/${series._id}?partId=${seasonId}`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+            },
+          });
+          return res.data;
+        })
+      );
+      setSeasonsData(seasonDetails);
+      setViewSeasonsDialogOpen(true);
+    } catch (error) {
+      console.error("Error fetching seasons:", error);
+    } finally {
+      setViewSeasonsLoading(false);
+    }
+  };
+
+  // Handle opening the view seasons dialog
+  const handleViewSeasonsClick = (series) => {
+    fetchSeasons(series);
+  };
+
   // Handle dialog close
   const handleDialogClose = () => {
     setDialogOpen(false);
@@ -69,11 +110,11 @@ const SeriesGrid = () => {
     try {
       await axios.put(`http://127.0.0.1:3331/series/update-series/${selectedSeries._id}`, seriesData, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("authToken")}`, // Replace with your JWT token
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           'Content-Type': 'application/json',
         },
       });
-      fetchSeries(currentPage); // Refresh the series data
+      fetchSeries(currentPage);
       setDialogOpen(false);
     } catch (error) {
       console.error("Error updating series:", error);
@@ -83,16 +124,10 @@ const SeriesGrid = () => {
     }
   };
 
-  // Fetch the series columns with add season button
-  const columns = useMemo(() => generateSeriesColumns(handleRowClick, handleAddSeasonClick), []);
+  const columns = useMemo(() => generateSeriesColumns(handleRowClick, handleAddSeasonClick, handleViewSeasonsClick), []);
 
   const theme = useMemo(
-    () =>
-      createTheme({
-        palette: {
-          mode: "dark",
-        },
-      }),
+    () => createTheme({ palette: { mode: "dark" } }),
     []
   );
 
@@ -107,6 +142,10 @@ const SeriesGrid = () => {
           data={seriesData}
           manualPagination
           rowCount={totalSeries}
+          onPaginationChange={({ pageIndex, pageSize }) => {
+            setCurrentPage(pageIndex + 1); 
+            setPageSize(pageSize); 
+          }}
           state={{
             pagination: {
               pageIndex: currentPage - 1,
@@ -130,16 +169,24 @@ const SeriesGrid = () => {
         series={selectedSeries}
         onClose={() => setSeasonDialogOpen(false)}
         onSubmit={async (seasonData) => {
-          // Make API call to add a season here
           await axios.post(`http://127.0.0.1:3331/series/add-season`, { seriesId: selectedSeries._id, ...seasonData }, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("authToken")}`,
               'Content-Type': 'application/json',
             },
           });
-          fetchSeries(currentPage); // Refresh the series data
+          fetchSeries(currentPage);
           setSeasonDialogOpen(false);
         }}
+      />
+
+      <ViewSeasonsDialog 
+        open={viewSeasonsDialogOpen}
+        seasons={seasonsData}
+        onClose={() => setViewSeasonsDialogOpen(false)}
+        onAddEpisodesClick={(season) => {
+          console.log("Add episodes to:", season);
+        }}  loading={viewSeasonsLoading}
       />
 
       <div className="pagination-controls">

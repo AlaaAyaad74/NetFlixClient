@@ -63,9 +63,7 @@ const Header = ({ isLandingPage, showHeader }) => {
     handleProfileMenuClose();
     if (menuOption === "Profile") {
       navigate("/Profile");
-    } else if (menuOption === "wishlist") {
-      navigate("/wishlist");
-    } else if (menuOption === "logout") {
+    }  else if (menuOption === "logout") {
       localStorage.clear();
       navigate("/login");
     }
@@ -118,7 +116,7 @@ const Header = ({ isLandingPage, showHeader }) => {
             {/* Profile Dropdown Menu */}
             <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleProfileMenuClose}>
               <MenuItem onClick={() => handleMenuClick("Profile")}>Profile</MenuItem>
-              <MenuItem onClick={() => handleMenuClick("wishlist")}>Wish List</MenuItem>
+           
               <MenuItem onClick={() => handleMenuClick("logout")}>Logout</MenuItem>
             </Menu>
           </div>

@@ -15,7 +15,7 @@ import {
 import AccordionComponent from "../According/According"; // Assuming AccordionComponent is in the same directory
 import "./PlayerStyle.scss";
 
-const VideoPlayer = ({ episodes }) => {
+const VideoPlayer = ({ episodes,videoSrc, title, description }) => {
   const [currentEpisodeIndex, setCurrentEpisodeIndex] = useState(0);
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -26,7 +26,7 @@ const VideoPlayer = ({ episodes }) => {
   const [isVolumeHover, setIsVolumeHover] = useState(false);
   const [isSpeedHover, setIsSpeedHover] = useState(false);
   const [isFullScreen, setFullScreen] = useState(false);
-  const currentEpisode = episodes[currentEpisodeIndex];
+  const currentEpisode = episodes[currentEpisodeIndex]||[];
   const [show, setToggleShow] = useState(false);
   const togglePlay = () => {
     if (isPlaying) {
@@ -93,7 +93,9 @@ const VideoPlayer = ({ episodes }) => {
     <div className={`video-player ${isFullScreen ? "full" : ""}`}>
       <video
         ref={videoRef}
-        src={currentEpisode.videoSrc}
+        src={ 
+           "https://res.cloudinary.com/dgqmw9twi/video/upload/v1729146113/streaming_content/rtyiwpqg6sqng3kvfdxq.mp4"
+      }
         className="video-screen"
         onTimeUpdate={handleTimeUpdate}
         onLoadedMetadata={handleLoadedMetadata}

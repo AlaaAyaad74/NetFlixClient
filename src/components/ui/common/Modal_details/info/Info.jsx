@@ -11,7 +11,7 @@ function Info({ item }) {
         <p className="genres">
           <span>Genres:</span>
           {item.genre.map((gen, index) => (
-            <p key={index}>{gen}</p>
+            <p key={index}>{"drama"}</p>
           ))}
         </p>
         <p>{item.avgRuntime}</p>

@@ -130,9 +130,7 @@ const LoginPage = () => {
           </form>
           <div className="login-options">
             <div className="login-forgot">
-              <a href="#" className="forgot-password">
-                Forgot Password?
-              </a>
+             
               <label>
                 <input type="checkbox" className="remember-me" /> Remember me
               </label>

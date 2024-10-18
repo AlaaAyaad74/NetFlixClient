@@ -20,7 +20,7 @@ const Player = lazy(() =>
 );
 const RegisterPage = lazy(() => import("../pages/RegisterPage"));
 const Profile = lazy(() => import("../pages/Profile/Profile"));
-
+const VideoPlayer = lazy(() => import("../components/Player/Player"));
 
 const ForgetPassword = lazy(() => import("../pages/Profile/ForgetPassword"));
 const ResetPassword = lazy(() => import("../pages/Profile/ResetPassword"));
@@ -28,8 +28,8 @@ const CardDetails = lazy(() => import("../pages/CardDetails"));
 
 const dummyEpisodes = [
   {
-    videoSrc: "https://res.cloudinary.com/episode1.mp4",
-    title: "Episode 1: The Beginning",
+    videoSrc: "https://res.cloudinary.com/dgqmw9twi/video/upload/v1729146113/streaming_content/rtyiwpqg6sqng3kvfdxq.mp4",
+    title: " The Beginning",
     description: "In this episode, we explore the origins of the story.",
     image: "/1.jpg",
   },
@@ -72,11 +72,15 @@ const AppRoutes = () => {
         element={<ProtectedRoute element={<SearchPage />} />}
       />
       <Route
-        path="/home/:category/search/:keyword"
+        path="/home/:category" ///search/:keyword
         element={<ProtectedRoute element={<Catalog />} />}
       />
       <Route
         path="/home/:category/:id"
+        element={<ProtectedRoute element={<Details />} />}
+      />
+        <Route
+        path="home/movie/:id"
         element={<ProtectedRoute element={<Details />} />}
       />
       <Route

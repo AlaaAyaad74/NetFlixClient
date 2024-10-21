@@ -78,11 +78,6 @@ const DataGrid = () => {
     const getData = async () => {
       try {
         const fetchedData = await fetchUserData();
-<<<<<<< HEAD
-        console.log("fetchedData", fetchedData);
-=======
-
->>>>>>> 06f5f68 (some changes)
         if (fetchedData.length === 0) throw new Error("No data found");
         const sanitizedData = fetchedData.map(
           ({ password, resetPasswordToken, resetPasswordExpires, ...user }) =>

@@ -15,6 +15,7 @@ const headerNav = [
   { display: "Home", path: "/home" },
   { display: "Movies", path: "/home/movie" },
   { display: "TV Series", path: "/home/tv" },
+  { display: "My List", path: "/home/list" },
 ];
 
 const Header = ({ isLandingPage, showHeader }) => {
@@ -27,7 +28,10 @@ const Header = ({ isLandingPage, showHeader }) => {
 
   useEffect(() => {
     const shrinkHeader = () => {
-      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+      if (
+        document.body.scrollTop > 100 ||
+        document.documentElement.scrollTop > 100
+      ) {
         headerRef.current.classList.add("shrink");
       } else {
         headerRef.current.classList.remove("shrink");
@@ -63,7 +67,7 @@ const Header = ({ isLandingPage, showHeader }) => {
     handleProfileMenuClose();
     if (menuOption === "Profile") {
       navigate("/Profile");
-    }  else if (menuOption === "logout") {
+    } else if (menuOption === "logout") {
       localStorage.clear();
       navigate("/login");
     }
@@ -76,7 +80,9 @@ const Header = ({ isLandingPage, showHeader }) => {
   // Determine the button text and action based on the current route
   const isLoginPage = pathname === "/login";
   const buttonText = isLoginPage ? "Register" : "Sign In";
-  const buttonClickHandler = isLoginPage ? handleRegisterClick : handleSignInClick;
+  const buttonClickHandler = isLoginPage
+    ? handleRegisterClick
+    : handleSignInClick;
 
   return (
     <div ref={headerRef} className="header">
@@ -98,7 +104,11 @@ const Header = ({ isLandingPage, showHeader }) => {
         )}
 
         <div className={`header__search ${showSearch ? "visible" : ""}`}>
-          <SearchField onSearchResultClicked={(item) => console.log("Search result clicked:", item)} />
+          <SearchField
+            onSearchResultClicked={(item) =>
+              console.log("Search result clicked:", item)
+            }
+          />
         </div>
 
         {!showSearch && <div className="header__spacer"></div>}
@@ -114,10 +124,18 @@ const Header = ({ isLandingPage, showHeader }) => {
             </IconButton>
 
             {/* Profile Dropdown Menu */}
-            <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleProfileMenuClose}>
-              <MenuItem onClick={() => handleMenuClick("Profile")}>Profile</MenuItem>
-           
-              <MenuItem onClick={() => handleMenuClick("logout")}>Logout</MenuItem>
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleProfileMenuClose}
+            >
+              <MenuItem onClick={() => handleMenuClick("Profile")}>
+                Profile
+              </MenuItem>
+
+              <MenuItem onClick={() => handleMenuClick("logout")}>
+                Logout
+              </MenuItem>
             </Menu>
           </div>
         ) : (

@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useState, createContext } from "react";
 import { BrowserRouter as Router, useLocation } from "react-router-dom";
 import AppRoutes from "./config/Routes";
 import "./App.scss";
@@ -15,8 +15,21 @@ const LayoutWrapper = ({ children }) => {
   const [showFooter, setShowFooter] = useState(false); // New state for footer visibility
 
   useEffect(() => {
-    const landingPageRoutes = ["/", "/landing", "/landing/", "/login", "/register"];
-    const footerVisibleRoutes = ["/home", "/about", "/contact", "/landing/", "/", "/landing"];
+    const landingPageRoutes = [
+      "/",
+      "/landing",
+      "/landing/",
+      "/login",
+      "/register",
+    ];
+    const footerVisibleRoutes = [
+      "/home",
+      "/about",
+      "/contact",
+      "/landing/",
+      "/",
+      "/landing",
+    ];
 
     const currentPath = location.pathname;
 
@@ -33,22 +46,31 @@ const LayoutWrapper = ({ children }) => {
   return (
     <>
       {/* Conditionally render Header based on showHeader */}
-      {showHeader && <Header isLandingPage={isLandingPage} showHeader={showHeader} />}
+      {showHeader && (
+        <Header isLandingPage={isLandingPage} showHeader={showHeader} />
+      )}
       <main>{children}</main>
       {showFooter && <Footer showFooter={showFooter} />}
     </>
   );
 };
 
+export const ItemContext = createContext();
 const App = () => {
+  const [item, setItem] = useState({});
+  useEffect(() => {
+    console.log(item);
+  }, [item]);
   return (
-    <Router>
-      <Suspense fallback={<div>Loading...</div>}>
-        <LayoutWrapper>
-          <AppRoutes />
-        </LayoutWrapper>
-      </Suspense>
-    </Router>
+    <ItemContext.Provider value={{ item, setItem }}>
+      <Router>
+        <Suspense fallback={<div>Loading...</div>}>
+          <LayoutWrapper>
+            <AppRoutes />
+          </LayoutWrapper>
+        </Suspense>
+      </Router>
+    </ItemContext.Provider>
   );
 };
 

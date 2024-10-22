@@ -15,25 +15,26 @@ const SearchPage = lazy(() => import("../pages/SearchPage"));
 const Catalog = lazy(() => import("../pages/Catalog"));
 const LoginPage = lazy(() => import("../pages/LoginPage"));
 const EpisodeDetailPage = lazy(() => import("../pages/EpisodeDetailPage"));
-const Player = lazy(() =>
-  import("../coponents/utilitiesCpmponents/Player/Player")
-);
+
 const RegisterPage = lazy(() => import("../pages/RegisterPage"));
 const Profile = lazy(() => import("../pages/Profile/Profile"));
-const VideoPlayer = lazy(() => import("../components/Player/Player"));
+const VideoPlayer = lazy(() =>
+  import("../coponents/utilitiesCpmponents/Player/Player")
+);
 
 const ForgetPassword = lazy(() => import("../pages/Profile/ForgetPassword"));
 const ResetPassword = lazy(() => import("../pages/Profile/ResetPassword"));
 const CardDetails = lazy(() => import("../pages/CardDetails"));
 
-const dummyEpisodes = [
-  {
-    videoSrc: "https://res.cloudinary.com/dgqmw9twi/video/upload/v1729146113/streaming_content/rtyiwpqg6sqng3kvfdxq.mp4",
-    title: " The Beginning",
-    description: "In this episode, we explore the origins of the story.",
-    image: "/1.jpg",
-  },
-];
+// const dummyEpisodes = [
+//   {
+//     videoSrc:
+//       "https://res.cloudinary.com/dgqmw9twi/video/upload/v1729146113/streaming_content/rtyiwpqg6sqng3kvfdxq.mp4",
+//     title: " The Beginning",
+//     description: "In this episode, we explore the origins of the story.",
+//     image: "/1.jpg",
+//   },
+// ];
 
 const AppRoutes = () => {
   return (
@@ -44,7 +45,7 @@ const AppRoutes = () => {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/Profile" element={<Profile />} />
-      <Route path="/forgot-password" element={<ForgetPassword />} /> 
+      <Route path="/forgot-password" element={<ForgetPassword />} />
       <Route path="/reset-password/:token" element={<ResetPassword />} />
       <Route path="/CardDetails" element={<CardDetails />} />
 
@@ -56,11 +57,11 @@ const AppRoutes = () => {
           <ProtectedDashboardRoute
             element={<DashboardRoutes />}
             allowedRoles={[
-              "usersAdmin", 
-              "moderatorAdmin", 
-              "movieModerator", 
-              "seriesModerator", 
-              "tvShowModerator"
+              "usersAdmin",
+              "moderatorAdmin",
+              "movieModerator",
+              "seriesModerator",
+              "tvShowModerator",
             ]}
           />
         }
@@ -79,7 +80,7 @@ const AppRoutes = () => {
         path="/home/:category/:id"
         element={<ProtectedRoute element={<Details />} />}
       />
-        <Route
+      <Route
         path="home/movie/:id"
         element={<ProtectedRoute element={<Details />} />}
       />
@@ -88,12 +89,10 @@ const AppRoutes = () => {
         element={<ProtectedRoute element={<EpisodeDetailPage />} />}
       />
       <Route
-        path="/player"
-        element={
-          <ProtectedRoute element={<Player episodes={dummyEpisodes} />} />
-        }
+        path="/player/:id"
+        element={<ProtectedRoute element={<VideoPlayer />} />}
       />
-            <Route path="/404" element={<ErrorPage />} /> 
+      <Route path="/404" element={<ErrorPage />} />
 
       {/* Fallback Route */}
       <Route path="*" element={<ErrorPage />} />

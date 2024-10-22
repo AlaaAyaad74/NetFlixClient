@@ -25,9 +25,7 @@ const HeroSlide = () => {
     const getMovies = async () => {
       const params = { page: 1 };
       try {
-        const response = await customApi.getMoviesList(movieType.popular, {
-          params,
-        });
+        const response = await customApi.getMoviesList(movieType.popular, { params });
         setMovieItems(response.movies.slice(0, 4));
         console.log(response.movies[0]._id);
       } catch (error) {
@@ -132,13 +130,12 @@ const HeroSlideItem = (props) => {
         </Modal>
       )}
     </div>
-  );
+);
 };
 
 const TrailerModal = (props) => {
   const item = props.item;
   const iframeRef = useRef(null);
-
   const onClose = () => {
     iframeRef.current.setAttribute("src", "");
   };
@@ -146,12 +143,7 @@ const TrailerModal = (props) => {
   return (
     <Modal active={false} id={`modal_${item.id}`}>
       <ModalContent onClose={onClose}>
-        <iframe
-          ref={iframeRef}
-          width="100%"
-          height="500px"
-          title="trailer"
-        ></iframe>
+        <iframe ref={iframeRef} width="100%" height="500px" title="trailer"></iframe>
       </ModalContent>
     </Modal>
   );

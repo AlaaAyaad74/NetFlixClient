@@ -20,26 +20,26 @@ const MovieList = (props) => {
 
   useEffect(() => {
     const getMoviesList = async () => {
-      let response = null;
-      const params = {}; // Add your parameters if needed
-      if (type !== "similar") {
-        if (category === "movie") {
-          response = await customApi.getMoviesList({ params });
+      try {
+        let response = null;
+        const params = {}; // Add your parameters if needed
+
+        if (type !== "similar") {
+          response =
+            category === "movie"
+              ? await customApi.getMoviesList({ params })
+              : await customApi.getSeriesList({ params });
         } else {
-          response = await customApi.getSeriesList({ params });
+          response = await customApi.getMovieDetail(id);
         }
-      } else {
-        response = await customApi.getMovieDetail(id);
+
+        const items = response.series || response.movies || [];
+        const randomItems = getRandomItems(items, 10);
+        setMovieItems(randomItems);
+        if (onCreated) onCreated();
+      } catch (error) {
+        console.error("Error fetching movies: ", error.message); // Improved error logging
       }
-
-      // Extract the movies or series from the response
-      const items = response.series || response.movies || [];
-
-      // Get 10 random items from the list
-      const randomItems = getRandomItems(items, 10);
-
-      setMovieItems(randomItems);
-      if (onCreated) onCreated();
     };
 
     getMoviesList();
@@ -73,7 +73,6 @@ MovieList.propTypes = {
   id: PropTypes.number,
   children: PropTypes.node,
   onCreated: PropTypes.func,
-  genres: PropTypes.array,
+  genres: PropTypes.arrayOf(PropTypes.string),
 };
-
 export default MovieList;

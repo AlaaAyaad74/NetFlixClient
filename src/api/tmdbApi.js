@@ -101,7 +101,7 @@ const customApi = {
     const url = "/movies/movies";
     return axiosClient.get(url, { params });
   },
- 
+
   // Fetch series
   getSeriesList: (params) => {
     const url = "/series/series";
@@ -139,11 +139,11 @@ const customApi = {
     const url = `/movies/update-movie/${id}`;
     const response = await axiosClient.put(url, movieData, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('authToken')}`, // Include your auth token if necessary
-        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`, // Include your auth token if necessary
+        "Content-Type": "application/json",
       },
     });
-    
+
     console.log(response);
     return response; // Assuming the API returns the updated movie data
   },

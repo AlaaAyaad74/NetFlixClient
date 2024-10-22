@@ -9,7 +9,7 @@ import CardListParts from "./cardPartsMovie/CardListParts";
 
 function DetailsModal({ item, setModal }) {
   const [season, setSeason] = useState(1);
-  console.log(item.parts);
+  console.log(item);
   return (
     <div className="main">
       <div className="details_Container">
@@ -36,12 +36,10 @@ function DetailsModal({ item, setModal }) {
               </div>
             </div>
             {/*this modal for Tv show & Series*/}
-            {item.seasons[season - 1].episodes.map((ebisode) => (
+            {item.seasons[season - 1].episodes.map((episode) => (
               <CardListParts
-                key={ebisode.id}
-                title={ebisode.epissodeTitle}
-                year={ebisode.releaseYear}
-                description={ebisode.episodeDescription}
+                key={episode.id}
+                itemObj={episode}
                 image={item.seasons[season - 1].seasonPoster}
               />
             ))}
@@ -49,7 +47,7 @@ function DetailsModal({ item, setModal }) {
         )}
 
         {/*this modal for Movies*/}
-        {item.parts && (
+        {item.parts.length > 0 ? (
           <div className="sub_wrapper">
             <div className="head_episods">
               <h1>Parts</h1>
@@ -57,15 +55,14 @@ function DetailsModal({ item, setModal }) {
             {/*this modal for Tv show & Series*/}
             {item.parts.map((part) => (
               <CardListParts
+                itemObj={part}
                 key={part.id}
-                id={part.id}
-                title={part.movieTitle}
-                year={part.releaseYear}
-                description={part.movieDesc}
                 image={item.parts[season - 1].moviePoster}
               />
             ))}
           </div>
+        ) : (
+          <CardListParts itemObj={item} />
         )}
       </div>
     </div>

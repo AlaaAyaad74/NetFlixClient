@@ -8,7 +8,18 @@
     padding: 0.5em;
     background-color: #191919;
     border-radius: 50%;
+    cursor: pointer !important;
+    z-index: 1000 !important;
+  }
+  .overlay {
+    position: absolute; /* Cover the entire modal */
+    top: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0); /* Transparent overlay to catch clicks */
+    height: 10px;
+    width: 10px;
     cursor: pointer;
+    z-index: 999; /* Should be below the close icon */
   }
   iframe {
     height: 350px;

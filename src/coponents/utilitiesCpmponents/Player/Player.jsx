@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useContext } from "react";
 import PropTypes from "prop-types";
 import { IconButton, Tooltip } from "@mui/material";
 import {
@@ -14,8 +14,9 @@ import {
 } from "@mui/icons-material";
 import AccordionComponent from "../Accordion/accordionComponent"; // Assuming AccordionComponent is in the same directory
 import "./PlayerStyle.scss";
+import { ItemContext } from "../../../App";
 
-const VideoPlayer = ({ episodes }) => {
+const VideoPlayer = () => {
   const [currentEpisodeIndex, setCurrentEpisodeIndex] = useState(0);
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -26,8 +27,18 @@ const VideoPlayer = ({ episodes }) => {
   const [isVolumeHover, setIsVolumeHover] = useState(false);
   const [isSpeedHover, setIsSpeedHover] = useState(false);
   const [isFullScreen, setFullScreen] = useState(false);
-  const currentEpisode = episodes[currentEpisodeIndex];
+  const [videoSrc, setVideoSrc] = useState("");
+
+  // const currentEpisode = episodes[currentEpisodeIndex];
   const [show, setToggleShow] = useState(false);
+  console.log("hiththtth");
+  const { item } = useContext(ItemContext);
+  console.log("===============itemCon==========");
+  console.log(item);
+  if (!item) {
+    return <div>Loading...</div>;
+  }
+
   const togglePlay = () => {
     if (isPlaying) {
       videoRef.current.pause();
@@ -89,11 +100,25 @@ const VideoPlayer = ({ episodes }) => {
       setCurrentTime(0); // Reset the video to the beginning
     }
   }, [currentTime, duration, setIsPlaying, setCurrentTime]);
+  // Fetch video by item.id
+  useEffect(() => {
+    if (item && item.id) {
+      // Replace with your actual API endpoint and item.id usage
+      fetch(`https://api.example.com/videos/${item._id}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setVideoSrc(data.videoUrl); // Assuming the video URL is in data.videoUrl
+        })
+        .catch((error) => {
+          console.error("Error fetching video:", error);
+        });
+    }
+  }, [item]);
   return (
     <div className={`video-player ${isFullScreen ? "full" : ""}`}>
       <video
         ref={videoRef}
-        src={currentEpisode.videoSrc}
+        src={videoSrc}
         className="video-screen"
         onTimeUpdate={handleTimeUpdate}
         onLoadedMetadata={handleLoadedMetadata}
@@ -240,15 +265,15 @@ const VideoPlayer = ({ episodes }) => {
   );
 };
 
-VideoPlayer.propTypes = {
-  episodes: PropTypes.arrayOf(
-    PropTypes.shape({
-      videoSrc: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-      image: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-};
+// VideoPlayer.propTypes = {
+//   episodes: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       videoSrc: PropTypes.string.isRequired,
+//       title: PropTypes.string.isRequired,
+//       description: PropTypes.string.isRequired,
+//       image: PropTypes.string.isRequired,
+//     })
+//   ).isRequired,
+// };
 
 export default VideoPlayer;

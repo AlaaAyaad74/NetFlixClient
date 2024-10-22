@@ -4,6 +4,8 @@ import "./Viewstyle.scss";
 function View({ setModal, item }) {
   return (
     <div className="view">
+      <div className="overlay" onClick={() => setModal(false)}></div>{" "}
+      {/* Clickable overlay */}
       <span className="exIcon" onClick={() => setModal(false)}>
         <RxCross2 />
       </span>

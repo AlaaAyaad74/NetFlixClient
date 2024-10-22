@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import TextFieldComponent from "../coponents/utilitiesCpmponents/TextField/TextFieldComponent";
 import Button from "../coponents/utilitiesCpmponents/button/Button";
 import "./LoginPage.scss";
@@ -13,19 +13,20 @@ const RegisterPage = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
-  
+
   const [loading, setLoading] = useState(false);
   const [emailError, setEmailError] = useState("");
   const [firstNameError, setFirstNameError] = useState("");
   const [lastNameError, setLastNameError] = useState("");
-  
+
   const [passwordError, setPasswordError] = useState("");
   const [error, setError] = useState("");
-  
-  const navigate = useNavigate(); 
+
+  const navigate = useNavigate();
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  const passwordRegex =
+    /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   const nameRegex = /^[A-Za-z]+(?:\s[A-Za-z]+)*$/;
 
   const handleNameChange = (e) => {
@@ -99,7 +100,11 @@ const RegisterPage = () => {
     }
 
     try {
-      const response = await authApi.register({ fullName: `${firstName} ${lastName}`, email, password });
+      const response = await authApi.register({
+        fullName: `${firstName} ${lastName}`,
+        email,
+        password,
+      });
       console.log("Registration success:", response);
       navigate("/login");
     } catch (error) {
@@ -124,7 +129,9 @@ const RegisterPage = () => {
               hintText="First Name"
               className="login-input first-name"
             />
-            {firstNameError && <p className="error-message">{firstNameError}</p>}
+            {firstNameError && (
+              <p className="error-message">{firstNameError}</p>
+            )}
             <div style={{ height: "10px" }}></div>
             <TextFieldComponent
               type="text"
@@ -156,7 +163,11 @@ const RegisterPage = () => {
             <div style={{ height: "10px" }}></div>
             {error && <p className="error-message">{error}</p>}
 
-            <Button className="login-button" disabled={loading} onClick={handleSubmit}>
+            <Button
+              className="login-button"
+              disabled={loading}
+              onClick={handleSubmit}
+            >
               {loading ? "Signing Up..." : "Sign Up"}
             </Button>
           </form>

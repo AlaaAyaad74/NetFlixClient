@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+
 import SectionOne from "../coponents/landingPageComponents/SectionOne";
  
 import FaqSection from "../coponents/landingPageComponents/faqSection";

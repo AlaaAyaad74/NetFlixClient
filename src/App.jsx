@@ -15,8 +15,21 @@ const LayoutWrapper = ({ children }) => {
   const [showFooter, setShowFooter] = useState(false); // New state for footer visibility
 
   useEffect(() => {
-    const landingPageRoutes = ["/", "/landing", "/landing/", "/login", "/register"];
-    const footerVisibleRoutes = ["/home", "/about", "/contact", "/landing/", "/", "/landing"];
+    const landingPageRoutes = [
+      "/",
+      "/landing",
+      "/landing/",
+      "/login",
+      "/register",
+    ];
+    const footerVisibleRoutes = [
+      "/home",
+      "/about",
+      "/contact",
+      "/landing/",
+      "/",
+      "/landing",
+    ];
 
     const currentPath = location.pathname;
 
@@ -33,7 +46,9 @@ const LayoutWrapper = ({ children }) => {
   return (
     <>
       {/* Conditionally render Header based on showHeader */}
-      {showHeader && <Header isLandingPage={isLandingPage} showHeader={showHeader} />}
+      {showHeader && (
+        <Header isLandingPage={isLandingPage} showHeader={showHeader} />
+      )}
       <main>{children}</main>
       {showFooter && <Footer showFooter={showFooter} />}
     </>

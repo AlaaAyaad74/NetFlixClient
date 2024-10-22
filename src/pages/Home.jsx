@@ -3,11 +3,8 @@ import HeroSlide from "../coponents/utilitiesCpmponents/hero-slide/HeroSlide";
 import { OutlinedButton } from "../coponents/utilitiesCpmponents/button/Button";
 import MovieList from "../coponents/utilitiesCpmponents/movieList/MovieList";
 import { category, movieType } from "../api/tmdbApi";
-import { useEffect, useState } from "react";
 
 const Home = () => {
- 
-
   return (
     <div>
       <HeroSlide />

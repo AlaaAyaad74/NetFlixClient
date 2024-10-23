@@ -9,7 +9,9 @@ import Modal, { ModalContent } from "../modal/Modal";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import Genres from "../genres/Genres";
-import VideoPlayer from "../../../components/Player/Player";
+import VideoPlayer from "../../../coponents/utilitiesCpmponents/VideoPlayer/videoPlayerComponent";
+import RatingComponent from "../Rating/Rating";
+import { Box } from "@mui/material";
 
 const HeroSlide = () => {
   const [movieItems, setMovieItems] = useState([]);
@@ -25,9 +27,10 @@ const HeroSlide = () => {
     const getMovies = async () => {
       const params = { page: 1 };
       try {
-        const response = await customApi.getMoviesList(movieType.popular, { params });
+        const response = await customApi.getMoviesList(movieType.popular, {
+          params,
+        });
         setMovieItems(response.movies.slice(0, 4));
-        console.log(response.movies[0]._id);
       } catch (error) {
         console.log(error);
       }
@@ -40,7 +43,7 @@ const HeroSlide = () => {
       <div className="embla" ref={emblaRef}>
         <div className="embla__container">
           {movieItems.map((item) => (
-            <div key={item.id} className="embla__slide">
+            <div key={item._id} className="embla__slide">
               <HeroSlideItem item={item} className={"active"} />
             </div>
           ))}
@@ -57,8 +60,6 @@ const HeroSlideItem = (props) => {
   const navigate = useNavigate();
   const item = props.item;
   const background = item.backdrop_path || apiConfig.image(item.backdrop_path);
-  console.log(item._id);
-  console.log("===========================");
 
   // New state to control video modal
   const [isPlayerModalActive, setIsPlayerModalActive] = useState(false);
@@ -92,8 +93,8 @@ const HeroSlideItem = (props) => {
         <div className="hero-slide__item__content__info">
           <h2 className="title">{item.title}</h2>
           <div className="overview">{item.overview}</div>
+
           <div className="btns">
-            {/* Modify the onClick handler to use the new function */}
             <Button onClick={handleWatchNowClick}>Watch Now</Button>
             <OutlinedButton onClick={setModalActive}>
               <span>Watch Trailer</span>
@@ -105,10 +106,21 @@ const HeroSlideItem = (props) => {
                 .slice(0, 5)
                 .map((genre, index) => <Genres key={index} genre={genre} />)}
           </div>
+          {/* Add the RatingComponent here */}
+          <Box
+            sx={{
+              display: "flex",
+              width: "30%",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <RatingComponent movieId={item._id} />
+          </Box>
         </div>
 
         <div className="hero-slide__item__content__poster">
-          <img src={apiConfig.image(item.poster_path)} alt="" />
+          <img src={apiConfig.image(item.poster_path)} alt={item.title} />
         </div>
       </div>
 
@@ -130,7 +142,7 @@ const HeroSlideItem = (props) => {
         </Modal>
       )}
     </div>
-);
+  );
 };
 
 const TrailerModal = (props) => {
@@ -143,7 +155,12 @@ const TrailerModal = (props) => {
   return (
     <Modal active={false} id={`modal_${item.id}`}>
       <ModalContent onClose={onClose}>
-        <iframe ref={iframeRef} width="100%" height="500px" title="trailer"></iframe>
+        <iframe
+          ref={iframeRef}
+          width="100%"
+          height="500px"
+          title="trailer"
+        ></iframe>
       </ModalContent>
     </Modal>
   );

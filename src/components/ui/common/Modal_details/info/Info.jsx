@@ -8,12 +8,14 @@ function Info({ item }) {
         <p className="description">{item.desc}</p>
       </div>
       <div>
-        <p className="genres">
-          <span>Genres:</span>
-          {item.genre.map((gen, index) => (
-            <p key={index}>{"drama"}</p>
-          ))}
-        </p>
+        {item.genres ? (
+          <p className="genres">
+            <span>Genres:</span>
+            {item.genre.map((gen, index) => (
+              <p key={index}>{"drama"}</p>
+            ))}
+          </p>
+        ) : null}
         <p>{item.avgRuntime}</p>
         <p>Release Year : {item.releaseYear}</p>
         <p>Rating : {item.rating}</p>

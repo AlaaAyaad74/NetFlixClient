@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 // import PropTypes from "prop-types";
 // import "./movieCard.scss";
 // import { useState } from "react";
@@ -90,19 +88,14 @@
 
 // export default MovieCard;
 
->>>>>>> levi-dev-client
 import PropTypes from "prop-types";
 import "./movieCard.scss";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import apiConfig from "../../../api/apiConfig";
-<<<<<<< HEAD
-import axios from "axios";
-import qs from "query-string";
-=======
 import RatingComponent from "../Rating/Rating"; // Import the new component
->>>>>>> levi-dev-client
+import qs from "query-string";
 
 const MovieCard = (props) => {
   const item = props.item;
@@ -121,36 +114,8 @@ const MovieCard = (props) => {
         <h3 className="movie-card__name">{item.title}</h3>
       </Link>
 
-<<<<<<< HEAD
-      <div className="movie-card__actions">
-        {/* Rating Stars */}
-        <div className="rating">
-          {[1, 2, 3, 4, 5].map((star) => (
-            <FontAwesomeIcon
-              key={star}
-              icon={faStar}
-              onMouseEnter={() => setHoverRating(star)}
-              onMouseLeave={() => setHoverRating(0)}
-              onClick={() => handleRating(star)}
-              className={`star ${
-                hoverRating >= star || rating >= star ? "rated" : ""
-              }`}
-            />
-          ))}
-        </div>
-        {/* Watchlist Button */}
-        <button
-          className={`add-btn ${isAdded ? "added" : ""}`}
-          onClick={handleAddToWatchList}
-          title={isAdded ? "Added to Watchlist" : "Add to Watchlist"}
-        >
-          <FontAwesomeIcon icon={isAdded ? faCheck : faPlus} />
-        </button>
-      </div>
-=======
       {/* Use the new RatingComponent */}
       <RatingComponent movieId={item._id} />
->>>>>>> levi-dev-client
     </div>
   );
 };

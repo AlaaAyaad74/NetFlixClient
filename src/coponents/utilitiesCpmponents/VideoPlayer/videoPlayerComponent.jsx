@@ -1,9 +1,17 @@
-import React, { useRef, useState } from 'react';
-import PropTypes from 'prop-types';
-import { IconButton, Tooltip } from '@mui/material';
-import { PlayArrow, Pause, FastForward, FastRewind, VolumeUp, Fullscreen, Speed } from '@mui/icons-material';
-import AccordionComponent from '../Accordion/AccordionComponent'; // Assuming AccordionComponent is in the same directory
-import './VideoPlayer.scss';
+import React, { useRef, useState } from "react";
+import PropTypes from "prop-types";
+import { IconButton, Tooltip } from "@mui/material";
+import {
+  PlayArrow,
+  Pause,
+  FastForward,
+  FastRewind,
+  VolumeUp,
+  Fullscreen,
+  Speed,
+} from "@mui/icons-material";
+import AccordionComponent from "../Accordion/accordionComponent"; // Assuming AccordionComponent is in the same directory
+import "./VideoPlayer.scss";
 
 const VideoPlayer = ({ episodes }) => {
   const [currentEpisodeIndex, setCurrentEpisodeIndex] = useState(0);
@@ -54,7 +62,9 @@ const VideoPlayer = ({ episodes }) => {
 
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60);
-    const seconds = Math.floor(time % 60).toString().padStart(2, '0');
+    const seconds = Math.floor(time % 60)
+      .toString()
+      .padStart(2, "0");
     return `${minutes}:${seconds}`;
   };
 
@@ -84,17 +94,23 @@ const VideoPlayer = ({ episodes }) => {
         <div className="control-buttons">
           <div className="left-controls">
             <Tooltip title="Rewind 10s">
-              <IconButton onClick={() => skipTime(-10)} style={{ color: '#FFFFFF' }}>
+              <IconButton
+                onClick={() => skipTime(-10)}
+                style={{ color: "#FFFFFF" }}
+              >
                 <FastRewind />
               </IconButton>
             </Tooltip>
-            <Tooltip title={isPlaying ? 'Pause' : 'Play'}>
-              <IconButton onClick={togglePlay} style={{ color: '#FFFFFF' }}>
+            <Tooltip title={isPlaying ? "Pause" : "Play"}>
+              <IconButton onClick={togglePlay} style={{ color: "#FFFFFF" }}>
                 {isPlaying ? <Pause /> : <PlayArrow />}
               </IconButton>
             </Tooltip>
             <Tooltip title="Forward 10s">
-              <IconButton onClick={() => skipTime(10)} style={{ color: '#FFFFFF' }}>
+              <IconButton
+                onClick={() => skipTime(10)}
+                style={{ color: "#FFFFFF" }}
+              >
                 <FastForward />
               </IconButton>
             </Tooltip>
@@ -104,7 +120,7 @@ const VideoPlayer = ({ episodes }) => {
               onMouseLeave={() => setIsVolumeHover(false)}
             >
               <Tooltip title="Volume">
-                <IconButton style={{ color: '#FFFFFF' }}>
+                <IconButton style={{ color: "#FFFFFF" }}>
                   <VolumeUp />
                 </IconButton>
               </Tooltip>
@@ -146,7 +162,7 @@ const VideoPlayer = ({ episodes }) => {
               onMouseLeave={() => setIsSpeedHover(false)}
             >
               <Tooltip title="Speed">
-                <IconButton style={{ color: '#FFFFFF' }}>
+                <IconButton style={{ color: "#FFFFFF" }}>
                   <Speed />
                 </IconButton>
               </Tooltip>
@@ -161,7 +177,7 @@ const VideoPlayer = ({ episodes }) => {
               )}
             </div>
             <Tooltip title="Fullscreen">
-              <IconButton style={{ color: '#FFFFFF' }}>
+              <IconButton style={{ color: "#FFFFFF" }}>
                 <Fullscreen />
               </IconButton>
             </Tooltip>
@@ -178,13 +194,15 @@ const VideoPlayer = ({ episodes }) => {
                 children: (
                   <div
                     className={`episode-item ${
-                      index === currentEpisodeIndex ? 'active' : ''
+                      index === currentEpisodeIndex ? "active" : ""
                     }`}
                     onClick={() => handleEpisodeChange(index)}
                   >
                     <img src={episode.image} alt={episode.title} />
                     <div className="episode-details">
-                      <div className="episode-description">{episode.description}</div>
+                      <div className="episode-description">
+                        {episode.description}
+                      </div>
                     </div>
                   </div>
                 ),

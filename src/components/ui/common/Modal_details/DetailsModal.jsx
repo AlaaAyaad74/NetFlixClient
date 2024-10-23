@@ -47,7 +47,7 @@ function DetailsModal({ item, setModal }) {
         )}
 
         {/*this modal for Movies*/}
-        {item.parts.length > 0 ? (
+        {item.parts ? (
           <div className="sub_wrapper">
             <div className="head_episods">
               <h1>Parts</h1>

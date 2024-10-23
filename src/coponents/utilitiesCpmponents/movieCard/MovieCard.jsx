@@ -101,7 +101,7 @@ const MovieCard = (props) => {
   const item = props.item;
   // const link = "/home/movie/" + item._id;
   const link = `/home/movie/${item._id}?${qs.stringify(item)}`;
-  const bg = item.poster_path || apiConfig.image(item.poster_path);
+  const bg = item.poster_path || item.imgSm || apiConfig.image(item.poster_path);
 
   return (
     <div className="movie__card__container">
@@ -111,7 +111,7 @@ const MovieCard = (props) => {
             <FontAwesomeIcon icon={faPlay} />
           </button>
         </div>
-        <h3 className="movie-card__name">{item.title}</h3>
+        <h3 className="movie-card__name">{item.title||item.name}</h3>
       </Link>
 
       {/* Use the new RatingComponent */}

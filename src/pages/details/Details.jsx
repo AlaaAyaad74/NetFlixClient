@@ -12,7 +12,6 @@ import qs from "query-string";
 
 const Details = () => {
   const { id } = useParams(); // movie/series id
-
   const navigate = useNavigate(); // Used to navigate to error page
   const location = useLocation(); // Access passed state
   const [item, setItem] = useState(location.state?.item || null); // Use passed item if available
@@ -44,8 +43,6 @@ const Details = () => {
       getDetails();
     }
   }, [id, navigate, location.search]);
-  console.log(item);
-  console.log("========================item=========================");
 
   const handleCreatedChild = () => {
     setIsCreatedChild(true);
@@ -53,6 +50,11 @@ const Details = () => {
 
   const handleWatchNowClick = () => {
     setModal(true);
+  };
+
+  // Helper function to determine if the item is a series
+  const isSeries = () => {
+    return item && item.seasons && item.seasons.length > 0;
   };
 
   return (
@@ -63,22 +65,22 @@ const Details = () => {
           <div
             className="banner"
             style={{
-              backgroundImage: `url(${item.backdrop_path})`,
+              backgroundImage: `url(${item.img || item.backdrop_path})`,
             }}
           ></div>
 
-          {/* Movie Details Section */}
+          {/* Movie/Series Details Section */}
           <div className="mb-3 movie-content container">
             <div className="movie-content__poster">
               <div
                 className="movie-content__poster__img"
                 style={{
-                  backgroundImage: `url(${item.poster_path})`,
+                  backgroundImage: `url(${item.poster_path || item.img})`,
                 }}
               ></div>
             </div>
             <div className="movie-content__info">
-              <h1 className="title">{item.name}</h1>
+              <h1 className="title">{item.name || item.title}</h1>
               {Array.isArray(item.genre) ? (
                 item.genre.map((genre, index) => (
                   <Genres key={index}>{genre}</Genres>
@@ -87,18 +89,13 @@ const Details = () => {
                 <Genres>{item.genre}</Genres> // Fallback in case it's not an array
               )}
 
-              <p className="overview">{item.overview}</p>
+              <p className="overview">{item.overview || item.desc}</p>
 
-              <div className="cast">
-                <div className="section__header">
-                  <h2>Casts</h2>
-                </div>
-                <CastList id={item._id} />
-              </div>
+       
             </div>
           </div>
 
-          {/* Videos and Similar Section */}
+          {/* Similar Section */}
           <div className="container">
             <div className="section mb-3">
               {isCreatedChild && (

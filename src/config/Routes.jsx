@@ -19,7 +19,7 @@ const EpisodeDetailPage = lazy(() => import("../pages/EpisodeDetailPage"));
 const RegisterPage = lazy(() => import("../pages/RegisterPage"));
 const Profile = lazy(() => import("../pages/Profile/Profile"));
 const VideoPlayer = lazy(() =>
-  import("../coponents/utilitiesCpmponents/Player/Player")
+  import("../coponents/utilitiesCpmponents/Player/MoviePlayer")
 );
 
 const ForgetPassword = lazy(() => import("../pages/Profile/ForgetPassword"));

@@ -1,7 +1,7 @@
 import "./DetailsModal.scss";
 
 import PropTypes from "prop-types";
-import View from "./view/view";
+import View from "./view/View";
 import Info from "./info/Info";
 import { useState } from "react";
 

@@ -3,11 +3,9 @@ import PropTypes from "prop-types";
 import "./movieList.scss";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-// import { Link } from "react-router-dom";
-// import Button from "../button/Button";
-import customApi , { category as cate } from "../../../api/tmdbApi";
-// import apiConfig from "../../api/apiConfig";
+import customApi from "../../../api/tmdbApi";
 import MovieCard from "../movieCard/MovieCard";
+
 const MovieList = (props) => {
   const [movieItems, setMovieItems] = useState([]);
   const [emblaRef] = useEmblaCarousel(
@@ -18,28 +16,39 @@ const MovieList = (props) => {
     [Autoplay({ delay: 8000 })]
   );
 
-  const { onCreated, type, category, id, genres } = props;
+  const { onCreated, type, category, id } = props;
 
   useEffect(() => {
     const getMoviesList = async () => {
-      let response = null;
-      const params = {}; // Add your parameters if needed
-      if (type !== "similar") {
-        if (category === "movie") {
-          response = await customApi.getMoviesList({ params });
+      try {
+        let response = null;
+        const params = {}; // Add your parameters if needed
+
+        if (type !== "similar") {
+          response =
+            category === "movie"
+              ? await customApi.getMoviesList({ params })
+              : await customApi.getSeriesList({ params });
         } else {
-          response = await customApi.getSeriesList({ params });
+          response = await customApi.getMovieDetail(id);
         }
-      } else {
-        response = await customApi.getMovieDetail(id);
+
+        const items = response.series || response.movies || [];
+        const randomItems = getRandomItems(items, 10);
+        setMovieItems(randomItems);
+        if (onCreated) onCreated();
+      } catch (error) {
+        console.error("Error fetching movies: ", error.message); // Improved error logging
       }
-      
-      setMovieItems(response.series || response.movies || []);
-      if (onCreated) onCreated();
     };
 
     getMoviesList();
   }, [category, type, id, onCreated]);
+
+  const getRandomItems = (arr, count) => {
+    const shuffled = arr.sort(() => 0.5 - Math.random()); // Shuffle the array
+    return shuffled.slice(0, count); // Return the first `count` items
+  };
 
   return (
     <div className="hero-slide movie-list">
@@ -64,7 +73,6 @@ MovieList.propTypes = {
   id: PropTypes.number,
   children: PropTypes.node,
   onCreated: PropTypes.func,
-  genres: PropTypes.array,
+  genres: PropTypes.arrayOf(PropTypes.string),
 };
-
 export default MovieList;

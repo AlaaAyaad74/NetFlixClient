@@ -41,7 +41,7 @@ const fetchSeasonDetails = async (series, setSeasonsData, setViewSeasonsLoading)
 
     const seasonDetails = await Promise.all(
       seasons.map(async (seasonId) => {
-        const res = await axios.get(`${BASE_URL}/fetch-season/${series._id}?partId=${seasonId}`, {
+        const res = await axios.get(`${BASE_URL}/fetch-season/${seasonId}`, {
           headers: { Authorization: `Bearer ${localStorage.getItem("authToken")}` },
         });
         return res.data;

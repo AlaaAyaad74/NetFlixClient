@@ -11,10 +11,16 @@ function CardListParts({ itemObj, image }) {
     setItem(itemObj);
   };
   console.log(itemObj);
+// In CardListParts component
+const routePath = itemObj.seasonId
+? `/seriesPlayer/${encodeURIComponent(JSON.stringify(itemObj))}` 
+: `/player/${itemObj._id}`;
+ 
+
   return (
     <Link
-      to={`/player/${itemObj._id}`}
-      className="card_List"
+    to={routePath}  
+    className="card_List"
       onClick={handleClick}
     >
       <span className="episod_Num">{itemObj.id || null}</span>
@@ -25,11 +31,11 @@ function CardListParts({ itemObj, image }) {
       />
       <div className="Info_episode">
         <h2>
-          {itemObj.moviTitle || itemObj.name || itemObj.epissodeTitle}
+          {itemObj.moviTitle || itemObj.name || itemObj.episodeTitle}
           <span>{itemObj.releaseYear}</span>
         </h2>
         <p>
-          {itemObj.movieDesc || itemObj.overview || itemObj.episodeDescription}
+          {itemObj.movieDesc || itemObj.overview || itemObj.episodeDesc}
         </p>
       </div>
     </Link>

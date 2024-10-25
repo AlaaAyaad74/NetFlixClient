@@ -27,22 +27,53 @@ const ViewSeasonsDialog = ({ open, seasons = [], onClose, onAddEpisodesClick, lo
   };
 
   const renderSeasonContent = (season) => (
-    <div key={season._id} className="season-content">
-      <h3>{season.seasonTitle}</h3>
-      <p>{season.seasonDesc}</p>
-      <p>Release Year: {season.releaseYear}</p>
-      <img
-        src={season.seasonPoster}
-        alt={`Poster of ${season.seasonTitle}`}
-        className="season-poster"
-      />
-      <Button
-        variant="contained"
-        onClick={() => handleAddEpisodesClick(season)} // Open the AddEpisodeDialog when clicked
-        className="add-episodes-btn"
-      >
-        Add Episodes
-      </Button>
+    <div key={season._id} className="season-container">
+      <div className="season-content">
+        <img
+          src={season.seasonPoster}
+          alt={`Poster of ${season.seasonTitle}`}
+          className="season-poster"
+        />
+        <h3>{season.seasonTitle}</h3>
+        <p>{season.seasonDesc}</p>
+        <p>Release Year: {season.releaseYear}</p>
+        <Button
+          variant="contained"
+          onClick={() => handleAddEpisodesClick(season)} // Open the AddEpisodeDialog when clicked
+          className="add-episodes-btn"
+        >
+          Add Episodes
+        </Button>
+      </div>
+
+      {/* Episodes Section */}
+      <div className="episodes-section">
+        <h3>{season.episodes.length} Episodes</h3>
+        {season.episodes.length > 0 ? (
+          season.episodes.map((episode) => (
+            <div key={episode._id} className="episode-content">
+              <h4>{episode.episodeTitle}</h4>
+              <p>{episode.episodeDesc}</p>
+              <p>Duration: {episode.time} mins</p>
+              <img
+                src={episode.episodeImage}
+                alt={`Episode ${episode.episodeNumber}: ${episode.episodeTitle}`}
+                className="episode-poster"
+              />
+              <Button
+                variant="contained"
+                href={episode.videoUrl} // Link to the episode video
+                target="_blank" // Open in new tab
+                className="watch-episode-btn"
+              >
+                Watch Episode
+              </Button>
+            </div>
+          ))
+        ) : (
+          <p className="no-episodes">No episodes available for this season.</p>
+        )}
+      </div>
     </div>
   );
 

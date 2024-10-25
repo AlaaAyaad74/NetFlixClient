@@ -2,14 +2,38 @@ import "./DetailsModal.scss";
 import PropTypes from "prop-types";
 import View from "./view/View";
 import Info from "./info/Info";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CardListParts from "./cardPartsMovie/CardListParts";
+import axios from "axios";
 
 function DetailsModal({ item, setModal }) {
- 
-  const [season, setSeason] = useState(1); // Default to the first season
+  const [season, setSeason] = useState(0); // Default to the first season
+  const [seasonDetails, setSeasonDetails] = useState(null); // For storing fetched season details
+  const [loading, setLoading] = useState(false); // For loading state
 
-  
+  useEffect(() => {
+    if (item.seasons && item.seasons.length > 0) {
+      fetchSeasonDetails(item.seasons[season]); // Fetch the season details
+    }
+  }, [season, item.seasons]); // Fetch when season changes
+
+  const fetchSeasonDetails = async (seasonId) => {
+    setLoading(true); // Set loading state
+    try {
+      const response = await axios.get(`http://127.0.0.1:3331/series/fetch-season/${seasonId}`, {
+        headers: { 
+          'Authorization': `Bearer ${localStorage.getItem('authToken')}`  
+        }
+      });
+      
+      setSeasonDetails(response.data); // Store fetched season details
+    } catch (error) {
+      console.error("Error fetching season details:", error);
+    } finally {
+      setLoading(false); // Reset loading state
+    }
+  };
+
   return (
     <div className="main">
       <div className="details_Container">
@@ -18,7 +42,7 @@ function DetailsModal({ item, setModal }) {
         <Info item={item} />
 
         {/* Conditional rendering for series */}
-        {item.seasons  ? (
+        {item.seasons && item.seasons.length > 0 ? (
           <>
             <div className="sub_wrapper">
               <div className="head_episods">
@@ -29,24 +53,30 @@ function DetailsModal({ item, setModal }) {
                       setSeason(+e.target.value); // Convert value to number
                     }}
                   >
-                    {Array.isArray(item.seasons)  ? item.seasons.map((season, index) => (
-                      <option key={index} value={index + 1}>
-                        Season {index + 1} {/* Index + 1 to show correct season number */}
+                    {item.seasons.map((seasonId, index) => (
+                      <option key={index} value={index}>
+                        Season {index + 1}
                       </option>
-                    )): <option  >
-                    Season 1  {/* Index + 1 to show correct season number */}
-                  </option>}
+                    ))}
                   </select>
                 </div>
               </div>
+
+              {/* Loading indicator */}
+              {loading && <p>Loading episodes...</p>}
+
               {/* Render episodes for the selected season */}
-              {/* {item.seasons[season - 1]?.episodes?.map((episode) => (
-                <CardListParts
-                  key={episode.id}
-                  itemObj={episode}
-                  image={item.seasons[season - 1]?.seasonPoster} // Optional chaining for safety
-                />
-              ))} */}
+              {seasonDetails && seasonDetails.episodes && seasonDetails.episodes.length > 0 ? (
+                seasonDetails.episodes.map((episode) => (
+                  <CardListParts
+                    key={episode._id}
+                    itemObj={episode}
+                    image={seasonDetails.seasonPoster} // Optional chaining for safety
+                  />
+                ))
+              ) : (
+                <p>No episodes available for this season.</p>
+              )}
             </div>
           </>
         ) : (
@@ -73,7 +103,7 @@ function DetailsModal({ item, setModal }) {
 
 DetailsModal.propTypes = {
   item: PropTypes.object.isRequired,
-  setModal: PropTypes.func.isRequired, // Ensuring setModal is required
+  setModal: PropTypes.func.isRequired,
 };
 
 export default DetailsModal;

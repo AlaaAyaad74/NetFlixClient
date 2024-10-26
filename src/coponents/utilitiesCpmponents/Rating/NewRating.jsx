@@ -72,7 +72,7 @@ function NewRating({ movieId, userRating }) {
 
       fetchUserData();
     }
-  }, [movieId]);
+  }, [movieId, inWatchlist]);
 
   const handleRatingClick = async (star) => {
     setRating(star); // Update the rating locally

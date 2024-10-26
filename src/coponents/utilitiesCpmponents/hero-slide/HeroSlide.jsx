@@ -10,7 +10,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import Genres from "../genres/Genres";
 import VideoPlayer from "../../../coponents/utilitiesCpmponents/VideoPlayer/videoPlayerComponent";
-import RatingComponent from "../Rating/Rating";
+import RatingComponent from "../Rating/oldRating";
 import { Box } from "@mui/material";
 
 const HeroSlide = () => {

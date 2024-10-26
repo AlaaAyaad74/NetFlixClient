@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import ProtectedRoute from "./middleAuth";
 import DashboardRoutes from "./DashboardRoutes";
 import ProtectedDashboardRoute from "../config/dashboardMiddleWare"; // Import the middleware
+import MyList from "../pages/mylList/MyList";
 
 // Lazy-load Components
 const LandingPage = lazy(() => import("../pages/LandingPage"));
@@ -86,6 +87,10 @@ const AppRoutes = () => {
       <Route
         path="home/movie/:id"
         element={<ProtectedRoute element={<Details />} />}
+      />
+      <Route
+        path="home/list"
+        element={<ProtectedRoute element={<MyList />} />}
       />
       <Route
         path="/episode/:id"

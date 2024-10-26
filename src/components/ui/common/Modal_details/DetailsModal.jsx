@@ -12,7 +12,9 @@ function DetailsModal({ item, setModal }) {
   const [loading, setLoading] = useState(false); // For loading state
 
   useEffect(() => {
-    if (item.seasons && item.seasons.length > 0) {
+    if (item.seasons && !Array.isArray(item.seasons)) {
+      fetchSeasonDetails(item.seasons);
+    } else if (item.seasons && item.seasons.length > 0) {
       fetchSeasonDetails(item.seasons[season]); // Fetch the season details
     }
   }, [season, item.seasons]); // Fetch when season changes
@@ -20,12 +22,16 @@ function DetailsModal({ item, setModal }) {
   const fetchSeasonDetails = async (seasonId) => {
     setLoading(true); // Set loading state
     try {
-      const response = await axios.get(`http://127.0.0.1:3331/series/fetch-season/${seasonId}`, {
-        headers: { 
-          'Authorization': `Bearer ${localStorage.getItem('authToken')}`  
+      console.log(` Season ID: ${seasonId}`);
+      const response = await axios.get(
+        `http://127.0.0.1:3331/series/fetch-season/${seasonId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
         }
-      });
-      
+      );
+
       setSeasonDetails(response.data); // Store fetched season details
     } catch (error) {
       console.error("Error fetching season details:", error);
@@ -53,11 +59,15 @@ function DetailsModal({ item, setModal }) {
                       setSeason(+e.target.value); // Convert value to number
                     }}
                   >
-                    {item.seasons.map((seasonId, index) => (
-                      <option key={index} value={index}>
-                        Season {index + 1}
-                      </option>
-                    ))}
+                    {Array.isArray(item.seasons) ? (
+                      item.seasons.map((seasonId, index) => (
+                        <option key={index} value={index}>
+                          Season {index + 1}
+                        </option>
+                      ))
+                    ) : (
+                      <option value={1}>Season 1</option>
+                    )}
                   </select>
                 </div>
               </div>
@@ -66,7 +76,9 @@ function DetailsModal({ item, setModal }) {
               {loading && <p>Loading episodes...</p>}
 
               {/* Render episodes for the selected season */}
-              {seasonDetails && seasonDetails.episodes && seasonDetails.episodes.length > 0 ? (
+              {seasonDetails &&
+              seasonDetails.episodes &&
+              seasonDetails.episodes.length > 0 ? (
                 seasonDetails.episodes.map((episode) => (
                   <CardListParts
                     key={episode._id}

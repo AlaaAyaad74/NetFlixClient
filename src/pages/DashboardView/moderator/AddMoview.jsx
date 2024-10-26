@@ -14,7 +14,7 @@ const AddMovie = ( ) => {
         trailer: '',
         language: '',
         releaseYear: '',
-        rating: 0,
+    
         genre: [],
     });
     const availableGenres = [
@@ -58,7 +58,7 @@ const AddMovie = ( ) => {
             const payload = {
                 ...movieData,
                 language: languageArray,
-                rating: parseFloat(movieData.rating) || 0,
+             
             };
 
             const response = await ModeratorApi.addMovie(payload);
@@ -77,7 +77,7 @@ const AddMovie = ( ) => {
                 trailer: '',
                 language: '',
                 releaseYear: '',
-                rating: 0,
+              
                 genre: [],
             });
 
@@ -105,8 +105,7 @@ const AddMovie = ( ) => {
                 <input type="text" name="trailer" placeholder="Trailer URL" value={movieData.trailer} onChange={handleChange} required />
                 <input type="text" name="language" placeholder="Languages (comma separated)" value={movieData.language} onChange={handleChange} required />
                 <input type="text" name="releaseYear" placeholder="Release Year" value={movieData.releaseYear} onChange={handleChange} required />
-                <input type="number" name="rating" placeholder="Rating (0 to 5)" value={movieData.rating} onChange={handleChange} min="0" max="5" />
-                
+                 
                 {/* Dropdown for genres */}
                 <select multiple className="genre-dropdown" name="genre" value={movieData.genre} onChange={handleGenreChange} required>
                     {availableGenres.map((genre) => (

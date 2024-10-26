@@ -3,10 +3,17 @@ $text-light: #e8e0e0;
 $border-radius: 8px;
 
 .dialog-container {
+  width: 70vw;          
+  height: 70vh;         
+  max-width: none;
+  min-width: 70vw;      
+  max-height: none;     
+
   .MuiDialog-paper {
     background-color: $background-dark;
     color: $text-light;
     border-radius: $border-radius;
+    height: 100%;       
   }
 }
 
@@ -16,28 +23,90 @@ $border-radius: 8px;
 }
 
 .dialog-content {
-  max-height: 400px;
+  max-height: calc(70vh - 64px); 
   overflow-y: auto;
-  .season-content {
+  align-items: center;
+
+  .season-container {
     margin-bottom: 20px;
-    h3 {
-      color: $text-light;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2); // Border to differentiate seasons
+    border-radius: $border-radius;
+    background-color: rgba(255, 255, 255, 0.1); // Slight background for seasons
+
+    .season-content {
+      margin-bottom: 15px;
+
+      h3 {
+        color: $text-light;
+        margin-bottom: 5px; // Space between title and description
+      }
+
+      p {
+        color: $text-light;
+        margin: 5px 0; // Space for paragraphs
+      }
+
+      .season-poster {
+        width: 15vw;
+        height: auto;
+        border-radius: $border-radius;
+        margin-bottom: 10px;
+      }
+
+      .add-episodes-btn {
+        background-color: #007bff;
+        color: white;
+        margin-top: 10px;
+
+        &:hover {
+          background-color: #0056b3;
+        }
+      }
     }
-    p {
-      color: $text-light;
-    }
-    .season-poster {
-      width: 100px;
-      height: auto;
-      border-radius: $border-radius;
-      margin-bottom: 10px;
-    }
-    .add-episodes-btn {
-      background-color: #007bff;
-      color: white;
-      margin-top: 10px;
-      &:hover {
-        background-color: #0056b3;
+
+    .episodes-section {
+      margin-top: 10px; // Reduced space to appear more cohesive
+
+      h3 {
+        color: $text-light;
+        margin-bottom: 10px; // Space below the section title
+      }
+
+      .episode-content {
+        margin-left: 20px; // Indentation to represent a tree structure
+        margin-bottom: 15px; // Space between episodes
+
+        h4 {
+          color: $text-light;
+          margin: 0;
+        }
+
+        p {
+          color: $text-light;
+        }
+
+        .episode-poster {
+          width: 50%; // Slightly less than full width for better visibility
+          height: auto;
+          border-radius: $border-radius;
+          margin-bottom: 10px;
+        }
+
+        .watch-episode-btn {
+          background-color: #28a745; // Green for the watch button
+          color: white;
+
+          &:hover {
+            background-color: #218838; // Darker green on hover
+          }
+        }
+      }
+
+      .no-episodes {
+        color: $text-light;
+        font-style: italic;
+        margin-left: 20px; // Indent to align with episodes
       }
     }
   }
@@ -53,9 +122,11 @@ $border-radius: 8px;
 .dialog-actions {
   display: flex;
   justify-content: flex-end;
+
   .close-btn {
     background-color: #007bff;
     color: white;
+
     &:hover {
       background-color: #0056b3;
     }

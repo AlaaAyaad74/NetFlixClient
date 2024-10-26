@@ -1,47 +1,116 @@
 import { useEffect, useState } from "react";
 import MovieCard from "../../coponents/utilitiesCpmponents/movieCard/MovieCard";
 import axios from "axios";
-import PageHeader from "../../coponents/utilitiesCpmponents/page-header/PageHeader";
-import "./MyList.scss";
-
+import Header from "../../coponents/utilitiesCpmponents/header/Header";
+import "./myList.scss";
 const MyList = () => {
   const [watchList, setWatchList] = useState([]);
-  const [watchedList, setWatchedList] = useState([]);
+  const [ratedList, setRatedList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-
+    const token = localStorage.getItem("authToken");
     const fetchUserLists = async () => {
       try {
-        const headers = {
-          Authorization: `Bearer ${token}`,
+        setLoading(true);
+
+        // Fetch watchlist
+        const watchlistResponse = await axios.get(
+          "http://localhost:3331/user/watchlist",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        const watchlistMovieIds = watchlistResponse.data.watchlist || [];
+
+        // Fetch ratings
+        const votesResponse = await axios.get(
+          "http://localhost:3331/user/votes",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        const votesData = Array.isArray(votesResponse.data)
+          ? votesResponse.data
+          : [];
+
+        // Fetch movie or series details
+        const fetchMovieOrSeries = async (movieId) => {
+          try {
+            const movieResponse = await axios.get(
+              `http://localhost:3331/movies/fetch-movie/${movieId}`,
+              { headers: { Authorization: `Bearer ${token}` } }
+            );
+            return movieResponse.data;
+          } catch (error) {
+            if (error.response && error.response.status === 404) {
+              try {
+                const seriesResponse = await axios.get(
+                  `http://localhost:3331/series/fetch-series/${movieId}`,
+                  { headers: { Authorization: `Bearer ${token}` } }
+                );
+                return seriesResponse.data;
+              } catch (seriesError) {
+                console.error(
+                  `Series not found for ID ${movieId}:`,
+                  seriesError
+                );
+                return null;
+              }
+            } else {
+              console.error(`Error fetching data for ID ${movieId}:`, error);
+            }
+            return null;
+          }
         };
 
-        const watchListResponse = await axios.get("/api/user/watchlist", { headers });
-        const watchedListResponse = await axios.get("/api/user/watched", { headers });
+        // Fetch details for watchlist
+        const watchListData = (
+          await Promise.all(
+            watchlistMovieIds.map((movieId) => fetchMovieOrSeries(movieId))
+          )
+        ).filter((item) => item !== null);
 
-        setWatchList(watchListResponse.data);
-        setWatchedList(watchedListResponse.data);
-        setLoading(false);
+        // Fetch details and ratings for rated list
+        const ratedListData = (
+          await Promise.all(
+            votesData.map(async ({ contentId, userRating }) => {
+              const movieData = await fetchMovieOrSeries(contentId);
+              return movieData ? { ...movieData, userRating } : null;
+            })
+          )
+        ).filter((item) => item !== null);
+
+        setWatchList(watchListData);
+        setRatedList(ratedListData);
       } catch (err) {
-        console.error(err);
+        console.error("Error in fetchUserLists:", err);
         setError("Failed to fetch your movie lists. Please try again later.");
+      } finally {
         setLoading(false);
       }
     };
 
-    fetchUserLists();
+    if (token) fetchUserLists();
   }, []);
 
-  // Filter movies by search term
-  const filteredWatchList = watchList.filter((movie) =>
-    movie.title.toLowerCase().includes(searchTerm.toLowerCase())
+  // Filter movies based on the search term, checking for valid titles
+  const filteredWatchList = watchList.filter(
+    (movie) =>
+      movie &&
+      movie.name &&
+      (searchTerm === "" ||
+        movie.name.toLowerCase().includes(searchTerm.toLowerCase()))
   );
-  const filteredWatchedList = watchedList.filter((movie) =>
-    movie.title.toLowerCase().includes(searchTerm.toLowerCase())
+
+  const filteredRatedList = ratedList.filter(
+    (movie) =>
+      movie &&
+      movie.name &&
+      (searchTerm === "" ||
+        movie.name.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
   if (loading) return <p>Loading...</p>;
@@ -49,40 +118,59 @@ const MyList = () => {
 
   return (
     <>
-      <PageHeader>Your Movie List</PageHeader>
+      <div className="container">
+        <div className="my-list">
+          {/* Search Bar */}
+          <div className="movie-search">
+            <input
+              type="text"
+              placeholder="Search in your lists..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="search-bar"
+            />
+          </div>
 
-      {/* Search Bar */}
-      <div className="search-bar-container">
-        <input
-          type="text"
-          placeholder="Search in your lists..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="search-bar"
-        />
-      </div>
+          {/* Watchlist Section */}
+          <div className="my-list__section">
+            <h2>Your Watchlist</h2>
+            <div className="movie-grid">
+              {filteredWatchList.length > 0 ? (
+                filteredWatchList.map((item, i) => (
+                  <MovieCard item={item} key={i} />
+                ))
+              ) : watchList.length > 0 ? (
+                watchList.map((item, i) => <MovieCard item={item} key={i} />)
+              ) : (
+                <div className="no-movies">
+                  <p>
+                    You have no movies in your watchlist yet. Start adding some!
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
 
-      {/* Watchlist Section */}
-      <div className="my-list__section">
-        <h2>To Watch</h2>
-        <div className="movie-grid">
-          {filteredWatchList.length > 0 ? (
-            filteredWatchList.map((item, i) => <MovieCard item={item} key={i} />)
-          ) : (
-            <p>No movies in your watch list.</p>
-          )}
-        </div>
-      </div>
-
-      {/* Watched Section */}
-      <div className="my-list__section">
-        <h2>Watched</h2>
-        <div className="movie-grid">
-          {filteredWatchedList.length > 0 ? (
-            filteredWatchedList.map((item, i) => <MovieCard item={item} key={i} />)
-          ) : (
-            <p>No movies in your watched list.</p>
-          )}
+          {/* Rated Movies Section */}
+          <div className="my-list__section">
+            <h2>Your Rated Movies</h2>
+            <div className="movie-grid">
+              {filteredRatedList.length > 0 ? (
+                filteredRatedList.map((item, i) => (
+                  <MovieCard item={item} key={i} />
+                ))
+              ) : ratedList.length > 0 ? (
+                ratedList.map((item, i) => <MovieCard item={item} key={i} />)
+              ) : (
+                <div className="no-movies">
+                  <p>
+                    You haven’t rated any movies yet. Rate some to see them
+                    here!
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </>

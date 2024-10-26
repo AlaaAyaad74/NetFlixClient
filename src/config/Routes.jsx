@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import ProtectedRoute from "./middleAuth";
 import DashboardRoutes from "./DashboardRoutes";
 import ProtectedDashboardRoute from "../config/dashboardMiddleWare"; // Import the middleware
+import MyList from "../pages/mylList/MyList";
 
 // Lazy-load Components
 const LandingPage = lazy(() => import("../pages/LandingPage"));
@@ -21,6 +22,9 @@ const Profile = lazy(() => import("../pages/Profile/Profile"));
 const VideoPlayer = lazy(() =>
   import("../coponents/utilitiesCpmponents/Player/MoviePlayer")
 );
+const SeriesPlayer = lazy(() =>
+  import("../coponents/utilitiesCpmponents/Player/SeiresPlayer")
+); //"));
 
 const ForgetPassword = lazy(() => import("../pages/Profile/ForgetPassword"));
 const ResetPassword = lazy(() => import("../pages/Profile/ResetPassword"));
@@ -85,6 +89,10 @@ const AppRoutes = () => {
         element={<ProtectedRoute element={<Details />} />}
       />
       <Route
+        path="home/list"
+        element={<ProtectedRoute element={<MyList />} />}
+      />
+      <Route
         path="/episode/:id"
         element={<ProtectedRoute element={<EpisodeDetailPage />} />}
       />
@@ -92,6 +100,11 @@ const AppRoutes = () => {
         path="/player/:id"
         element={<ProtectedRoute element={<VideoPlayer />} />}
       />
+  <Route
+  path="/seriesPlayer/:itemObj"
+  element={<ProtectedRoute element={<SeriesPlayer />} />}
+/>
+
       <Route path="/404" element={<ErrorPage />} />
 
       {/* Fallback Route */}

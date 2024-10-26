@@ -1,30 +1,37 @@
+@use "../../scss/" as *;
+
 .my-list {
+  padding: 2rem !important; // Add some padding to the overall layout
+
   &__section {
-    margin-bottom: 4rem;
+    margin-bottom: 4rem !important; // Space between sections
+    padding: 5rem !important; // Add padding inside each section
+    border-radius: 8px !important; // Round the corners of the border
+
     h2 {
-      margin-bottom: 1.5rem;
-      color: $main-color;
+      margin-bottom: 3rem !important;
+      color: $main-color !important;
     }
   }
 
-  .search-bar-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-
-    .search-bar {
-      width: 50%;
-      padding: 10px;
-      border: 1px solid $border-color;
-      border-radius: 5px;
-      font-size: 16px;
-      outline: none;
-    }
+  .search-bar {
+    margin-top: 4rem !important;
+    width: 50% !important;
+    padding: 10px 20px !important;
+    border-radius: 20px !important;
+    font-size: 16px !important;
+    outline: none !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important; // Add a slight shadow for depth
   }
 
   .movie-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 15px;
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
+    gap: 15px !important;
+  }
+
+  .no-movies {
+    text-align: center !important; // Center align the message for no movies
+    font-size: 18px !important; // Increase font size for visibility
   }
 }

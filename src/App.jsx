@@ -55,22 +55,22 @@ const LayoutWrapper = ({ children }) => {
   );
 };
 
-export const ItemContext = createContext();
+// export const ItemContext = createContext();
 const App = () => {
-  const [item, setItem] = useState({});
-  useEffect(() => {
-    console.log(item);
-  }, [item]);
+  // const [item, setItem] = useState({});
+  // useEffect(() => {
+  //   console.log(item);
+  // }, [item]);
   return (
-    <ItemContext.Provider value={{ item, setItem }}>
-      <Router>
-        <Suspense fallback={<div>Loading...</div>}>
-          <LayoutWrapper>
-            <AppRoutes />
-          </LayoutWrapper>
-        </Suspense>
-      </Router>
-    </ItemContext.Provider>
+    // <ItemContext.Provider value={{ item, setItem }}>
+    <Router>
+      <Suspense fallback={<div>Loading...</div>}>
+        <LayoutWrapper>
+          <AppRoutes />
+        </LayoutWrapper>
+      </Suspense>
+    </Router>
+    // </ItemContext.Provider>
   );
 };
 

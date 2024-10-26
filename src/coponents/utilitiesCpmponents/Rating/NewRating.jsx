@@ -90,18 +90,17 @@ function NewRating({ movieId, userRating }) {
   const handleWatchlistToggle = async () => {
     try {
       const AuthorizationToken = `${localStorage.getItem("authToken")}`;
+      console.log(AuthorizationToken);
+      console.log(movieId);
 
       if (inWatchlist) {
         // Remove from watchlist
-        await axios.delete(
-          `http://localhost:3331/user/watchlist`,
-          { contentId: movieId },
-          {
-            headers: {
-              Authorization: `Bearer ${AuthorizationToken}`, // Add the token to the Authorization header
-            },
-          }
-        );
+        await axios.delete("http://localhost:3331/user/watchlist", {
+          data: { contentId: movieId },
+          headers: {
+            Authorization: `Bearer ${AuthorizationToken}`,
+          },
+        });
         setInWatchlist(false);
         console.log("Movie removed from watchlist");
       } else {

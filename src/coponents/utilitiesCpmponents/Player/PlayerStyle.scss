@@ -6,7 +6,8 @@
   flex-direction: column;
   width: 100%;
   height: 100vh;
-  position: relative;
+   position: relative;
+
   .video-screen {
     width: 100%;
     height: 100%;
@@ -32,76 +33,38 @@
         .volume-control {
           position: relative;
 
-          .volume-slider {
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #333;
-            border: 1px solid #808080;
-            height: 100px; /* Adjust this to control the height of the slider */
-            width: 20px; /* Adjust this to control the width of the slider */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            input[type="range"] {
-              writing-mode: bt-lr; /* For vertical range input */
-              -webkit-appearance: slider-vertical; /* For WebKit browsers */
-              background: #f50723;
-              height: 100px; /* Same as .volume-slider height */
-              width: 3px; /* Adjust this to control the thickness */
-              border-radius: 5px;
-              outline: none;
-              opacity: 0.7;
-              -webkit-transition: 0.2s;
-              transition: opacity 0.2s;
-              cursor: pointer;
-
-              margin: 0; /* Remove default margins */
-              padding: 0; /* Remove default padding */
-            }
+          input[type='range'] {
+            width: 100px; /* Adjust volume slider width */
           }
         }
       }
 
       .progress-bar {
-        width: 100%; /* Full width */
+        width: 100%;
         display: flex;
         align-items: center;
         margin: 0 10px;
-        height: 4px; /* Reduce height to match the desired slim look */
+        height: 4px;
         gap: 10px;
-      }
 
-      .progress-bar input[type="range"] {
-        width: 100%;
-        height: 4px; /* Slimmer bar */
-        border-radius: 2px;
-        background: transparent;
-        -webkit-appearance: none;
-        appearance: none;
-        position: relative;
-        margin-right: 10px;
+        input[type='range'] {
+          width: 100%;
+          height: 4px;
+          border-radius: 2px;
+          background: transparent;
 
-        &::-webkit-slider-runnable-track {
-          height: 4px; /* Match bar height */
-          background: linear-gradient(
-            to right,
-            #f50723 var(--progress),
-            #808080 var(--progress)
-          );
-        }
+          &::-webkit-slider-runnable-track {
+            height: 4px;
+            background: linear-gradient(to right, #f50723 var(--progress), #808080 var(--progress));
+          }
 
-        &::-webkit-slider-thumb {
-          background: #f50723;
-          height: 10px;
-          width: 10px;
-          border-radius: 50%;
-          cursor: pointer;
-          -webkit-appearance: none;
-          appearance: none;
-          margin-top: -3px; /* To center the thumb with the bar */
+          &::-webkit-slider-thumb {
+            background: #f50723;
+            height: 10px;
+            width: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+          }
         }
       }
 
@@ -109,101 +72,68 @@
         display: flex;
         align-items: center;
         justify-content: space-around;
-
-        .speed-control {
-          position: relative;
-
-          .speed-options {
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #333;
-            border: 1px solid #808080;
-            padding: 5px;
-            display: flex;
-            flex-direction: column;
-
-            button {
-              background: transparent;
-              color: #ffffff;
-              border: none;
-              padding: 5px;
-              cursor: pointer;
-
-              &:hover {
-                background: #f50723;
-              }
-            }
-          }
-        }
       }
     }
   }
-  .epi_container {
-    position: relative;
-  }
-  .next-episode {
+
+  .movie-details {
+    display: flex;
+    align-items: flex-start;
     position: absolute;
-    right: 0;
-    top: -250px;
-    width: 300px;
-    height: 0;
-    opacity: 0;
-    overflow-y: scroll;
-    background-color: #141414;
-    padding: 10px;
-    color: #ffffff;
-
-    h2 {
-      margin: 0;
+    bottom: 100px;
+    left: 100px;
+    width: 60vw;
+   
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+    border-radius: 8px;
+    margin: 20px;
+    
+    .movie-poster {
+      width: 100px;
+      height: auto;
+      border-radius: 5px;
+      margin-right: 20px;
     }
 
-    .episode-item {
-      display: flex;
-      align-items: center;
-      margin: 10px 0;
-      cursor: pointer;
-      padding: 5px;
-      border: 1px solid #333;
-      border-radius: 5px;
+    .movie-info {
+      h2 {
+        margin: 0;
+        font-size: 24px;
+        color: #ffffff;
+        margin-bottom: 10px;
+        font-weight: bold;
 
-      img {
-        width: 50px;
-        height: 50px;
-        border-radius: 5px;
-        margin-right: 10px;
       }
 
-      .episode-details {
-        .episode-description {
-          font-size: 14px;
-          color: #b3b3b3;
-        }
+      p {
+        font-size: 14px;
+        color: #b3b3b3;
+        margin: 0;
+          
       }
 
-      &.active {
-        background-color: #333;
-      }
-
-      &:hover {
-        background-color: #262626;
+      .movie-metadata {
+        display: flex;
+        gap: 10px;
+        font-size: 12px;
+        color: #b3b3b3;
       }
     }
   }
-}
 
-/* Icon styles */
-.MuiIconButton-root {
-  color: #ffffff; /* Set the color to white */
-}
+  /* Icon styles */
+  .MuiIconButton-root {
+    color: #ffffff; /* Set the color to white */
+  }
 
-.MuiIcon-root {
-  color: #ffffff; /* Set the color to white */
-}
+  .MuiIcon-root {
+    color: #ffffff; /* Set the color to white */
+  }
 
-.colllapse {
-  height: 250px !important;
-  opacity: 1 !important;
-  transition: all 0.5s ease-in-out;
+  .colllapse {
+    height: 250px !important;
+    opacity: 1 !important;
+    transition: all 0.5s ease-in-out;
+  }
 }

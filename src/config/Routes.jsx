@@ -20,8 +20,11 @@ const EpisodeDetailPage = lazy(() => import("../pages/EpisodeDetailPage"));
 const RegisterPage = lazy(() => import("../pages/RegisterPage"));
 const Profile = lazy(() => import("../pages/Profile/Profile"));
 const VideoPlayer = lazy(() =>
-  import("../coponents/utilitiesCpmponents/Player/Player")
+  import("../coponents/utilitiesCpmponents/Player/MoviePlayer")
 );
+const SeriesPlayer = lazy(() =>
+  import("../coponents/utilitiesCpmponents/Player/SeiresPlayer")
+); //"));
 
 const ForgetPassword = lazy(() => import("../pages/Profile/ForgetPassword"));
 const ResetPassword = lazy(() => import("../pages/Profile/ResetPassword"));
@@ -97,6 +100,11 @@ const AppRoutes = () => {
         path="/player/:id"
         element={<ProtectedRoute element={<VideoPlayer />} />}
       />
+  <Route
+  path="/seriesPlayer/:itemObj"
+  element={<ProtectedRoute element={<SeriesPlayer />} />}
+/>
+
       <Route path="/404" element={<ErrorPage />} />
 
       {/* Fallback Route */}

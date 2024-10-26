@@ -12,7 +12,7 @@ function View({ setModal, item }) {
       {/* <img src={item.img} alt="" /> */}
       <iframe
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        src="https://www.youtube.com/embed/y7wm5SqOBWA?autoplay=1&mute=1"
+        src= {item.trailer}
         width="100%"
         height="500px"
         title="trailer"

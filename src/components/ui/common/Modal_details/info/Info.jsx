@@ -1,29 +1,33 @@
 import "./InfoStyle.scss";
 import PropTypes from "prop-types";
+
 function Info({ item }) {
   return (
     <div className="Info">
       <div>
-        <h2 className="title">{item.title}</h2>
-        <p className="description">{item.desc}</p>
+        {/* Title display, adjust for series and movies */}
+        <h2 className="title">{item.title || item.name}</h2>
+        <p className="description">{item.desc || item.overview}</p>
       </div>
       <div>
-        {item.genres ? (
+        {/* Render genres dynamically */}
+        {item.genre && item.genre.length > 0 ? (
           <p className="genres">
             <span>Genres:</span>
-            {item.genre.map((gen, index) => (
-              <p key={index}>{"drama"}</p>
-            ))}
+  
           </p>
         ) : null}
-        <p>{item.avgRuntime}</p>
-        <p>Release Year : {item.releaseYear}</p>
-        <p>Rating : {item.rating}</p>
+
+        <p>{item.avgRuntime || "N/A"}</p> {/* Fallback for avgRuntime */}
+        <p>Release Year: {item.releaseYear || "N/A"}</p> {/* Fallback for releaseYear */}
+        <p>Rating: {item.rating || "N/A"}</p> {/* Fallback for rating */}
       </div>
     </div>
   );
 }
+
 Info.propTypes = {
   item: PropTypes.object.isRequired,
 };
+
 export default Info;

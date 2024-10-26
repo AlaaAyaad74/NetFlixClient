@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import MovieCard from "../../coponents/utilitiesCpmponents/movieCard/MovieCard";
 import axios from "axios";
-import Header from "../../coponents/utilitiesCpmponents/header/Header";
 import "./myList.scss";
 const MyList = () => {
   const [watchList, setWatchList] = useState([]);

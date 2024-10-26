@@ -4,7 +4,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 40px;
-  row-gap: 8rem;
+  margin-bottom: 4rem;
   overflow: visible;
   @include tablet {
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));

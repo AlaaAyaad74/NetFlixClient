@@ -9,6 +9,7 @@ import CardListParts from "./cardPartsMovie/CardListParts";
 
 function DetailsModal({ item, setModal }) {
   const [season, setSeason] = useState(1);
+  // useeffect to get season number and episode from it
   console.log(item);
   return (
     <div className="main">
@@ -44,7 +45,7 @@ function DetailsModal({ item, setModal }) {
               />
             ))}
           </div>
-        )}
+        )}                                        
 
         {/*this modal for Movies*/}
         {item.parts ? (

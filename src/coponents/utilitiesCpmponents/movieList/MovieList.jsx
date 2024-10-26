@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import "./movieList.scss";
@@ -5,9 +6,11 @@ import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import customApi from "../../../api/tmdbApi";
 import MovieCard from "../movieCard/MovieCard";
+import getUserInfo from "../../../components/helpers/getUserVotes";
 
 const MovieList = (props) => {
   const [movieItems, setMovieItems] = useState([]);
+  // const [userRating, setUserRating] = useState({});
   const [emblaRef] = useEmblaCarousel(
     {
       loop: true,
@@ -22,7 +25,7 @@ const MovieList = (props) => {
     const getMoviesList = async () => {
       try {
         let response = null;
-        const params = {}; // Add your parameters if needed
+        const params = {};
 
         if (type !== "similar") {
           response =
@@ -35,10 +38,23 @@ const MovieList = (props) => {
 
         const items = response.series || response.movies || [];
         const randomItems = getRandomItems(items, 10);
-        setMovieItems(randomItems);
+
+        // Fetch user ratings and merge before setting state
+        const data = await getUserInfo();
+        console.log(data);
+        const updatedItems = randomItems.map((movie) => {
+          const userVote = data?.votes?.find(
+            (vote) => vote.contentId === movie._id
+          );
+          return userVote
+            ? { ...movie, userRating: userVote.userRating }
+            : movie;
+        });
+
+        setMovieItems(updatedItems);
         if (onCreated) onCreated();
       } catch (error) {
-        console.error("Error fetching movies: ", error.message); // Improved error logging
+        console.error("Error fetching movies: ", error.message);
       }
     };
 
@@ -46,10 +62,10 @@ const MovieList = (props) => {
   }, [category, type, id, onCreated]);
 
   const getRandomItems = (arr, count) => {
-    const shuffled = arr.sort(() => 0.5 - Math.random()); // Shuffle the array
-    return shuffled.slice(0, count); // Return the first `count` items
+    const shuffled = arr.sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, count);
   };
-
+  console.log(movieItems);
   return (
     <div className="hero-slide movie-list">
       <div className="embla">
@@ -75,4 +91,5 @@ MovieList.propTypes = {
   onCreated: PropTypes.func,
   genres: PropTypes.arrayOf(PropTypes.string),
 };
+
 export default MovieList;

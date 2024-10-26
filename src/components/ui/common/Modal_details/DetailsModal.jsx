@@ -6,10 +6,8 @@ import { useState } from "react";
 import CardListParts from "./cardPartsMovie/CardListParts";
 
 function DetailsModal({ item, setModal }) {
- 
   const [season, setSeason] = useState(1); // Default to the first season
 
-  
   return (
     <div className="main">
       <div className="details_Container">
@@ -18,7 +16,7 @@ function DetailsModal({ item, setModal }) {
         <Info item={item} />
 
         {/* Conditional rendering for series */}
-        {item.seasons  ? (
+        {item.seasons ? (
           <>
             <div className="sub_wrapper">
               <div className="head_episods">
@@ -29,13 +27,18 @@ function DetailsModal({ item, setModal }) {
                       setSeason(+e.target.value); // Convert value to number
                     }}
                   >
-                    {Array.isArray(item.seasons)  ? item.seasons.map((season, index) => (
-                      <option key={index} value={index + 1}>
-                        Season {index + 1} {/* Index + 1 to show correct season number */}
+                    {Array.isArray(item.seasons) ? (
+                      item.seasons.map((season, index) => (
+                        <option key={index} value={index + 1}>
+                          Season {index + 1}{" "}
+                          {/* Index + 1 to show correct season number */}
+                        </option>
+                      ))
+                    ) : (
+                      <option>
+                        Season 1 {/* Index + 1 to show correct season number */}
                       </option>
-                    )): <option  >
-                    Season 1  {/* Index + 1 to show correct season number */}
-                  </option>}
+                    )}
                   </select>
                 </div>
               </div>

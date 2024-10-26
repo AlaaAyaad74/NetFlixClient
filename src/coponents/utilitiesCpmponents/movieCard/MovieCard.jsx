@@ -94,14 +94,17 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import apiConfig from "../../../api/apiConfig";
-import RatingComponent from "../Rating/Rating"; // Import the new component
+import RatingComponent from "../Rating/NewRating"; // Import the new component
 import qs from "query-string";
+// import { useState } from "react";
 
 const MovieCard = (props) => {
   const item = props.item;
+  // console.log(props.item);
   // const link = "/home/movie/" + item._id;
   const link = `/home/movie/${item._id}?${qs.stringify(item)}`;
-  const bg = item.poster_path || item.imgSm || apiConfig.image(item.poster_path);
+  const bg =
+    item.poster_path || item.imgSm || apiConfig.image(item.poster_path);
 
   return (
     <div className="movie__card__container">
@@ -111,11 +114,13 @@ const MovieCard = (props) => {
             <FontAwesomeIcon icon={faPlay} />
           </button>
         </div>
-        <h3 className="movie-card__name">{item.title||item.name}</h3>
+        <h3 className="movie-card__name">{item.title || item.name}</h3>
       </Link>
 
       {/* Use the new RatingComponent */}
-      <RatingComponent movieId={item._id} />
+      <RatingComponent movieId={item._id} userRating={item?.userRating} />
+      <p>{item.rating}</p>
+      {/* <p>Votes {item.votes.flat()}</p> */}
     </div>
   );
 };
